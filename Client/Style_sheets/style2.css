@@ -1,0 +1,101 @@
+.sign{
+    
+    margin: 12vh auto;
+    height: fit-content;
+    width: 40vw;
+    border-radius: 10px;
+    border: 1px black solid;
+    display: flex;   
+    flex-direction: column;
+    background-color: rgb(252, 252, 252);
+   
+}
+.user_details{
+    margin-left: 15%;
+    display: flex;
+    flex-direction: column;    
+}
+.user_details input{
+    height: 25px;
+    width: 70%;
+    margin-top:1px;
+    font-size: medium;
+}
+
+h4{
+    margin-top: 10px;
+    margin-bottom: 1px;
+}
+#showpassword{
+    margin-left: 15%;
+    font-size: small;
+}
+#topdiv{
+    margin-top: 2px;
+}
+.signin{
+    margin-left: 15%;
+}
+.signin button{
+    display: block;
+    margin: 3% 1%;
+    height: 30px;
+    width: 70%;
+    border-radius: 0px;
+    background-color: rgb(12, 133, 155);
+}
+.signin button:hover{
+    display: block;
+    margin: 3% 1%;
+    height: 30px;
+    width: 70%;
+    border-radius: 0px;
+    background-color: rgb(12, 133, 155);
+}
+h2{
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+body{
+    background-color:rgb(12, 133, 155);
+}
+#forgot{
+    display: block;
+    margin: 0 23%;
+    width: 140px;
+}
+#acc{
+    margin-left: 15%;   
+}
+
+#signup{
+    margin-top: 1%;
+    margin-left: 20%;
+    
+}
+
+#sign_up{
+    display: block;
+    margin: 1% 1%;
+    height: 30px;
+    width: 70%;
+    border-radius: 0px;
+    text-align: center;
+    font-weight: 200;
+}
+.create_password{
+    display: none;
+
+}
+.create_password1{
+    margin-left: 15%;
+    display: flex;
+    flex-direction: column;    
+}
+.create_password1 input{
+    height: 25px;
+    width: 70%;
+    margin-top:1px;
+    font-size: medium;
+}

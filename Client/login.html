@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="Style_sheets/style1.css">
+    </head>
+    <body>
+        <div class="login">
+            <div id="title">
+                <h2>Log in</h2>
+            </div>
+            <div class="user_details" id="topdiv">
+                <h4>Username:</h4>
+                <input id="user_name" type="text" placeholder="Password" equired>
+                <h4>Password:</h4>
+                <input  id="password" type="password" placeholder="Password" required>
+            </div>
+            <div id="showpassword">
+                <label>
+                  <input id="check_b" type="checkbox">
+                   Show Password
+                </label>               
+            </div>
+            <div class="signin"  >
+                <button id="sig_in" onclick="login()"> SIGN IN</button>
+            </div>
+            <div class="signin">
+                <a id="forgot" href="Reset_password.html" target="_blank">Forgot Password?</a>
+            </div>
+            
+            <div  class="signin" id="signup">
+                <label id="acc">Don't have an account?</label>    
+            </div>
+            <div class="signin">
+                <a id="sign_up" href="signup.html">SIGN UP</a>
+            </div>
+        </div>
+        <script src="Script/login.js"></script>
+
+    </body>
+</html>

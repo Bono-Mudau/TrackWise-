@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Style_sheets/login_signup.css">
+</head>
+<body>
+    <!-- Sign up -->
+    <div id="sign_up"  class="sign_up">
+        <div class="top-div">
+            <h2>SIGN UP</h2>
+        </div>
+        <div id="input-fields">
+            <label>
+                <label for="First Name">Names</label>
+                <input type="text" name="First Name" id="f-name" required>
+            </label>
+            
+            <label>
+                <label for="email"> Email</label>
+                <input type="email" name="email" id="email" required>
+            </label>
+            <label >
+                <label for="password"> Create Password</label>
+                <input type="password" name="password" id="password" required>
+            </label>
+            <label>
+                <label for="c-password">Confirm Password</label>
+                <input type="password" name="c-password" id="c-password" required>
+            </label>
+            <button id="sign-up"  onclick="sign_up()"> SIGN UP</button>
+            <label>
+                <a href="#" >Forgot password</a>
+            </label>
+            <label>
+                <p>Already have an account? <button id="login-signup_toggle" onclick="log_sign_toogle()" > Login</button> </p> 
+            </label>
+        </div>
+        
+    </div>
+    <!--log in-->
+
+    <div id="log_in" class="log_in1">
+          <div class="top-div">
+            <h2>LOG IN</h2>
+          </div>
+          <div id="input-fields">
+            <label>
+                <label for="email1"> Email</label>
+                <input type="email" name="email1" id="email1">
+            </label>
+            <label >
+                <label for="e-password">Password</label>
+                <input type="password" name="e-password" id="e-password">
+            </label>
+            <button id="log-in" onclick="login()">LOGIN</button>
+            <label>
+                <a href="#" >Forgot password</a>
+            </label>
+            <label>
+                <p>Don't have an account? <button id="login-signup_toggle" onclick="log_sign_toogle()">Create an account</button> </p> 
+            </label>
+    
+</body>
+<script src="/Scripts/login_signup.js"></script>
+</html>

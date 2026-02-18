@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="Style_sheets/dashboard.css">
+</head>
+<body>
+    <div id="top-bar">
+        <label id="logo">Logo and name</label>
+        <button id="user-initials">MB</button>
+    </div>
+
+    <div id="menu-bar">
+        <button  id="menu" onclick="menu_toogle()">Menu</button>
+        <h2 id="user-names">Mudau Bono</h2>
+    </div>
+
+    <div id="main-frame">
+        <!-- menu options -->
+        <div id="menu-options" class="menu_class1">
+            <button onclick="overview()" class="options">Overview</button>
+            <button onclick="expense()"  class="options">Expenses</button>
+            <button onclick="income()"   class="options">Income</button>
+            <button class="options" >Trasaction</button>
+            <button class="options" >Summary</button>
+            <button class="options" >Reminders</button>
+            <button class="options" >Export data</button>
+            <button class="options" id="log-out" onclick="log_out()" >Log out</button>
+        </div>
+        <!--Display area -->
+        <div  id="display-area">
+            <!-- OVERVIEW  SECTION -->
+            <div id="overview" class="overview1">
+                <div id="balance-overview">
+                    <div id="summary-card">
+                        <h4>December 2023</h4>
+                        <h5 id=" total-income">Total Income: R5300.00</h5>
+                        <h5 id="total-expenses">Total Expenses: R3500.00</h5>
+                        <h5 id="current-balance">Current balance: R1800.00</h5>
+                    </div>
+                    <div id="pie-card">
+                        <div id="pie-chart"> </div>  
+                    </div>
+                </div>
+            </div>
+            <!--EXPENSES SECTION -->
+            <div id="expense-section">
+                <div id="expense-entry"> <!-- Expense entry card --> 
+                   <h4>June 2025</h4>
+                </div>
+                <div id="expense" class="expense">
+
+                    <div id="add-expense">
+                       <label id="expense-month" >Expesenses for Nov 2025</label>
+                       <button  class="add-entry" onclick="addentry()">+</button>
+                    </div>
+                   <div id="expenses-label">
+                       <label >Id</label>
+                       <label >Date</label>
+                       <label >Description</label>
+                       <label >Category</label>
+                       <label >Amount (R)</label>
+                       <label >Status</label>
+                       <label ></label>
+                    </div>
+                    <hr style="border: 1px solid black;">
+
+                    <!-- displays the list of all expenses-->
+                    <div id="expenses-list">
+        
+                    </div>
+
+                    <!-- The sum of all expenses -->
+                    <div class="totals">
+                      <label > Total: </label>
+                      <label ></label>
+                      <label ></label>
+                      <label ></label>
+                      <label id="expense-sum"> R5000</label>
+                      <label ></label> 
+                      <label ></label>
+                    </div>
+                    <!-- option to add a new expense entry -->
+                    <div id="C-exp-card" class="create-expense-card1">
+                        <input class="input-field" id="description-input" type="text" maxlength="30" placeholder="Write a short expense description">
+                        <select class="input-field" name="Category" id="category-input">
+                                <option value="none">Select</option>
+                                <option value="Groceries"> Groceries</option>
+                                <option value="Entertainment"> Entertainment</option>
+                                <option value="Transport"> Transport</option>
+                                <option value="Emergency"> Emergency</option>
+                                <option value="Taxes">Taxes</option>
+                                <option value="Rent">Rent</option>
+                                <option value="Travel"> Travel</option>
+                                <option value="Personal care"> Personal care</option>
+                                <option value="Health care">Health care</option>
+                                <option value="Clothing & Accessories">Clothing & Accessories</option>
+                                <option value="Other">Other</option>
+                        </select>
+                        <input class="input-field" id="input-amount" type="text" maxlength="7" placeholder="Amount">
+                        <button class="submit" onclick="submit_expense()">Submit✓</button>
+                    </div>
+                    <!-- edit expense -->
+                    <div id="edit_exp" class="edit-expense">
+                        <label id="expense-edit-id"></label>
+                        <label><input id="exp-des-edit" type="text" placeholder="Enter the description"></label>
+                        <label >
+                            <select name="Category" id="category-input-edit">
+                              <option value="none">Select</option>
+                              <option value="Groceries"> Groceries</option>
+                              <option value="Entertainment"> Entertainment</option>
+                              <option value="Transport"> Transport</option>
+                              <option value="Emergency"> Emergency</option>
+                              <option value="Taxes">Taxes</option>
+                              <option value="Rent">Rent</option>
+                              <option value="Travel"> Travel</option>
+                              <option value="Personal care"> Personal care</option>
+                              <option value="Health care">Health care</option>
+                              <option value="Clothing & Accessories">Clothing & Accessories</option>
+                              <option value="Other">Other</option>
+                            </select>
+                        </label>
+                        <label ><input id="exp-amount-edt" type="text" placeholder="Amount" maxlength="7"></label>
+                        <label>Paid?<input id="edit-exp-checkbox" type="checkbox"></label>
+                        <label class="lab"> <button onclick="update_exp()">Save Changes</button>  <button onclick="cancel_update()"> Cancel</button></label>
+                    </div>
+                </div>
+            </div>
+            <!-- INCOME SECTION -->
+            <div id="income" class="income">
+                <div id="add-income">
+                    <label id="income-month" >Income for Nov 2025</label>
+                    <button  class="add-entry" onclick="addentry1()">+</button>
+                </div>
+                <div id="income-label">
+                    <label >Id</label>
+                    <label >Category</label>
+                    <label >Amount (R)</label>
+                    <label ></label>
+                </div>
+                <hr style="border: 1px solid black;">
+                <!-- displays the list of all expenses-->
+                <div id="income-list">
+                </div>
+
+               <!-- income card  which will be created using js
+                <div class="expense-card">
+                    <label >001</label>
+                    <label >Sakary</label>
+                    <label>R450</label>
+                    <label ><button>Edit</button> <button>Edit</button> </label>
+                </div>
+
+                -->
+                <!-- The sum of all income -->
+                 <div class="totals">
+                    <label >Total: </label>
+                    <label ></label>
+                    <label id="income-sum"> R2000.00</label>  
+                    <label ></label>
+                </div>
+                <!-- option to add a new income entry -->
+                <div id="C-income-card" class="create-income-card1">
+                   <select class="input-field" name="Category" id="income-category-input">
+                            <option value="none">Select an option</option>
+                            <option value="Salary"> Salary</option>
+                            <option value="Investments">Investments</option>
+                            <option value="Donations">Donations</option>
+                            <option value="other">Other</option>
+                    </select>
+                    <input class="input-field" id="income-amount" type="text" maxlength="7" placeholder="Amount">
+                    <button class="submit" onclick="submit_income()">Submit✓</button>
+                </div>
+                <!-- edit income entry -->
+                    <div id="income_edit" class="edit-income">
+                        <label id="income-edit-id">005</label>
+                        <label >
+                            <select class="input-field" name="Category" id="income-category-edit">
+                              <option value="none">Select</option>
+                              <option value="Salary"> Salary</option>
+                              <option value="Investments">Investments</option>
+                              <option value="Donations">Donations</option>
+                              <option value="other">Other</option>
+                            </select> 
+                        </label>
+                        <label ><input class="input-field" id="income-amount-edit" type="text" placeholder="Amount" maxlength="7"></label>
+                        <label class="lab"> <button class="submit" onclick="update_income()" id="save-income-edit">Save changes</button> <button onclick="cancel_update1()">cancel</button></label>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- FOOTER -->
+    <div id="footer">
+        <div>
+            <h3>About us</h3>
+            <p>© 2025 ExpenseTracker. All rights reserved. | Version 1.0.0 </p>
+            <a href="#">Privacy Policy</a><br>
+            <a href="#">Terms of Service</a>
+        </div>
+        <div>
+            <h3>Contact us:</h3>
+            <p>Phone no:0712298787</p>
+            <a href="#">bonomudau@gmail.com</a><br>
+            <a href="#">Facebook</a>
+        </div>   
+        <div>
+            <h3>Customer care:</h3>
+            <p>Phone no:0712298787</p>
+            <a href="#">bonomudau@gmail.com</a><br>
+            <a href="#">Facebook</a>
+        </div>   
+    </div>
+    <script src="/Scripts/dashboard.js"></script>
+</body>
+</html>

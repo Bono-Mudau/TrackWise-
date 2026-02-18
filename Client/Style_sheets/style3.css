@@ -1,0 +1,76 @@
+.main{
+    
+    margin: 15vh auto;
+    height: 50vh;
+    width: 40vw;
+    border-radius: 10px;
+    border: 1px black solid;
+    display: flex;   
+    flex-direction: column;
+    background-color: rgb(252, 252, 252);
+   
+}
+.div2{
+    margin-left: 15%;
+    display: flex;
+    flex-direction: column;    
+}
+.div2 input{
+    height: 30px;
+    width: 70%;
+    margin-top: 3%;
+    font-size: medium;
+}
+#topdiv{
+    margin-top: 5%;
+}
+.div2 button{
+    display: block;
+    margin: 4% 1%;
+    height: 30px;
+    width: 70%;
+    border-radius: 0px;
+    background-color: rgb(108, 122, 139);
+}
+.div2 button:hover{
+    display: block;
+    margin: 4% 1%;
+    height: 30px;
+    width: 70%;
+    border-radius: 0px;
+    background-color: rgb(173, 189, 209);
+}
+h2{
+    text-align: center;
+}
+h4{
+    margin-bottom: 5px;
+}
+
+body{
+    background-color:rgb(108, 93, 240);
+}
+#otp1{
+    display:none;
+}
+#otp2{
+    display:none;
+}
+#otp3{
+    display:none;
+}
+#otp4{
+    display:none;
+}
+#password{
+    display:none;
+}
+#password1{
+    display:none;
+}
+.otp{
+    height:70px;
+    display: flex;
+    flex-direction: column;
+}
+

@@ -1,0 +1,82 @@
+
+
+h1{
+    font-size: 2rem;
+    width: fit-content;
+}
+h2{
+    width: fit-content;
+    font-size: 1.5rem;
+}
+p{
+    width: fit-content;
+    font-size: 1rem;
+}
+body{
+        padding: 0;
+        margin: 0;
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+header{
+        position: fixed;
+        top:0;
+        right: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 10px 10px;
+        opacity: 1;
+        background-color: #00000096;
+        color: white;
+        z-index: 999;
+}
+header .start, .end{
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+}
+header .center{
+        display: flex;
+        flex: 1;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+}
+.start a{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: bold;
+
+}
+.center a, .end a {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 0.5rem 0.8rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        position: relative;
+}
+
+.center a:hover, .end a:hover {
+        color: #ffffff;
+        cursor: pointer;
+}
+
+.center a:after, .end a:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #0066ff;
+        transition: width 0.3s ease;
+}
+.center a:hover:after, .end a:hover:after {
+        width: 100%;
+}
+

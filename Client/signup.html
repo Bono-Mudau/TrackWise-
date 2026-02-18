@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="Style_sheets/style2.css">
+    </head>
+
+    <body>
+        <div class="sign">
+            <div id="title">
+                <h2>SIGN UP</h2>
+            </div>
+            <div class="user_details" id="topdiv">
+                <h4>Full names:</h4>
+                <input id="names" type="text" placeholder="" required>
+                <h4>Email:</h4>
+                <input id="email" type="text" placeholder="" required>
+                <h4>Phone number:</h4>
+                <input id="phone_no" type="text" placeholder="" required>
+                <h4>Username:</h4>
+                <input id="user_name" type="text" placeholder="" required>
+                <h4>Set Password:</h4>
+                <input  id="password" type="password" placeholder="" required>
+                <h4>Confirm password:</h4>
+                <input  id="password1" type="password" placeholder="" required>
+            </div>
+            <div id="showpassword">
+                <label>
+                  <input id="check_b" type="checkbox">
+                  Show Password
+                </label>
+            </div>
+            
+
+            <div id="create_password">
+
+                
+            </div>
+            <div class="signin"  >
+                <button id="sig_in" onclick="signup()"> SIGN UP</button>
+            </div>
+
+            <div  class="signin" id="signup">
+                <label id="acc">Already have an account?</label>    
+            </div>
+            <div class="signin">
+                <a id="sign_up" href="login.html">SIGN IN</a>
+            </div>
+            
+        </div>
+        <script src="Script/signup.js"></script>
+
+    </body>
+</html>

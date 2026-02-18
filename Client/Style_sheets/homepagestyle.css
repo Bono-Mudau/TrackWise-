@@ -1,0 +1,121 @@
+#top-bar{
+    position: fixed;
+    top:0;
+    left: 0;
+    display: flex;
+    width: 100vw;
+    height: 70px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(141, 137, 135, 0.6);
+}
+#top-bar label{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 160px;
+    margin-left: 15px;
+    margin-right: 2%;
+}
+body{
+    margin: 70px 0;
+}
+#top-bar a{
+    display: inline-block;
+    height: 50%;
+    width: 50%;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    background-color: rgb(131, 179, 235);
+    margin-right: 10px;
+    text-decoration: none;
+    color: black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.web-info{
+   background-color: rgb(195, 204, 201);
+   border-radius: 10px;
+   height: 85%;
+   margin-left: 2%;
+   margin-top: 15px;
+   width: 70%;
+
+}
+.web-info h3{
+    margin-left: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 100;
+    color: rgb(48, 39, 39);
+
+}
+.web-info p{
+    margin-left:20px;
+}
+#about{
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 100vw;
+    background-color: rgb(218, 226, 223); 
+}
+#get-started{
+    margin-top: 5px;
+    display: inline-block;
+    height: 100%;
+    width: 100px;
+    border: 1px solid black;
+    margin-left: 85%;
+    background-color: cadetblue;
+    text-align: center;
+    border-radius: 5px;
+}
+#feature-slideshow{
+    margin-top: 10px;
+    height: 400px;
+    white-space:nowrap ;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+.feature{
+    display:none;
+    width: 70vw;
+    height: 100%;
+    margin: auto;
+    margin-left:15vw;
+    margin-right: 10px;
+    background-color: rgb(155, 155, 182);
+    border-radius: 10px;
+    vertical-align: top;
+}
+.feature a{
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+.feature a:hover{
+    background-color: rgb(134, 128, 128);
+    border-radius: 10px;
+}
+.feature.active{
+    display:inline-block;
+}  
+#dashboardpreview{
+    height:400px;
+    width:90vw;
+    margin: 10px auto;
+} 
+#footer{
+    height: 400px;
+    width: 95vw;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-info{
+    border: 0.1px solid black;
+   
+}
+
