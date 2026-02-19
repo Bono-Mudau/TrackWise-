@@ -16,7 +16,6 @@ function log_sign_toogle(){
 function login(){
   verify_details()
   .then(verify_user=>{
-    console.log(verify_user)
     if(verify_user.user){
       localStorage.setItem("id",verify_user.id);
       console.log("user id is "+verify_user.id)
@@ -24,7 +23,7 @@ function login(){
       window.location.href="dashboard.html";
     }
     else{
-      alert("incorrect login details");
+      alert(verify_user.reason);
     }
   })
   .catch(error=>{

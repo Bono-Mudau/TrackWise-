@@ -37,8 +37,9 @@ const login=async (req,res)=>{
     const {email,password}=req.body;
     db.query("select user_id,name,password from users where email=?",[email],async (err, results)=>{
         if(err){
+              console.error("Database query error:", err);
             console.log("Error occured while verifying the user")
-            return ;
+            return res.status(500).json({user:false, reason:"Error logging in, try again later"}) ;
         }
         if(results.length>0){
 
@@ -52,11 +53,11 @@ const login=async (req,res)=>{
                 })
             }
             else{
-                return res.json({user:false})
+                return res.json({user:false , reason:"Incorrect login credentials"})
             }
-        }
+        }  
         else{
-            return res.json({ user:false })
+            return res.json({ user:false , reason:"unknown error" })
         }
 
     });

@@ -122,6 +122,7 @@ function submit_expense(){
       if(res.status){
         const id=res.id;
         add_expense_to_the_list(id,expense_entry);
+        load_all_expenses()
       }
     })   
 }
@@ -129,6 +130,7 @@ function add_expense_to_the_list(id,expense_entry){
         //Create an expense card and add it to the expsenses list
         const entry=document.createElement("div");
         entry.id=id+"";
+
         const exp_=document.createElement("label");
         exp_.textContent=id+"";
         exp_.id=id+"id";
@@ -240,31 +242,40 @@ function delete_expense_entry(e){
           window.alert("expense not deleted");
           
         }
+        load_all_expenses();
 }
 
 function update_exp(){
     //get an element  parent's 1
     let update_id=document.getElementById("expense-edit-id").innerHTML;
+
     //update description
     const new_des=document.getElementById("exp-des-edit").value;
     document.getElementById("exp-des-edit").value="";
-    document.getElementById(update_id+"-description").textContent=new_des; 
+    document.getElementById(update_id+"-description").textContent=new_des;
+
+
     //updtate category
     const new_cate=document.getElementById("category-input-edit").value;
     document.getElementById("category-input-edit").value="";
     document.getElementById(update_id+"-category").textContent=new_cate;
+  
+
     //update amount
     const new_amount=document.getElementById("exp-amount-edt").value;
     document.getElementById("exp-amount-edt").value="";
     document.getElementById(update_id+"-amount").textContent=new_amount;
+
     //update status
     if(document.getElementById("edit-exp-checkbox").checked){
-        const status="Paid"
+        const status=1
         document.getElementById("edit-exp-checkbox").checked=false;
         document.getElementById(update_id+"-status").textContent=status;
     }
     document.getElementById("edit_exp").classList.replace("edit-expense1","edit-expense");
+    load_all_expenses();
 }
+
 function cancel_update(){
     document.getElementById("edit_exp").classList.replace("edit-expense1","edit-expense");
 }
@@ -345,6 +356,7 @@ function submit_income(){
             
            }
     document.getElementById('C-income-card').classList.replace("create-income-card","create-income-card1");
+    load_income()
 }
 
 //delete income entry
@@ -382,6 +394,7 @@ function delete_income(e){
   else{
       window.alert("Income entry not deleted");
   }
+  load_income();
 
 }
 
@@ -455,6 +468,7 @@ function add_income_to_the_list(income_entry){
   income_list.appendChild(entry);
   entry.className="income-card";
 }
+
 function addentry1(){
     const entry=document.getElementById('C-income-card');
     if(entry.classList.contains("create-income-card1")){
