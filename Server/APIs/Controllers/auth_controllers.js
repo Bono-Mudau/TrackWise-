@@ -23,6 +23,9 @@ const signup=async (req,res)=>{
                         reason:"Unable to create an account, please try again later"
                     });
             }else{
+                const id=results.insertId;
+                db.query("insert into overview (user_id) values(?)",[id],async (er, ans)=>{
+                })
                 return res.json({user:true});
             }
         });    
@@ -42,18 +45,22 @@ const login=async (req,res)=>{
             return res.status(500).json({user:false, reason:"Error logging in, try again later"}) ;
         }
         if(results.length>0){
-
             //compare user_entered password and the actual password
-            const auth=await bcrypt.compare(password,results[0].password); 
-            if(auth){
-                return res.json({
-                    name:results[0].name,
-                    id:results[0].user_id,
-                    user:true
-                })
-            }
-            else{
-                return res.json({user:false , reason:"Incorrect login credentials"})
+            try {
+                const auth=await bcrypt.compare(password,results[0].password)
+                if(auth){
+                    return res.json({
+                        name:results[0].name,
+                        id:results[0].user_id,
+                        user:true
+                    })
+                }
+                else{
+                    return res.json({user:false , reason:"Incorrect login credentials"})
+                } 
+            } catch (error) {
+                
+                
             }
         }  
         else{

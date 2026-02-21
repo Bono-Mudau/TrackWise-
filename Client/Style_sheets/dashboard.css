@@ -1,11 +1,17 @@
 
-body {
+html, body {
   margin: 0;
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 #top-bar{
     width: 100%;
     z-index: 500;
-    height: 70px;
+    height: 100px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -13,7 +19,7 @@ body {
     background-color: rgb(68, 68, 128,0.7);
 }
 #logo{
-    height: 70%;
+    height:50px;
     border:1px  solid black;
     border-radius: 2px;
     font-size: x-large;
@@ -44,17 +50,61 @@ body {
 
 #user-names{
     margin-left:5%;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:  Arial, sans-serif;
+    font-size: larger;
+    color: #141212;
 }
 
 #main-frame{
+    flex: 1;
     display: flex;
+
+}
+.sidebar{
+    width: 100%;
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+}
+.sidebar button{
+    margin-top: 5px;
+    background-color: #3673d6;
+    width: 100%;
+    color: #ddd; 
+    border-radius: 5px; 
+    min-height: 40px;
+}
+.sidebar th{
+    margin: 0px;
+
+}
+.sidebar tr{
+    margin: 0px;
+    background-color: transparent;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    width: 100%;
+    min-height: 35px;
+        
+}
+.sidebar td{
+    margin: 0px; 
+    width: 100%;
+
+}
+
+.sidebar1 button{
+    width: 100%;
+    
+    border:  none;
+    height: fit-content;
+
 }
 
 .menu_class{
     width: 15%;
     height: auto;
-    background-color: rgba(149, 149, 175, 0.7);
+    background-color: whitesmoke;
     border: 1px solid black;
 }
 .menu_class1{
@@ -63,61 +113,172 @@ body {
 .options{
     height:30px;
     width: 95%;
-    margin-top: 7px;
+    margin: none;
     text-align: center;
-    background-color: gray;
+    background-color:transparent;
 }
 .options:hover{
-    background-color: rgb(61, 58, 58);
+    font-family: Arial, sans-serif;
+    background-color: #293a55;
+    color: #ddd;
+    
 }
 #display-area{
     width: 100vw;
-    min-height:500px;
-    background-color: rgb(127, 204, 204);
+    background-color: rgb(235, 247, 246);
     border:1px solid black;
     display: flex;
     flex-direction: column;
 }
 
 /* OVERVIEW*/
+
+#total-expenses{
+    color: rgb(202, 77, 77);
+}
+#total-income{
+    color: rgb(55, 160, 92);
+}
+
 #balance-overview{
     display: flex;
     flex-direction: row;
-    height: 350px;
+    height: fit-content;
 }
-
-#pie-card{
-    border: 2px solid black;
-    width:65%;
-    align-content: center;
-
-}
-
-#pie-chart{
-    width: 250px;
-    height:250px;
-    border-radius: 100px;
-    border: 1px solid black;
-    margin: auto;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);   
+#recent-heading{
+    font-size: larger;
+    color: #387de6;
+    text-decoration: underline solid rgb(65, 58, 105);
+    min-height: fit-content;
+    margin:20px  5px;
+    
 }
 
 #summary-card{
-    background-color: linear-gradient(45deg, red,black);
-    border: 0.5px solid black;
+    background-color: linear-gradient(45deg, rgba(82, 170, 228, 0.863),rgb(23, 131, 204));
+    border: 0.1px solid black;
     border-radius: 4px;
-    width: 35%;
-    box-shadow: 0 2px 6px rgba(190, 79, 79, 0.1);
+    display: flex;
+    min-width: 100%;
+    height: fit-content;
 }
 
 #summary-card h4{
-   margin: 10px  30px;
-   text-decoration: underline;
-   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   margin: 20px  30px;
+   font-family: Arial, sans-serif;
    font-size: larger;
-   font-weight: lighter;
-   margin-bottom: 30px;
 }
+ /* Recents trans table */
+#trans-table {
+  width: 80%;
+  margin: 0px auto;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
+#trans-table th {
+  background-color: #387de6;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+#trans-table td {
+  border: 1px solid #796e6e;
+  padding: 12px;
+}
+
+
+#trans-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+#trans-table tr:hover {
+  background-color: #ddd;
+}
+
+#trans-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+/* expense table */
+
+#expense-table {
+  width: 80%;
+  margin: 0px auto;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
+#expense-table th {
+  background-color: #387de6;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+#expense-table td {
+  border: 1px solid #796e6e;
+  padding: 12px;
+}
+
+
+#expense-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+#expense-table tr:hover {
+  background-color: #ddd;
+}
+
+#expense-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Income table  */
+#income-table {
+  width: 80%;
+  margin: 0px auto;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
+#income-table th {
+  background-color: #387de6;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+#income-table td {
+  border: 1px solid #796e6e;
+  padding: 12px;
+}
+
+
+#income-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+#income-table tr:hover {
+  background-color: #ddd;
+}
+
+#income-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 
 .overview{
     display: none;
@@ -125,6 +286,7 @@ body {
 
 .overview1{
     padding: 0px;
+    flex: 1;
 }
 
 #summary-card h5{
@@ -137,7 +299,7 @@ body {
 }
 /* FOOTER */
 #footer{
-    margin-top: 0;
+    margin-bottom: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;

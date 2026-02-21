@@ -1,3 +1,4 @@
+
 const db = require("../config/db_config");
 const new_income=async (req,res)=>{
     const {category,amount,user_id}=req.body;
@@ -12,8 +13,13 @@ const new_income=async (req,res)=>{
 };
 
 const delete_income=async (req,res)=>{
-
     const {id}=req.body;
+    let amount=0;
+    
+    db.query("select amount from income where income_id=?",[id],(err,results)=>{
+        amount=results.amount;
+    })
+
     db.query("delete from income where income_id=?",[id],(err,results)=>{
         if(err){
             return res.json({response:false});
@@ -27,7 +33,7 @@ const delete_income=async (req,res)=>{
 
 const load_income=async (req,res)=>{
     const {id}=req.body;
-    db.query("select income_id,category,amount from income where user_id=?",[id],async(err,row)=>{
+    db.query("select income_id,category,amount,date from income where user_id=?",[id],async(err,row)=>{
         if(err){
             return res.json({bool:false})
         }else{
@@ -36,8 +42,23 @@ const load_income=async (req,res)=>{
     })
 };
 
+const update_income=async (req,res)=>{
+    const {income_id,category, amount}=req.body;
+    const sql="update income set category=?,amount=? where income_id=?";
+    db.query(sql,[category,amount,income_id], async (err, data)=>{
+        if(err){
+            return res.status(500).json({response:false, reason:"db_err"});
+        }
+        else{
+            return res.json({response:true});
+        }
+    })
+
+} 
+
 module.exports={
     new_income,
     delete_income,
-    load_income
+    load_income,
+    update_income
 }

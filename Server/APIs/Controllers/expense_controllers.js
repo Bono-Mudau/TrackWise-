@@ -1,8 +1,8 @@
+const { response } = require("express");
 const db = require("../config/db_config");
 const new_expense= async (req,res)=>{
     const {date,description,category,amount,status,user_id}=req.body;
     const sql="insert into expenses (date_created, description, category, amount, status, user_id) values (?,?,?,?,?,?)"
-     console.log("Inserting expense:", { date, description, category, amount, status, user_id });
 
     db.query(sql,[date,description,category,amount,status,user_id],(err,results)=>{
         if(err){
@@ -31,17 +31,27 @@ const delete_expense=async (req,res)=>{
      db.query(sql,[id],(err,results)=>{
         if(err){
             console.log("did not delete")
-            return res.status(500).json();
+            return res.status(500).json({response:false});
         }
-        return res.json({response:true,
-              id: results.insertId
-            })
+        return res.json({response:true})
      })
+};
+
+const update_expense= async (req,res)=>{
+    const { expense_id, description, category,amount, status}=req.body;
+    const sql="update expenses set description=?,category=?,amount=?,status=? where exp_id=?"
+    db.query(sql,[ description, category,amount, status,expense_id],async (err,results)=>{
+        if(err){
+            return res.status(500).json({response:false});
+        }
+        return res.json({response:true})
+    });
 };
 
 module.exports={
     new_expense,
     load_expenses,
-    delete_expense
+    delete_expense,
+    update_expense
 }
 

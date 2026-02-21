@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="Style_sheets/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div id="top-bar">
-        <label id="logo">Logo and name</label>
+        <label id="logo">TrackWise</label>
         <button id="user-initials">MB</button>
     </div>
 
@@ -18,7 +19,9 @@
 
     <div id="main-frame">
         <!-- menu options -->
-        <div id="menu-options" class="menu_class1">
+         
+        <div id="menu-options" class="menu_class">
+            <!--
             <button onclick="overview()" class="options">Overview</button>
             <button onclick="expense()"  class="options">Expenses</button>
             <button onclick="income()"   class="options">Income</button>
@@ -27,6 +30,21 @@
             <button class="options" >Reminders</button>
             <button class="options" >Export data</button>
             <button class="options" id="log-out" onclick="log_out()" >Log out</button>
+            -->
+            <table class="sidebar">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr> <td><button onclick="overview()" class="options"><i class="fas fa-chart-line"></i>Overview</button></td></tr>
+                    <tr><td><button onclick="expense()"  class="options"><i class="fas fa-money-bill-wave"></i> Expenses</button></td></tr>
+                    <tr><td><button onclick="income()"   class="options"><i class="fas fa-wallet"></i>Income</button></td></tr>
+                    <tr><td><button class="options" ><i class="fas fa-receipt"></i>Trasactions</button></td></tr>
+                    <tr><td> <button class="options" >Summary</button></td></tr>
+                    <tr><td> <button class="options" ><i class="fas fa-bell"></i>Reminders</button></td></tr>
+                    <tr><td><button class="options" >Export data</button></td></tr>
+                </tbody>
+
+            </table>
         </div>
         <!--Display area -->
         <div  id="display-area">
@@ -34,14 +52,28 @@
             <div id="overview" class="overview1">
                 <div id="balance-overview">
                     <div id="summary-card">
-                        <h4>December 2023</h4>
-                        <h5 id=" total-income">Total Income: R5300.00</h5>
-                        <h5 id="total-expenses">Total Expenses: R3500.00</h5>
-                        <h5 id="current-balance">Current balance: R1800.00</h5>
+                        <h4 id="current-balance">Current balance: R1800.00</h4>
+                        <h4 id="total-income">Total Income: R5300.00</h4>
+                        <h4 id="total-expenses">Total Expenses: R3500.00</h4>
                     </div>
-                    <div id="pie-card">
-                        <div id="pie-chart"> </div>  
-                    </div>
+                </div>
+                    <div  class="resent_trans">
+                        <h4 id="recent-heading">Recent transactions</h4>
+                        <table id="trans-table">
+                            <thead>
+                                <tr>
+                                    <th>Tranasction id</th>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recents-trans">
+                                
+                            </tbody>
+
+                        </table>
                 </div>
             </div>
             <!--EXPENSES SECTION -->
@@ -49,11 +81,30 @@
                 <div id="expense-entry"> <!-- Expense entry card --> 
                    <h4>June 2025</h4>
                 </div>
+                
                 <div id="expense" class="expense">
 
                     <div id="add-expense">
                        <label id="expense-month" >Expesenses for Nov 2025</label>
                        <button  class="add-entry" onclick="addentry()">+</button>
+                    </div>
+                    <div  class="exp_trans">
+                        <h4 id="recent-heading">Expense List</h4>
+                        <table id="expense-table" >
+                            <thead>
+                                <tr>
+                                    <th>Expense_Id</th>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Amount (R)</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="expense-trans">    
+                            </tbody>
+                        </table>
                     </div>
                    <div id="expenses-label">
                        <label >Id</label>
@@ -133,6 +184,21 @@
                     <label id="income-month" >Income for Nov 2025</label>
                     <button  class="add-entry" onclick="addentry1()">+</button>
                 </div>
+                <div  class="income_trans">
+                        <h4 id="income-heading">Expense List</h4>
+                        <table id="income-table" >
+                            <thead>
+                                <tr>
+                                    <th>Income_Id</th>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Amount (R)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="income-trans">    
+                            </tbody>
+                        </table>
+                </div>
                 <div id="income-label">
                     <label >Id</label>
                     <label >Category</label>
@@ -157,7 +223,7 @@
                  <div class="totals">
                     <label >Total: </label>
                     <label ></label>
-                    <label id="income-sum"> R2000.00</label>  
+                    <label id="income-sum"> R0.00</label>  
                     <label ></label>
                 </div>
                 <!-- option to add a new income entry -->
