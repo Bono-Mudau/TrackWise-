@@ -22,8 +22,8 @@ const user_info={
   names:localStorage.getItem("names"),
   id:Number(localStorage.getItem("id"))
 }
-console.log(user_info.id)
-console.log(user_info.names)
+load_all_expenses();
+load_income();
 
 //update names on the dashboard
 document.getElementById("user-names").innerHTML="Wellcome, "+user_info.names;
@@ -34,13 +34,11 @@ function addentry(){
     const entry=document.getElementById('C-exp-card');
     if(entry.classList.contains("create-expense-card1")){
         entry.classList.replace("create-expense-card1","create-expense-card");
-    }else{
+    }else
+    {
         entry.classList.replace("create-expense-card","create-expense-card1");
     }
 }
-
-load_all_expenses();
-load_income();
 
 function load_all_expenses(){
   fetch(`http://localhost:3000/api/expenses/load_expenses?user_id=${user_info.id}`,{
@@ -60,19 +58,21 @@ function load_all_expenses(){
       if(data.length==0){
         return alert("No expenses available")
       }
-      total=0;
+      let total=0;
+      const trans_list=document.getElementById("expense-trans")
       data.forEach(element => {
-        const trans_list=document.getElementById("expense-trans")
         const row=document.createElement("tr");
-        row.id=element.exp_id;
+        row.id="exp_row-"+element.exp_id;
         let status="Not Paid"
         if(element.status==1){
           status="Paid"
         }
-
         const edit=document.createElement("button");
         edit.innerHTML="edit";
-        //edit.addEventListener("click",enable_editing)
+        edit.addEventListener("click", enable_exp_editing)
+        const delete_btn=document.createElement("button");
+        delete_btn.innerHTML="Delete";
+        delete_btn.addEventListener("click",delete_expense_entry)
         row.innerHTML=`
             <td>${element.exp_id}</td>
             <td>${element.date_created.substring(0,10)}</td>
@@ -83,15 +83,29 @@ function load_all_expenses(){
             <td></td>
           `;
         row.cells[row.cells.length - 1].appendChild(edit);
+        row.cells[row.cells.length - 1].appendChild(delete_btn);
         trans_list.appendChild(row);
-        add_expense_to_the_list(element.exp_id,element);
         total+=element.amount;
       })
+      const row=document.createElement("tr");
+      row.id="exp_table_total";
+      row.innerHTML=`
+          <td>Total</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td id="expense-sum" >R${total}</td>
+          <td></td>
+          <td></td>
+        `;
+      row.style.fontWeight = "bold";
+      row.style.height = "20px";   
+      trans_list.appendChild(row);
       load_balances();
   })
   .catch(err => {
-  alert("Unexpected error occurred");
-  console.error(err);
+     alert("Unexpected error occurred");
+     console.error(err);
   })
 }
 
@@ -105,7 +119,6 @@ function submit_expense(){
       status:0,
       user_id:user_info.id
     }
-    console.log(expense_entry.date)
     if(String(document.getElementById("description-input").value).length>=1){
       expense_entry.description=document.getElementById("description-input").value;     
     }
@@ -129,6 +142,7 @@ function submit_expense(){
       alert("Please select an option!")
       return;
     }
+
     //send data to the database
     fetch("http://localhost:3000/api/expenses/new_expense",{
       method:"POST",
@@ -145,26 +159,92 @@ function submit_expense(){
     })
     .then(res=>{
       if(res.status){
+        let current_total=0;
+        if(document.getElementById("exp_table_total")){
+          current_total=document.getElementById("exp_table_total").cells[4].innerHTML.substring(1);
+          document.getElementById("exp_table_total").remove()
+          alert(current_total);
+          current_total=Number(current_total)+expense_entry.amount;
+        }
         const id=res.id;
         const trans_list=document.getElementById("expense-trans")
         const row=document.createElement("tr");
-        row.id=id;
+        row.id="exp_row-"+id;
+        let  status="Not Paid"
+        if(expense_entry.status==1){
+          status="Paid"
+        }
         row.innerHTML=`
             <td>${id}</td>
-            <td>${expense_entry.date_created}</td>
+            <td>${expense_entry.date}</td>
             <td>${expense_entry.description}</td>
             <td>${expense_entry.category}</td>
             <td>${expense_entry.amount}</td>
-            <td>${expense_entry.status}</td>
+            <td>${status}</td>
+            <td></td>
           `;
-        trans_list.appendChild(row);
-        add_expense_to_the_list(id,expense_entry);
+        row.cells[6].innerHTML=`<button onclick="enable_exp_editing(event)"> Edit </button> <button onclick="delete_expense_entry(event)"> Delete</button> `
+        const t_row=document.createElement("tr");
+        t_row.id="exp_table_total";
+        t_row.innerHTML=`
+            <td>Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="expense-sum">R${current_total}</td>
+            <td></td>
+            <td></td>
+          `;
+        t_row.style.fontWeight = "bold";
+        t_row.style.height = "20px"; 
+        trans_list.appendChild(row)
+        trans_list.appendChild(t_row);
         load_balances();
+        addentry()
       }
     })   
 }
 
+//Enable editing in the expense table
+function enable_exp_editing(event){
+  const row = event.target.closest("tr");
+  const row_id=row.id;
+  //Retrieve current data in the cells
+  const description=row.cells[2].innerText;
+  const category=row.cells[3].innerText;
+  const amount=row.cells[4].innerText;
+  const status=row.cells[5].innerHTML;
+  row.cells[2].innerHTML=`<input class="input-field"  type="text" maxlength="30" value="${description}">
+  `;
+  row.cells[3].innerHTML=` <select class="input-field" name="Category">
+                            <option value="none">Select</option>
+                            <option value="Groceries"> Groceries</option>
+                            <option value="Entertainment"> Entertainment</option>
+                            <option value="Transport"> Transport</option>
+                            <option value="Emergency"> Emergency</option>
+                            <option value="Taxes">Taxes</option>
+                            <option value="Rent">Rent</option>
+                            <option value="Travel"> Travel</option>
+                            <option value="Personal care"> Personal care</option>
+                            <option value="Health care">Health care</option>
+                            <option value="Clothing & Accessories">Clothing & Accessories</option>
+                            <option value="Other">Other</option>
+                          </select>
+  `;
+  row.cells[3].querySelector("select").value = category;
+  row.cells[4].innerHTML=` <input class="input-field"  type="text" maxlength="7" value="${amount}">`;
+  row.cells[5].innerHTML=`Paid ?<input  type="checkbox">`
+  if(status=="Paid"){
+    row.cells[5].innerHTML=`Paid ?<input  type="checkbox"  checked>`
+  }
+  else{
+    row.cells[5].innerHTML=`Paid ?<input  type="checkbox">`
+  }
+  row.cells[6].innerHTML=`<button onclick="update_exp(event)" >Save</button>`;
+}
+
 function add_expense_to_the_list(id,expense_entry){
+
         //Create an expense card and add it to the expsenses list
         const entry=document.createElement("div");
         entry.id=id+"";
@@ -238,10 +318,9 @@ function add_expense_to_the_list(id,expense_entry){
       document.getElementById('C-exp-card').classList.replace("create-expense-card","create-expense-card1");
 
 }
-function delete_expense_entry(e){
-         const selected_exp=e.target.closest(".expense-card");
+function delete_expense_entry(event){
+         const selected_exp=event.target.closest("tr");
          const confirmed = confirm("Are you sure you want to delete this expense?");
-
          //confirm first if a user wants to delete an expense 
          if (!confirmed){
           return 
@@ -251,7 +330,7 @@ function delete_expense_entry(e){
              method:"POST",
              headers:{"Content-Type":"application/json"},
              body:JSON.stringify({
-               id:selected_exp.id})
+               id:selected_exp.id.replace("exp_row-", "")})
             })
            .then(res=>{
               if(!res.ok){
@@ -263,11 +342,9 @@ function delete_expense_entry(e){
               
             })
            .then(res=>{
-              console.log(res)
              if(res.response){
-               expense_list.removeChild(document.getElementById(selected_exp.id));
-               window.alert("Expense id="+selected_exp.id+" has been deleted");
-               load_balances();
+              selected_exp.remove();
+              load_balances();
              }
              else{
                window.alert("expense not deleted");
@@ -275,6 +352,7 @@ function delete_expense_entry(e){
             })
            .catch(err=>{
               alert(err); 
+              console.log(err)
             })
   
         } 
@@ -284,45 +362,40 @@ function delete_expense_entry(e){
         }
 }
 
-function update_exp(){
-
-     let updated_expense={
-      expense_id:"",
+function update_exp(event){
+    const row=event.target.closest("tr");
+    let updated_expense={
+      expense_id:row.id.replace("exp_row-",""),
       description:"",
       category:"",
       amount:0.00,
       status:0
      }
-    //get an element  parent's 1
-    let update_id=document.getElementById("expense-edit-id").innerHTML;
-    updated_expense.expense_id=update_id;
-    
     //get the updated values
-     if(String(document.getElementById("exp-des-edit").value).length>=1){
-      updated_expense.description=document.getElementById("exp-des-edit").value;;     
-    }
-    else{
-      alert("Description can not be empty!")
+    const description=row.cells[2].querySelector("input");
+    if(description.value.length<3){
+      alert("Description too short")
       return;
     }
-    
-    if(document.getElementById("category-input-edit").value!="none"){
-      updated_expense.category=document.getElementById("category-input-edit").value;
+    updated_expense.description=description.value;
+    const category=row.cells[3].querySelector("select");
+    if(category.value!="none"){
+      updated_expense.category=category.value;
     }
     else{
       alert("Please select an option!")
       return;
     }
-  
-    if(isNaN(Number(String(document.getElementById("exp-amount-edt").value))) || document.getElementById("exp-amount-edt").value==""){
+    const amount=row.cells[4].querySelector("input");
+    if(isNaN(Number(String(amount.value))) || amount.value=="" || amount.value<1){
       alert("Enter a valid number");
       return;
     }
-    updated_expense.amount=Number(String(document.getElementById("exp-amount-edt").value));
-
-    if(document.getElementById("edit-exp-checkbox").checked){
+    updated_expense.amount=amount.value;
+    const status=row.cells[5].querySelector("input");
+    if(status.checked){
         updated_expense.status=1;
-        document.getElementById("edit-exp-checkbox").checked=false;  
+        status.checked=false;  
     }
 
     try {
@@ -342,24 +415,28 @@ function update_exp(){
       .then(data=>{
 
         if(data.response){
+
           //update description
-          document.getElementById("exp-des-edit").value="";
-          document.getElementById(update_id+"-description").textContent=updated_expense.description;
+          description.value="";
+          row.cells[2].innerHTML=updated_expense.description;
 
           //updtate category
-          document.getElementById("category-input-edit").value="";
-          document.getElementById(update_id+"-category").textContent=updated_expense.category;
+          category.value="";
+          row.cells[3].innerHTML=updated_expense.category;
 
           //update amount
           document.getElementById("exp-amount-edt").value="";
-          document.getElementById(update_id+"-amount").textContent=updated_expense.amount;
+          row.cells[4].innerHTML=updated_expense.amount;
           
           if(updated_expense.status==1){
-              document.getElementById("edit-exp-checkbox").checked=false;
-              document.getElementById(update_id+"-status").innerHTML="Paid"; 
+              row.cells[5].innerHTML=`Paid`; 
+          }else{
+            row.cells[5].innerHTML="Not paid"
           }
+          row.cells[6].innerHTML=`<button onclick="enable_exp_editing(event)" > Edit </button> 
+                                  <button onclick="delete_expense_entry(event)" > Delete </button>
+                                `
           load_balances();
-          document.getElementById("edit_exp").classList.replace("edit-expense1","edit-expense");
         }
         else{
           alert("DB_ERR:update exp");
@@ -379,8 +456,15 @@ function cancel_update(){
 
 
 //Income section
-const income_list=document.getElementById("income-list");
-function submit_income(){
+  function submit_income(){
+    if(document.getElementById("income-amount").value=="" || isNaN(Number(document.getElementById("income-amount").value))){
+      alert("Enter a valid amount");
+      return;
+    }
+    if(document.getElementById("income-category-input").value=="none"){
+      alert("Please select a category");
+      return;
+    }
     const income_entry={
       category:document.getElementById("income-category-input").value,
       amount:document.getElementById("income-amount").value,
@@ -403,48 +487,40 @@ function submit_income(){
             })
             .then(res=>{
               if(res.response){//entry added to the Database successfully
+                let current_total=0;
+                if(document.getElementById("income_table_total")){
+                  current_total=document.getElementById("income_table_total").cells[3].innerHTML.substring(1);
+                  document.getElementById("income_table_total").remove()
+                  current_total=Number(current_total)+Number(income_entry.amount);
+                }
+                
+                const id=res.id;
+                const trans_list=document.getElementById("income-trans")
+                const row=document.createElement("tr");
+                row.id="income_row-"+id;
+                row.innerHTML=`
+                    <td>${id}</td>
+                    <td>date</td>
+                    <td>${income_entry.category}</td>
+                    <td>${income_entry.amount}</td>
+                    <td></td>
+                  `;
+                row.cells[4].innerHTML=`<button onclick="enable_income_editing(event)"> edit </button> <button onclick="delete_income(event)"> Delete</button> `
+                const t_row=document.createElement("tr");
+                t_row.id="income_table_total";
+                t_row.innerHTML=`
+                    <td>Total</td>
+                    <td></td>
+                    <td></td>
+                    <td id="expense-sum">R${current_total}</td>
+                    <td></td>
+                  `;
+                t_row.style.fontWeight = "bold";
+                t_row.style.height = "20px"; 
+                trans_list.appendChild(row)
+                trans_list.appendChild(t_row);
                 load_balances();
-                 
-                 //Create an income card and add it to the income list
-                 const entry=document.createElement("div");
-                 alert(res.id);
-                 entry.id=res.id+"";
-    
-                 const inc_=document.createElement("label");
-                 inc_.textContent=res.id;
-                 entry.appendChild(inc_);
-
-                 const income_cate=document.createElement("label");
-                 income_cate.textContent=income_entry.category;
-                 income_cate.id=res.id+"-category";
-                 entry.appendChild(income_cate);
-   
-                 const income_amount=document.createElement("label");
-                 income_amount.textContent=income_entry.amount;
-                 income_amount.id=res.id+"-amount";
-                 entry.appendChild(income_amount);
-                 //delete income button
-                 const income_button=document.createElement("button");
-                 income_button.textContent="Delete";
-                 income_button.addEventListener("click",delete_income);
-
-                 //Edit button
-                 const edit_buttonn=document.createElement("button");
-                 edit_buttonn.textContent="edit";
-                 edit_buttonn.addEventListener("click", function(e){
-                      //get the id of income to be edited
-                      const parent_element=e.target.closest(".income-card");
-                      const edit_id=parent_element.id;
-                      document.getElementById("income-edit-id").textContent=edit_id+"";
-                      document.getElementById("income_edit").classList.replace("edit-income","edit-income1")     
-                  });
-                  const lab=document.createElement("label");
-                  lab.appendChild(edit_buttonn);
-                  lab.appendChild(income_button);
-                  lab.className="lab"
-                  entry.appendChild(lab);
-                  income_list.appendChild(entry);
-                  entry.className="income-card";
+                addentry1()
                 }
               else{
                  alert("entry not added")
@@ -457,8 +533,8 @@ function submit_income(){
 }
 
 //delete income entry
-function delete_income(e){
-    const selected_income=e.target.closest(".income-card");
+function delete_income(event){
+    const selected_income=event.target.closest("tr");
     const confirmed = confirm("Are you sure you want to delete this income entry?"+selected_income.id);
     if(confirmed){
     try {
@@ -466,7 +542,7 @@ function delete_income(e){
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
-          id:selected_income.id
+          id:selected_income.id.replace("income_row-","")
         })
       }).then(res=>{
         if(!res.ok){
@@ -478,14 +554,14 @@ function delete_income(e){
       }).then(res=>{
 
         if(res.response){
-          income_list.removeChild(document.getElementById(selected_income.id));
+          selected_income.remove();
           load_balances();
         }else{
               window.alert("Income entry not deleted");
           }
       })
     } catch (error) {
-      throw new err("Expense not deleted");
+      throw new error("income not deleted");
       
     }
     }
@@ -494,7 +570,6 @@ function delete_income(e){
   }
 
 }
-
 //Load existing income entries
 function load_income(){
   const id=user_info.id;
@@ -512,21 +587,41 @@ function load_income(){
       throw new Error("Invalid data format:income entries couldn't load");
     }
     let total=0;
+    const trans_list=document.getElementById("income-trans")
     data.forEach(el=>{
-      const trans_list=document.getElementById("income-trans")
+        const edit=document.createElement("button");
+        edit.innerHTML="edit";
+        edit.addEventListener("click", enable_income_editing)
+        const delete_btn=document.createElement("button");
+        delete_btn.innerHTML="Delete";
+        delete_btn.addEventListener("click",delete_income)
         const row=document.createElement("tr");
-        row.id=el.income_id;
+        row.id="income_row-"+el.income_id;
         //edit.addEventListener("click",enable_editing)
         row.innerHTML=`
             <td>${el.income_id}</td>
             <td>${el.date.substring(0,10)}</td> 
             <td>${el.category}</td>
             <td>${el.amount}</td>
+            <td></td>
           `;
+        row.cells[row.cells.length - 1].appendChild(edit);
+        row.cells[row.cells.length - 1].appendChild(delete_btn);
         trans_list.appendChild(row);
-      add_income_to_the_list(el);
-      total+=Number(el.amount)
+        total+=Number(el.amount)
     })
+    const row=document.createElement("tr");
+    row.id="income_table_total";
+    row.innerHTML=`
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td id="income-sum">R${total}</td>
+        <td></td>
+      `;
+    row.style.fontWeight = "bold";
+    row.style.height = "20px";   
+    trans_list.appendChild(row);
     load_balances();
   })
 }
@@ -587,33 +682,34 @@ function addentry1(){
     }
 }
 
-function update_income(){
-
-    //get the selected income's ID
-    let update_id=document.getElementById("income-edit-id").innerHTML;
+function update_income(event){
+    const row=event.target.closest("tr");
+    const update_id=row.id;
     if(update_id==""){
       alert("Err_Id");
       return;
     }
 
-    //Ensure user selects a category
-    const new_cate=document.getElementById("income-category-edit").value;
-    if(new_cate=="none"){
-      alert("Plese select a category");
+    //get the updated values
+    const category=row.cells[2].querySelector("select");
+    let new_cate=category.value;
+    if(category.value!="none"){
+      new_cate=category.value;
+    }
+    else{
+      alert("Please select an option!")
       return;
     }
-
-    //Ensure user enters a valid amount 
-    const amount_entered=String(document.getElementById("income-amount-edit").value);
-    if( amount_entered.length<1 || isNaN(Number(amount_entered)) || amount_entered<1){
-      alert("Enter a valid non-negative number");
+    const amount=row.cells[3].querySelector("input");
+    if(isNaN(Number(String(amount.value))) || amount.value=="" || amount.value<1){
+      alert("Enter a valid number");
       return;
     }
-
+  
     try {
-      let data={ income_id:update_id,
+      let data={ income_id:update_id.replace("income_row-",""),
         category:new_cate,
-        amount:amount_entered
+        amount:amount.value
       }
       fetch("http://localhost:3000/api/income/update_income",{
         method:"POST",
@@ -631,13 +727,14 @@ function update_income(){
       .then(data=>{
         if(data.response){
 
-          //Update the income entries
-          alert(update_id);
-          document.getElementById("income-category-edit").value="";
-          document.getElementById(update_id+"-category").textContent=new_cate;
-          document.getElementById("income-amount-edit").value="";
-          document.getElementById(update_id+"-amount").textContent=amount_entered;
-          document.getElementById("income_edit").classList.replace("edit-income1","edit-income");
+          //updtate category
+          category.value="";
+          row.cells[2].innerHTML=new_cate;
+          //update amount
+          document.getElementById("exp-amount-edt").value="";
+          row.cells[3].innerHTML=amount.value;
+          row.cells[4].innerHTML=`<button onclick="enable_income_editing(event)"> Edit </button>  <button onclick="delete_income(event)" >Delete</button>`
+          load_balances();
         }
       })
       
@@ -647,18 +744,32 @@ function update_income(){
     }
     
 }
+function enable_income_editing(event){
+  const row = event.target.closest("tr");
+  //Retrieve current data in the cells
+  const category=row.cells[2].innerText;
+  const amount=row.cells[3].innerText;
+  row.cells[2].innerHTML=` <select class="input-field" name="Category">
+                            <option value="none">Select an option</option>
+                            <option value="Salary"> Salary</option>
+                            <option value="Investments">Investments</option>
+                            <option value="Donations">Donations</option>
+                            <option value="other">Other</option>
+                          </select>
+  `;
+  row.cells[2].querySelector("select").value = category;
+  row.cells[3].innerHTML=` <input class="input-field"  type="text" maxlength="7" value="${amount}">`
+  row.cells[4].innerHTML=`<button onclick="update_income(event)" >Save</button>`;
+}
 function cancel_update1(){
     document.getElementById("income_edit").classList.replace("edit-income1","edit-income");
 }
-
-//Overview
 
 function load_balances(){
   const balace_button=document.getElementById("current-balance");
   const welcome_btn=document.getElementById("welcome-msg");
   const income_btn=document.getElementById("total-income");
   const  expense_btn=document.getElementById("total-expenses");
-  console.log(user_info.id);
   try {
     fetch("http://localhost:3000/api/summary/load_balances", {
       method:"POST",
@@ -676,8 +787,8 @@ function load_balances(){
         balace_button.innerHTML="Balance: R"+data.balance;
         income_btn.innerHTML="Total Income: R" + data.income;
         expense_btn.innerHTML="Total Expenses: R"+data.expenses;
-        document.getElementById("expense-sum").innerHTML=""+data.expenses;
-        document.getElementById("income-sum").innerHTML="" +data.income;
+        document.getElementById("expense-sum").innerHTML="R"+data.expenses;
+        document.getElementById("income-sum").innerHTML="R" +data.income;
       }
       else{
         alert("Summary not loaded!")
@@ -693,7 +804,7 @@ function load_balances(){
 
 function recent_transactions(id){
   try {
-    fetch("http://localhost:3000/api/summary/resent_trans",{
+    fetch("http://localhost:3000/api/summary/recent_trans",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({user_id:id})
@@ -706,6 +817,7 @@ function recent_transactions(id){
     })
     .then(data=>{
       if(data.response){
+
         data.recent_transactions.forEach(entry=>{
           const trans_list=document.getElementById("recents-trans")
           const row=document.createElement("tr");

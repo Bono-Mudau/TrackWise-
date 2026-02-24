@@ -1,10 +1,9 @@
-const e = require("express");
+
 const db = require("../config/db_config");
 
 const load_balances= async (req,res)=>{
 
     const {user_id}=req.body;
-    console.log("Received user_id:", user_id);
     if (!user_id) {
         return res.status(400).json({ response: false, reason: "No user_id provided" });
     }
@@ -14,7 +13,6 @@ const load_balances= async (req,res)=>{
             console.error("DB query error:", errr);
             return res.status(500).json({response:false})
         }
-        console.log(ans[0])
         return res.json({
             response:true,
             income:ans[0].total_income,
@@ -39,8 +37,6 @@ const recent_trans = async (req,res)=>{
             console.log(err);
             return res.status(500).json({response:false , reason:"DB_err"})
         }
-        console.log("Fetching recent transactions for user_id:", user_id);
-        console.log(rows)
         return res.json({
             response:true,
             recent_transactions:rows})

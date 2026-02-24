@@ -33,6 +33,9 @@ const delete_expense=async (req,res)=>{
             console.log("did not delete")
             return res.status(500).json({response:false});
         }
+        if (results.affectedRows === 0) {
+            return res.json({ response: false });
+        }
         return res.json({response:true})
      })
 };

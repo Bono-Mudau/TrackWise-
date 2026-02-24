@@ -21,16 +21,6 @@
         <!-- menu options -->
          
         <div id="menu-options" class="menu_class">
-            <!--
-            <button onclick="overview()" class="options">Overview</button>
-            <button onclick="expense()"  class="options">Expenses</button>
-            <button onclick="income()"   class="options">Income</button>
-            <button class="options" >Trasaction</button>
-            <button class="options" >Summary</button>
-            <button class="options" >Reminders</button>
-            <button class="options" >Export data</button>
-            <button class="options" id="log-out" onclick="log_out()" >Log out</button>
-            -->
             <table class="sidebar">
                 <thead>
                 </thead>
@@ -42,6 +32,7 @@
                     <tr><td> <button class="options" >Summary</button></td></tr>
                     <tr><td> <button class="options" ><i class="fas fa-bell"></i>Reminders</button></td></tr>
                     <tr><td><button class="options" >Export data</button></td></tr>
+                    <td><button class="options" id="log-out" onclick="log_out()" >Log out</button></td>
                 </tbody>
 
             </table>
@@ -58,7 +49,7 @@
                     </div>
                 </div>
                     <div  class="resent_trans">
-                        <h4 id="recent-heading">Recent transactions</h4>
+                        <h4 class="recent-heading">Recent transactions</h4>
                         <table id="trans-table">
                             <thead>
                                 <tr>
@@ -78,10 +69,9 @@
             </div>
             <!--EXPENSES SECTION -->
             <div id="expense-section">
-                <div id="expense-entry"> <!-- Expense entry card --> 
+                <div id="expense-entry"><!-- Expense entry card --> 
                    <h4>June 2025</h4>
                 </div>
-                
                 <div id="expense" class="expense">
 
                     <div id="add-expense">
@@ -89,7 +79,6 @@
                        <button  class="add-entry" onclick="addentry()">+</button>
                     </div>
                     <div  class="exp_trans">
-                        <h4 id="recent-heading">Expense List</h4>
                         <table id="expense-table" >
                             <thead>
                                 <tr>
@@ -106,32 +95,7 @@
                             </tbody>
                         </table>
                     </div>
-                   <div id="expenses-label">
-                       <label >Id</label>
-                       <label >Date</label>
-                       <label >Description</label>
-                       <label >Category</label>
-                       <label >Amount (R)</label>
-                       <label >Status</label>
-                       <label ></label>
-                    </div>
-                    <hr style="border: 1px solid black;">
 
-                    <!-- displays the list of all expenses-->
-                    <div id="expenses-list">
-        
-                    </div>
-
-                    <!-- The sum of all expenses -->
-                    <div class="totals">
-                      <label > Total: </label>
-                      <label ></label>
-                      <label ></label>
-                      <label ></label>
-                      <label id="expense-sum"> R5000</label>
-                      <label ></label> 
-                      <label ></label>
-                    </div>
                     <!-- option to add a new expense entry -->
                     <div id="C-exp-card" class="create-expense-card1">
                         <input class="input-field" id="description-input" type="text" maxlength="30" placeholder="Write a short expense description">
@@ -185,7 +149,6 @@
                     <button  class="add-entry" onclick="addentry1()">+</button>
                 </div>
                 <div  class="income_trans">
-                        <h4 id="income-heading">Expense List</h4>
                         <table id="income-table" >
                             <thead>
                                 <tr>
@@ -193,39 +156,14 @@
                                     <th>Date</th>
                                     <th>Category</th>
                                     <th>Amount (R)</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody id="income-trans">    
                             </tbody>
                         </table>
                 </div>
-                <div id="income-label">
-                    <label >Id</label>
-                    <label >Category</label>
-                    <label >Amount (R)</label>
-                    <label ></label>
-                </div>
-                <hr style="border: 1px solid black;">
-                <!-- displays the list of all expenses-->
-                <div id="income-list">
-                </div>
-
-               <!-- income card  which will be created using js
-                <div class="expense-card">
-                    <label >001</label>
-                    <label >Sakary</label>
-                    <label>R450</label>
-                    <label ><button>Edit</button> <button>Edit</button> </label>
-                </div>
-
-                -->
-                <!-- The sum of all income -->
-                 <div class="totals">
-                    <label >Total: </label>
-                    <label ></label>
-                    <label id="income-sum"> R0.00</label>  
-                    <label ></label>
-                </div>
+              
                 <!-- option to add a new income entry -->
                 <div id="C-income-card" class="create-income-card1">
                    <select class="input-field" name="Category" id="income-category-input">

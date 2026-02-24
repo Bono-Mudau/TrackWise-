@@ -145,9 +145,9 @@ body {
     flex-direction: row;
     height: fit-content;
 }
-#recent-heading{
+.recent-heading{
     font-size: larger;
-    color: #387de6;
+    color: #21252c;
     text-decoration: underline solid rgb(65, 58, 105);
     min-height: fit-content;
     margin:20px  5px;
@@ -207,8 +207,8 @@ body {
 /* expense table */
 
 #expense-table {
-  width: 80%;
-  margin: 0px auto;
+  width: 90%;
+  margin: 20px auto;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -244,8 +244,8 @@ body {
 
 /* Income table  */
 #income-table {
-  width: 80%;
-  margin: 0px auto;
+  width: 90%;
+  margin: 20px auto;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -332,16 +332,20 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 30px;
+    min-height: 50px;
+    border-bottom: 1.5px solid black;
 }
 
 #expense-month{
     font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .add-entry{
     height:90%;
     width:30px;
     font-size: x-large;
+    align-content: center;
+    
 }
 #expenses-label{
     margin-left: 5px;
@@ -381,13 +385,19 @@ body {
     display: none;
 }
 .create-expense-card{
-    min-height:50px;
+    min-height:60px;
     display:flex;
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
-    margin-left: 2px;
-    border: 1px solid black;
+    border: 1px solid rgb(4, 47, 110);
+    border-radius: 5px;
+    position: fixed;
+    background-color: #3f3cd4;
+    top: 30%;
+    left: 30%;
+    z-index: 500;
+    gap: 2px;
 }
 #description-input{
     width: 50%;
@@ -483,11 +493,14 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 30px;
+    min-height: 50px;
+    border-bottom: 1.5px solid black;
+
 }
 
 #income-month{
     font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .add-entry{
