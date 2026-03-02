@@ -1,7 +1,7 @@
 # Node modules (client and server)
 client/node_modules/
 Server/node_modules/
-
+node_modules/
 # Environment variables
 Server/.env
 

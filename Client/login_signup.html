@@ -13,30 +13,37 @@
             <h2>SIGN UP</h2>
         </div>
         <div id="input-fields">
-            <label>
-                <label for="First Name">Names</label>
-                <input type="text" name="First Name" id="f-name" required>
-            </label>
-            
-            <label>
-                <label for="email"> Email</label>
-                <input type="email" name="email" id="email" required>
-            </label>
-            <label >
-                <label for="password"> Create Password</label>
-                <input type="password" name="password" id="password" required>
-            </label>
-            <label>
-                <label for="c-password">Confirm Password</label>
-                <input type="password" name="c-password" id="c-password" required>
-            </label>
-            <button id="sign-up"  onclick="sign_up()"> SIGN UP</button>
+
+            <label for="First Name">Names</label>
+            <input type="text" name="First Name" id="f-name" required>
+        
+            <label for="email"> Email</label>
+            <input type="email" name="email" id="email" required>
+        
+            <label for="password"> Create Password</label>
+            <input type="password" name="password" id="password" required >
+    
+            <label for="c-password">Confirm Password</label>
+            <input type="password" name="c-password" id="c-password" required>
+            <ul>
+                <li id="password_length">Password should be atleast 8 characters long</li>
+                <li id="password_contain_digit">Password should contain atleast one digit</li>
+                <li id="password_contains_s_char">Password should contain atleast one special character</li>  
+            </ul>
+
+            <button id="sign-up"  onclick="validate_user_information()"> SIGN UP</button>
             <label>
                 <a href="#" >Forgot password</a>
             </label>
             <label>
                 <p>Already have an account? <button id="login-signup_toggle" onclick="log_sign_toogle()" > Login</button> </p> 
             </label>
+        </div>
+        <div class="otp_prompt1" id="otp_prompt">
+            <label for="OTP" id="otp_label"> Enter a six-digit OTP</label>
+            <input type="text" name="OTP" id="OTP" placeholder="OTP">
+            <button id="submit_otp" onclick="sign_up()">Verify</button>
+
         </div>
         
     </div>
@@ -48,14 +55,14 @@
           </div>
           <div id="input-fields">
             <label>
-                <label for="email1"> Email</label>
+                <label for="email1"> Username</label>
                 <input type="email" name="email1" id="email1">
             </label>
             <label >
                 <label for="e-password">Password</label>
-                <input type="password" name="e-password" id="e-password">
+                <input type="password" name="e-password" id="e-password" >
             </label>
-            <button id="log-in" onclick="login()">LOGIN</button>
+            <button id="losg-in" onclick="login()">LOGIN</button>
             <label>
                 <a href="#" >Forgot password</a>
             </label>

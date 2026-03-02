@@ -7,14 +7,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div id="top-bar">
-        <label id="logo">TrackWise</label>
-        <button id="user-initials">MB</button>
-    </div>
+    
 
     <div id="menu-bar">
-        <button  id="menu" onclick="menu_toogle()">Menu</button>
-        <h2 id="user-names">Mudau Bono</h2>
+        <label id="logo">TrackWise</label>
+        <div id="top-bar">
+            <button id="menu" onclick="menu_toogle()" class="menu-button" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <button id="user-initials">MB</button>
+        </div>
     </div>
 
     <div id="main-frame">
@@ -34,38 +38,49 @@
                     <tr><td><button class="options" >Export data</button></td></tr>
                     <td><button class="options" id="log-out" onclick="log_out()" >Log out</button></td>
                 </tbody>
-
             </table>
         </div>
         <!--Display area -->
         <div  id="display-area">
             <!-- OVERVIEW  SECTION -->
             <div id="overview" class="overview1">
+                <div>
+                    <h1 id="user-names">WELCOME,Mudau Bono</h1>
+                </div>
+                
                 <div id="balance-overview">
                     <div id="summary-card">
-                        <h4 id="current-balance">Current balance: R1800.00</h4>
-                        <h4 id="total-income">Total Income: R5300.00</h4>
-                        <h4 id="total-expenses">Total Expenses: R3500.00</h4>
+                        <div><h4 id="current-balance">Balance: R1800.00</h4></div>
+                        <div><h4 id="total-income"> Income: R5300.00</h4></div>
+                        <div><h4 id="total-expenses"> Expenses: R3500.00</h4></div>
+                    </div>
+                    <div id="graph">
+                        <h1>Thee graph goes here</h1>
+                        
                     </div>
                 </div>
-                    <div  class="resent_trans">
-                        <h4 class="recent-heading">Recent transactions</h4>
-                        <table id="trans-table">
-                            <thead>
-                                <tr>
-                                    <th>Tranasction id</th>
-                                    <th>Date</th>
-                                    <th>Category</th>
-                                    <th>Amount</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recents-trans">
-                                
-                            </tbody>
+                <div id="charts">
 
-                        </table>
                 </div>
+                <div  class="resent_trans">
+                    <h4 class="recent-heading">Recent transactions</h4>
+                    <table id="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Tranasction id</th>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recents-trans">
+                            
+                        </tbody>
+
+                    </table>
+                </div>
+                
             </div>
             <!--EXPENSES SECTION -->
             <div id="expense-section">

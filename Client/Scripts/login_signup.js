@@ -11,6 +11,46 @@ function log_sign_toogle(){
         log.classList.replace("log_in","log_in1");;   
     }
 }
+let password_strength_status=false;
+document.getElementById("otp_prompt");
+function password_strength(event){
+  //Ensure that the user enters strong password 
+   
+  const password = event.target.value;
+  const length=document.getElementById("password_length");
+  const digit=document.getElementById("password_contain_digit");
+  const special_char=document.getElementById("password_contains_s_char");
+  const has_special_chars=/[^a-zA-Z0-9]/;
+
+  if(password.length<8){
+    length.style.color="red";
+  }
+  else{
+    length.style.color="green";
+  }
+
+  if(/\d/.test(password)){
+    digit.style.color="green";
+  }
+  else{
+     digit.style.color="red";
+  }
+  if(has_special_chars.test(password)){
+    special_char.style.color="green";
+  }
+  else{
+     special_char.style.color="red";
+  }
+
+
+  if(password.length>=8 && /\d/.test(password) && has_special_chars.test(password)){
+    password_strength_status=true;
+  }else{
+    password_strength_status=false;
+  }
+}
+const passwordInput = document.getElementById("password");
+passwordInput.addEventListener("input", password_strength);
 
 
 function login(){
@@ -29,16 +69,37 @@ function login(){
   .catch(error=>{
     console.log("error has occured, try again later",error);
   });
-  
+
+}
+function togglePassword(){
+  const password=document.getElementById("e-password");
+  if(password.type=="password"){
+    password.type="text"
+  }
+  else{
+    password.type="password"
+  }
 }
 function verify_details(){
+
+  //ensure user enter login details
+  const username=document.getElementById("email1").value;
+  const password=document.getElementById("e-password").value;
+  if(username=="" || username.length==0){
+    alert("Username can't  be empty!");
+    return;
+  }
+  if(password=="" || password.length==0){
+    alert("Password can't  be empty!");
+    return;
+  }
   
   return fetch("http://localhost:3000/api/auth/login", {
     method:"POST",
     headers:{"Content-type":"application/json"},
     body:JSON.stringify({
-    "email":document.getElementById("email1").value,
-    "password":document.getElementById("e-password").value 
+    "email":username,
+    "password":password 
     })
   })
   .then(res=>res.json())
@@ -51,15 +112,63 @@ function verify_details(){
   });
 }
 
-function sign_up(){
-    if(document.getElementById("f-name").value.trim()==""){
+
+
+async function send_otp(email){
+
+  return fetch("http://localhost:3000/api/auth/send_otp",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      email:email
+    })
+  })
+  .then(res=>{
+
+    if(!res.ok){
+      throw new Error("Error sending an OTP");  
+    }
+    return res.json();
+  })
+  .then(res=>{
+
+    if(res.response){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  .catch(error=>{
+
+      console.log("error sending otp, please try again later",error)
+      return false;
+
+  });  
+}
+
+//To be updated after input validation
+let user_input={
+  names:"",
+  email:"",
+  password:""
+}
+
+async function validate_user_information(){
+
+    //validate user input before sending OTP
+    const f_name=document.getElementById("f-name").value.trim();
+    const email=document.getElementById("email").value.trim();
+
+    if(f_name==""){
         alert("First name can't be empty");
         return;
     }
-    if(document.getElementById("email").value.trim()==""){
+    if(email==""){
         alert("Please enter the email");
         return;
     }
+
     //verify email format
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(document.getElementById("email").value.trim())) {
@@ -67,53 +176,95 @@ function sign_up(){
         return;
     }
 
-    //check enterd password
-    if(document.getElementById("password").value.trim()==""){
-        alert("Please Create password")
-        return
-    }
-    if(document.getElementById("password").value!=document.getElementById("c-password").value){
-        alert("Passwords don't match");
-        return; 
-    }
-    const userdetails={
-        name:document.getElementById("f-name").value,
-        email:document.getElementById("email").value,
-        password:document.getElementById("password").value,
-    };
-    function password_requirements(){
-      const password_input=document.getElementById("")
-      const current_value=password_input.value;
-      let length=current_value.length;
-      if(current_value.length<8){
-        alert()
-      }
-    }
-
-    //Get data entered by the user
-    let names=document.getElementById("f-name").value;
     let password=document.getElementById("password").value;
     let password1=document.getElementById("c-password").value;
-    let email=document.getElementById("email").value;
+
     if(password1!=password){
       alert("Password do not match");
       return;
     }
-    let  userdata={
-      "name":names,
-      "email":email,
-      "password":password 
-    };
+    if(!password_strength_status){
+      alert("Weak password!!")
+      return;
+    }
+    
+    user_input.names=f_name;
+    user_input.email=email;
+    user_input.password=password;
+    document.getElementById("otp_prompt").classList.replace("otp_prompt1","otp_prompt")
+    //send OTP
+
+    const email_sent=await send_otp(email);
+
+    if(email_sent){
+      //Redirect to the OTP page
+
+    }
+}
+
+async function verify_OTP(){
+
+  //validate input
+  const otp_value=document.getElementById("OTP").value.trim();
+  if( !Number(String(otp_value)) ){
+    alert("Enter a valid otp");
+    return;
+  };
+
+  return fetch("http://localhost:3000/api/auth/verify_email",{
+
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      email:user_input.email,
+      otp:otp_value
+    })
+
+  })
+  .then(res=>{
+    if(!res.ok){
+      throw new Error("Error geting verifying an OTP");  
+    }
+    return res.json();
+  })
+  .then(res=>{
+     
+    if(res.response){
+
+      document.getElementById("otp_prompt").classList.replace("otp_prompt","otp_prompt1");
+      return true;
+    }
+    else{
+      return false;
+    }
+   
+  }).catch(error=>{
+      console.log("error verifying, please try again later",error);
+      return false;
+    }); 
+}
+
+async function sign_up(){
+
+    const verified_email=await verify_OTP();
+
+    if(!verified_email){
+      alert("Email could not be verified");
+      return
+    }
     fetch("http://localhost:3000/api/auth/signup", {
         method:"POST",
         headers:{
           "Content-type": "application/json"
         },
-        body:JSON.stringify(userdata)
+        body:JSON.stringify(user_input)
     })
     .then(res=>{
+
       if(!res.ok){
+
         throw new Error("Error has occured,  try again later");
+
       }
       else{
         return res.json();

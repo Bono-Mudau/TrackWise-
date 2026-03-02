@@ -457,18 +457,21 @@ function cancel_update(){
 
 //Income section
   function submit_income(){
-    if(document.getElementById("income-amount").value=="" || isNaN(Number(document.getElementById("income-amount").value))){
-      alert("Enter a valid amount");
-      return;
-    }
+    
     if(document.getElementById("income-category-input").value=="none"){
       alert("Please select a category");
       return;
     }
+    if(document.getElementById("income-amount").value=="" || isNaN(Number(document.getElementById("income-amount").value))){
+      alert("Enter a valid amount");
+      return;
+    }
     const income_entry={
       category:document.getElementById("income-category-input").value,
-      amount:document.getElementById("income-amount").value,
+      amount:document.getElementById("income-amount").value
     }
+    document.getElementById("income-category-input").value="";
+    document.getElementById("income-amount").value="";
     try {
             fetch("http://localhost:3000/api/income/new_income",{
               method:"POST",
@@ -500,7 +503,7 @@ function cancel_update(){
                 row.id="income_row-"+id;
                 row.innerHTML=`
                     <td>${id}</td>
-                    <td>date</td>
+                    <td>${getdate()}</td>
                     <td>${income_entry.category}</td>
                     <td>${income_entry.amount}</td>
                     <td></td>
@@ -520,7 +523,6 @@ function cancel_update(){
                 trans_list.appendChild(row)
                 trans_list.appendChild(t_row);
                 load_balances();
-                addentry1()
                 }
               else{
                  alert("entry not added")
@@ -784,9 +786,9 @@ function load_balances(){
     })
     .then(data=>{
       if(data.response){
-        balace_button.innerHTML="Balance: R"+data.balance;
-        income_btn.innerHTML="Total Income: R" + data.income;
-        expense_btn.innerHTML="Total Expenses: R"+data.expenses;
+        balace_button.innerHTML="Balance: R  "+data.balance;
+        income_btn.innerHTML="Income: R  " + data.income;
+        expense_btn.innerHTML="Expenses: R  "+data.expenses;
         document.getElementById("expense-sum").innerHTML="R"+data.expenses;
         document.getElementById("income-sum").innerHTML="R" +data.income;
       }

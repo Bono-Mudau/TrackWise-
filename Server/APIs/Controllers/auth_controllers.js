@@ -1,9 +1,11 @@
 const db = require("../config/db_config");
 const bcrypt = require("bcrypt");
-
+const {sendEmail}=require("../services/mail/mailer");
+const {accountCreatedTemplate,otpTemplate}=require("../services/mail/mail_templates");
+const {generate_OTP}=require("../services/mail/otp");
 
 const signup=async (req,res)=>{
-    const {name,email,password} =req.body;
+    const {names,email,password} =req.body;
     //Check if the email is already used for a different account
     db.query("Select * from users where email=?",[email],async (err,rows)=>{
         if(rows.length>0){
@@ -16,17 +18,23 @@ const signup=async (req,res)=>{
         //Hash password using bcrypt before sending it to the database
         try {
             const hashed_password= await bcrypt.hash(password,10);
-            db.query("insert into users (name,email,password) values(?,?,?)",[name,email,hashed_password], (err,results)=>{
-                if(err){
-                    return res.json({ 
-                        user:false,
-                        reason:"Unable to create an account, please try again later"
-                    });
+            db.query("insert into users (name,email,password) values(?,?,?)",[names,email,hashed_password],  async(err,results)=>{
+            if(err){
+                return res.json({ 
+                    user:false,
+                    reason:"Unable to create an account, please try again later"
+                });
             }else{
                 const id=results.insertId;
                 db.query("insert into overview (user_id) values(?)",[id],async (er, ans)=>{
                 })
+                try {
+                    await sendEmail({to:email,subject:"Account created",hml:accountCreatedTemplate(names)});
+                } catch (error) {
+                    
+                }
                 return res.json({user:true});
+                
             }
         });    
         } catch (error) {
@@ -36,6 +44,8 @@ const signup=async (req,res)=>{
         }
     });
 }
+
+
 const login=async (req,res)=>{
     const {email,password}=req.body;
     db.query("select user_id,name,password from users where email=?",[email],async (err, results)=>{
@@ -58,8 +68,7 @@ const login=async (req,res)=>{
                 else{
                     return res.json({user:false , reason:"Incorrect login credentials"})
                 } 
-            } catch (error) {
-                
+            } catch (error) {               
                 
             }
         }  
@@ -70,8 +79,70 @@ const login=async (req,res)=>{
     });
 }
 
+
+const send_otp=async (req,res)=>{
+
+    const {email}=req.body;
+
+    const otp=generate_OTP();
+    const html=otpTemplate(otp);
+    const subject="OTP";
+    const expiry_time = new Date(Date.now() + 5 * 60 * 1000);
+
+    db.query("DELETE FROM OTP WHERE email = ?", [email],async (deleteErr,results)=>{
+
+        if (deleteErr) {
+                console.error(deleteErr);
+                return res.status(500).json({ response: false });
+            }
+        db.query("insert  into OTP (email,otp,expiry_time) values (?,?,?) ",[email,otp,expiry_time],async (err,row)=>{
+
+            if(err){
+                return res.status(500).json({response:false});
+            }
+            try {
+
+                await sendEmail({to:email,subject,html});
+                return res.json({response:true})
+             
+            } 
+            catch (error) {
+
+                return res.json({response:false})
+                
+            }
+        })     
+    });
+
+    
+}
+const verify_email=async (req,res)=>{
+    const {email,otp}=req.body;
+    console.log(email+":"+otp);
+    const sql="select otp,expiry_time from OTP where email=? and otp=?";
+    db.query(sql,[email,otp],async (err,row)=>{
+        if(err){
+           return  res.status(500).json({response:false, reason:"DB_RR"});
+        }
+        else{
+            if(row.length>0 ){
+                //check if the OTP has expired
+                const now=new Date();
+                const expiry_date=new Date(row[0].expiry_time);
+                if(now>expiry_date){
+                    return res.json({response:false , reason:"OTP expired!!"});
+                }
+                return res.json({response:true})
+            }
+            return res.json({response:false,reason: "Incorrect OTP!!"});
+        }
+    })
+};
+
 //export the functions
 module.exports={
+    send_otp,
     login,
-    signup
+    signup,
+    verify_email
 }

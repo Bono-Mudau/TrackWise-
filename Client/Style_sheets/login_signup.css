@@ -75,9 +75,70 @@
     margin-right: 30px;
     align-self: center;
 }
+.password_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 5px;
+ 
+}
+
+.password_container input {          
+    height: 40px;
+    border: none;
+    padding: 0 10px;    
+    box-sizing: border-box;
+}
+
+.toggle-password {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* OTP  */
+.otp_prompt{
+    position: fixed;
+    top: 40%;
+    left:40%;
+    width: 300px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(52, 87, 88);
+    border-radius: 5px;
+}
+.otp_prompt label{
+
+    margin: 10px auto;
+    font-size: x-large;
+}
+.otp_prompt button{
+
+    width: 40%;
+    margin: 10px auto;
+    background-color:rgb(39, 99, 148);
+    border-radius: 5px;
+    border:1px solid black;
+    min-height: 20px;
+
+
+}
+.otp_prompt input{
+  width: 80%;
+  height:30px;
+  margin: 10px auto;
+}
+.otp_prompt1{
+ display:none   
+}
+
 #sign-up:hover{
     background-color: rgb(63, 60, 60);
 }
+
 #login-signup_toggle{
     background-color: white;
     text-decoration: underline;

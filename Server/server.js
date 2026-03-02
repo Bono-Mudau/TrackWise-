@@ -17,11 +17,12 @@ app.use("/api/summary",summary_routes);
 app.get("/", (req, res) => {
     res.sendFile("login_signup.html", { root: path.join(__dirname, "../Client") });
 });
-
 //Start the server
-app.listen(3000,()=>{
+app.listen(3000,"0.0.0.0",()=>{
     console.log("The server is listening on port 3000")
 });
+
+
 
 
 
