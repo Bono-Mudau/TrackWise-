@@ -1,18 +1,19 @@
 
 function log_sign_toogle(){
-    const sign=document.getElementById("sign_up");
-    const log=document.getElementById("log_in");
-    if(sign.classList.contains("sign_up")){
-        sign.classList.replace("sign_up","sign_up1");
-        log.classList.replace("log_in1","log_in");
+    const sign=document.getElementById("signup_form");
+    const log=document.getElementById("login_form");
+    if(sign.classList.contains("signup_form")){
+        sign.classList.replace("signup_form","signup_form1");
+        log.classList.replace("login_form1","login_form");
     }
     else{
-        sign.classList.replace("sign_up1","sign_up");
-        log.classList.replace("log_in","log_in1");;   
+        sign.classList.replace("signup_form1","signup_form");
+        log.classList.replace("login_form","login_form1");;   
     }
 }
+
 let password_strength_status=false;
-document.getElementById("otp_prompt");
+
 function password_strength(event){
   //Ensure that the user enters strong password 
    
@@ -33,7 +34,7 @@ function password_strength(event){
     digit.style.color="green";
   }
   else{
-     digit.style.color="red";
+    digit.style.color="red";
   }
   if(has_special_chars.test(password)){
     special_char.style.color="green";
@@ -42,12 +43,13 @@ function password_strength(event){
      special_char.style.color="red";
   }
 
-
   if(password.length>=8 && /\d/.test(password) && has_special_chars.test(password)){
     password_strength_status=true;
-  }else{
+  }
+  else{
     password_strength_status=false;
   }
+
 }
 const passwordInput = document.getElementById("password");
 passwordInput.addEventListener("input", password_strength);
@@ -58,7 +60,6 @@ function login(){
   .then(verify_user=>{
     if(verify_user.user){
       localStorage.setItem("id",verify_user.id);
-      console.log("user id is "+verify_user.id)
       localStorage.setItem("names",verify_user.name);
       window.location.href="dashboard.html";
     }
@@ -80,23 +81,20 @@ function togglePassword(){
     password.type="password"
   }
 }
-function verify_details(){
+async function verify_details(){
 
   //ensure user enter login details
   const username=document.getElementById("email1").value;
   const password=document.getElementById("e-password").value;
-  if(username=="" || username.length==0){
-    alert("Username can't  be empty!");
+
+  if(username=="" || password==""){
+    alert("Please fill all the fields");
     return;
   }
-  if(password=="" || password.length==0){
-    alert("Password can't  be empty!");
-    return;
-  }
-  
+ 
   return fetch("http://localhost:3000/api/auth/login", {
     method:"POST",
-    headers:{"Content-type":"application/json"},
+    headers:{"Content-Type":"application/json"},
     body:JSON.stringify({
     "email":username,
     "password":password 
@@ -110,8 +108,8 @@ function verify_details(){
     console.log("error occurred, try agin later",error);
      return false;
   });
+  
 }
-
 
 
 async function send_otp(email){
@@ -161,13 +159,17 @@ async function validate_user_information(){
     const email=document.getElementById("email").value.trim();
 
     if(f_name==""){
-        alert("First name can't be empty");
-        return;
+
+      alert("Please enter your full names");
+      return;
     }
-    if(email==""){
-        alert("Please enter the email");
-        return;
+
+     if(email==""){
+
+      alert("Eamil can't be empty");
+      return;
     }
+
 
     //verify email format
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -191,33 +193,50 @@ async function validate_user_information(){
     user_input.names=f_name;
     user_input.email=email;
     user_input.password=password;
-    document.getElementById("otp_prompt").classList.replace("otp_prompt1","otp_prompt")
+    document.getElementById("otp_prompt").classList.replace("otp_prompt1","otp_prompt");
+
     //send OTP
-
     const email_sent=await send_otp(email);
-
-    if(email_sent){
-      //Redirect to the OTP page
-
+    if(!email_sent){
+      alert("Error occurred sending an OTP!!")
     }
 }
 
-async function verify_OTP(){
+function redirect_to_recoverpassword_toogle(){
+
+  if(document.getElementById("login_form").classList.contains("login_form")){
+
+    document.getElementById("login_form").classList.replace("login_form","login_form1");
+    document.getElementById("Reset_password_form").classList.replace("Reset_password_form1","Reset_password_form");
+  }
+  else{
+
+    document.getElementById("login_form").classList.replace("login_form1","login_form");
+    document.getElementById("Reset_password_form").classList.replace("Reset_password_form","Reset_password_form1");
+
+  }
+}
+
+async function verify_OTP(email,otp){
 
   //validate input
-  const otp_value=document.getElementById("OTP").value.trim();
-  if( !Number(String(otp_value)) ){
+  
+  if( !Number(String(otp)) ){
     alert("Enter a valid otp");
     return;
   };
+  if(otp.length!=6){
+    alert("OTP should be six digits long!!");
+    return;
+  }
 
   return fetch("http://localhost:3000/api/auth/verify_email",{
 
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({
-      email:user_input.email,
-      otp:otp_value
+      email:email,
+      otp:otp
     })
 
   })
@@ -246,7 +265,9 @@ async function verify_OTP(){
 
 async function sign_up(){
 
-    const verified_email=await verify_OTP();
+    const email=user_input.email;
+    const otp=document.getElementById("OTP").value.trim();
+    const verified_email=await verify_OTP(email,otp);
 
     if(!verified_email){
       alert("Email could not be verified");
@@ -289,4 +310,126 @@ async function sign_up(){
         console.log("error creating an account, please try again later",error)
     ); 
     
+
+ 
 }
+  //step count to control the reset passoword process
+ let step_count=1;
+
+ async function reset_password(){
+
+    const btn=document.getElementById("password_recovery_submit_btn");
+    const email=document.getElementById("account_recovery_email").value.trim();
+
+    if(step_count==1){
+       
+        const otp_sent=await send_otp(email);
+
+        if(otp_sent){
+
+          document.getElementById("account_recovery_email").style.display="none";
+          document.getElementById("account_recovery_otp").style.display="";
+          document.getElementById("Recovery_user_msg").innerText="Enter OTP";
+          btn.innerHTML="Verify OTP";
+          step_count+=1;
+          return;
+        }
+        else{
+          alert("couldn't send OTP, try again later!");
+          return;
+        }
+
+
+    }
+    if(step_count==2){
+
+        const otp=document.getElementById("account_recovery_otp").value.trim();
+        const otp_correct= await verify_OTP(email,otp);
+
+        if(otp_correct){
+ 
+            const passwordInput = document.getElementById("account_recovery_password");
+            passwordInput.addEventListener("input", password_strength);
+            document.getElementById("account_recovery_otp").style.display="none";
+            document.getElementById("password_requirements1").style.display="";
+            document.getElementById("password_requirements").style.display="";
+            document.getElementById("account_recovery_password").style.display="";
+            document.getElementById("account_recovery_c-password").style.display="";
+            document.getElementById("Recovery_user_msg").innerText="Set new password";
+            btn.innerHTML="Change Password";
+            step_count+=1;
+            return;
+        }
+        else{
+
+          alert("Incorrect OTP!!");
+          return;
+        }
+      
+    }
+
+    //step 3: create new password
+    if(step_count==3){
+
+      if(!password_strength_status){
+        alert("Enter a strong password!");
+        return;
+      }
+
+      const password=document.getElementById("account_recovery_password").value.trim();
+      const password1=document.getElementById("account_recovery_password").value.trim();
+
+      if(password!=password1){
+        alert("Password don't match!!")
+        return;
+      }
+      else{
+        const password_updated=await updatepassword(email,password);
+        if(password_updated){
+          alert("password changed successfully");
+          location.reload();
+
+        }
+        else{
+
+          alert("Error occurred, password not changed!");
+          return ;
+        }
+
+      }
+      
+    }
+   
+ }
+ async function updatepassword(email,password) {
+
+    return fetch("http://localhost:3000/api/auth/reset_password", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+        "email":email,
+        "password":password 
+        })
+      })
+      .then(res=>{
+        if(!res.ok){
+          alert("Unable to update password!, Try agin later");
+
+          throw new Error("Unable to update password!, Try agin later");
+
+        }
+        return res.json()
+      })
+      .then(res=>{
+        if(res.response){
+          return true;
+        }
+        return false;
+      })
+      .catch(error=>{
+        console.log("error occurred, try agin later",error);
+        return false;
+      });
+
+  
+ }

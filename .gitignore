@@ -11,7 +11,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Mac / Windows system files
+#  Windows system files
 .DS_Store
 Thumbs.db
 

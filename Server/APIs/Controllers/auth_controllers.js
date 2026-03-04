@@ -1,8 +1,8 @@
 const db = require("../config/db_config");
 const bcrypt = require("bcrypt");
 const {sendEmail}=require("../services/mail/mailer");
-const {accountCreatedTemplate,otpTemplate}=require("../services/mail/mail_templates");
-const {generate_OTP}=require("../services/mail/otp");
+const {accountCreatedTemplate,otpTemplate,ChangedPasswordTemplate}=require("../services/mail/mail_templates");
+const {generate_OTP}=require("../services/mail/otp");;
 
 const signup=async (req,res)=>{
     const {names,email,password} =req.body;
@@ -27,11 +27,10 @@ const signup=async (req,res)=>{
             }else{
                 const id=results.insertId;
                 db.query("insert into overview (user_id) values(?)",[id],async (er, ans)=>{
-                })
+                });
                 try {
-                    await sendEmail({to:email,subject:"Account created",hml:accountCreatedTemplate(names)});
-                } catch (error) {
-                    
+                    await sendEmail({to:email,subject:"Account created",html:accountCreatedTemplate(names)});
+                } catch (error) {     
                 }
                 return res.json({user:true});
                 
@@ -50,7 +49,6 @@ const login=async (req,res)=>{
     const {email,password}=req.body;
     db.query("select user_id,name,password from users where email=?",[email],async (err, results)=>{
         if(err){
-              console.error("Database query error:", err);
             console.log("Error occured while verifying the user")
             return res.status(500).json({user:false, reason:"Error logging in, try again later"}) ;
         }
@@ -113,36 +111,78 @@ const send_otp=async (req,res)=>{
             }
         })     
     });
-
-    
+  
 }
 const verify_email=async (req,res)=>{
+
     const {email,otp}=req.body;
-    console.log(email+":"+otp);
+    console.log(email+":"+otp)
     const sql="select otp,expiry_time from OTP where email=? and otp=?";
+
     db.query(sql,[email,otp],async (err,row)=>{
+
+
         if(err){
+
            return  res.status(500).json({response:false, reason:"DB_RR"});
+           
         }
+
         else{
+
             if(row.length>0 ){
+
                 //check if the OTP has expired
                 const now=new Date();
                 const expiry_date=new Date(row[0].expiry_time);
                 if(now>expiry_date){
                     return res.json({response:false , reason:"OTP expired!!"});
                 }
+
                 return res.json({response:true})
             }
+            
             return res.json({response:false,reason: "Incorrect OTP!!"});
         }
     })
 };
+
+const reset_password=async (req,res)=>{
+
+    const {email, password}=req.body;
+    const sql="update users set password=? where email=? ";
+    const to=email;
+    const subject="Password Changed!";
+    const html=ChangedPasswordTemplate()
+
+    try {
+
+        const hashed_password= await bcrypt.hash(password,10);
+        db.query(sql,[hashed_password,email],async (err,data)=>{
+
+            if(err){
+
+                return res.status(500).json({ response:false });
+            }
+            else{
+                await sendEmail({to,subject,html})
+                return res.json({response:true});
+            }
+            
+        })
+    } catch (error) {
+        console.log(error);
+        return res.json({response:false});
+        
+    }
+
+}
 
 //export the functions
 module.exports={
     send_otp,
     login,
     signup,
-    verify_email
+    verify_email,
+    reset_password
 }

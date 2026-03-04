@@ -7,49 +7,78 @@
     <link rel="stylesheet" href="Style_sheets/login_signup.css">
 </head>
 <body>
-    <!-- Sign up -->
-    <div id="sign_up"  class="sign_up">
-        <div class="top-div">
-            <h2>SIGN UP</h2>
-        </div>
-        <div id="input-fields">
 
-            <label for="First Name">Names</label>
-            <input type="text" name="First Name" id="f-name" required>
+    <!-- log in form -->
+     <form action="" class="login_form" id="login_form">
+
+        <h2>Login</h2>
+        <div >
+            <input class="input-fields" type="text" placeholder="Email" id="email1" required>
+            <input class="input-fields" type="password" placeholder="Password" id="e-password" required>
+        </div>
+        <div class="forgot_password">
+            <button onclick="redirect_to_recoverpassword_toogle()">Forgot Password?</button>
+        </div>
+        <button type="button" id="losg-in" onclick="login()" >Submit</button>
+        <div class="dont_have_account">
+            <p>Don't have an account?<button id="login-signup_toggle" onclick="log_sign_toogle()">Create an account</button> </p>
+        </div>
         
-            <label for="email"> Email</label>
-            <input type="email" name="email" id="email" required>
-        
-            <label for="password"> Create Password</label>
-            <input type="password" name="password" id="password" required >
-    
-            <label for="c-password">Confirm Password</label>
-            <input type="password" name="c-password" id="c-password" required>
-            <ul>
-                <li id="password_length">Password should be atleast 8 characters long</li>
-                <li id="password_contain_digit">Password should contain atleast one digit</li>
-                <li id="password_contains_s_char">Password should contain atleast one special character</li>  
+     </form>
+
+     <!-- Reset password-->
+      <form action="" class="Reset_password_form1" id="Reset_password_form">
+
+        <h2>Password Recovery</h2>
+        <p id="Recovery_user_msg">Enter your email to reset password</p>
+        <div >
+            <input class="input-fields" type="text" placeholder="Email" id="account_recovery_email" required>
+            <input class="input-fields" type="text" placeholder="OTP" maxlength="6" style=" display: none;" id="account_recovery_otp" required>
+            <input class="input-fields" type="password" placeholder="Enter new password" style="display: none;" id="account_recovery_password" required>
+            <input class="input-fields" type="password" placeholder="Confirm Password" style="display: none;"  id="account_recovery_c-password"required>
+            <p id="password_requirements1" style="display: none;">Password should contain:</p>
+            <ul id="password_requirements" style="display: none;">
+                <li id="password_length">Atleast 8 characters long</li>
+                <li id="password_contain_digit">Atleast one digit</li>
+                <li id="password_contains_s_char">Atleast one special character</li>  
             </ul>
-
-            <button id="sign-up"  onclick="validate_user_information()"> SIGN UP</button>
-            <label>
-                <a href="#" >Forgot password</a>
-            </label>
-            <label>
-                <p>Already have an account? <button id="login-signup_toggle" onclick="log_sign_toogle()" > Login</button> </p> 
-            </label>
         </div>
-        <div class="otp_prompt1" id="otp_prompt">
-            <label for="OTP" id="otp_label"> Enter a six-digit OTP</label>
-            <input type="text" name="OTP" id="OTP" placeholder="OTP">
-            <button id="submit_otp" onclick="sign_up()">Verify</button>
+        <button type="button" id="password_recovery_submit_btn" onclick="reset_password()">Receive OPT</button>
+     </form>
 
+     <!-- Signup form -->
+    <form action="" class="signup_form1" id="signup_form">
+
+        <h2>SIGN UP</h2>
+        <div >
+            <input name="names"  id="f-name" class="input-fields" type="text" placeholder="Full names" required>
+            <input name="email" id="email" class="input-fields" type="text" placeholder="Email" required>
+            <input name="Password" id="password" class="input-fields" type="password" placeholder="Password" required>
+            <input name="C-password" id="c-password" class="input-fields" type="password" placeholder="Password" required>
+        </div>
+        <div>
+            <p>Password should contain:</p>
+             <ul>
+                <li id="password_length">Atleast 8 characters long</li>
+                <li id="password_contain_digit">Atleast one digit</li>
+                <li id="password_contains_s_char">Atleast one special character</li>  
+            </ul>
+        </div>
+        <button type="button" id="sign-up" onclick="validate_user_information()">Create account</button>
+        <div class="already_have_account">
+            <p>Already have an account?<button id="login-signup_toggle" onclick="log_sign_toogle()" > Login</button></p>
         </div>
         
-    </div>
-    <!--log in-->
+     </form>
+    <div class="otp_prompt1" id="otp_prompt">
+                <label for="OTP" id="otp_label"> Enter a six-digit OTP</label>
+                <input type="text" name="OTP" id="OTP" placeholder="OTP">
+                <button id="submit_otp" onclick="sign_up()">Verify</button>
 
-    <div id="log_in" class="log_in1">
+    </div>
+    
+<!-- 
+        <div id="log_in" class="log_in1">
           <div class="top-div">
             <h2>LOG IN</h2>
           </div>
@@ -69,6 +98,43 @@
             <label>
                 <p>Don't have an account? <button id="login-signup_toggle" onclick="log_sign_toogle()">Create an account</button> </p> 
             </label>
+
+                 Sign up 
+        <div id="sign_up"  class="sign_up1">
+            <div class="top-div">
+                <h2>SIGN UP</h2>
+            </div>
+            <div id="input-fields">
+
+                <label for="First Name">Names</label>
+                <input type="text" name="First Name" id="f-name" required>
+            
+                <label for="email"> Email</label>
+                <input type="email" name="email" id="email" required>
+            
+                <label for="password"> Create Password</label>
+                <input type="password" name="password" id="password" required >
+        
+                <label for="c-password">Confirm Password</label>
+                <input type="password" name="c-password" id="c-password" required>
+                <ul>
+                    <li id="password_length">Password should be atleast 8 characters long</li>
+                    <li id="password_contain_digit">Password should contain atleast one digit</li>
+                    <li id="password_contains_s_char">Password should contain atleast one special character</li>  
+                </ul>
+
+                <button id="sign-up"  onclick="validate_user_information()"> SIGN UP</button>
+                <label>
+                    <a href="#" >Forgot password</a>
+                </label>
+                <label>
+                    <p>Already have an account? <button id="login-signup_toggle" onclick="log_sign_toogle()" > Login</button> </p> 
+                </label>
+            </div>
+        
+            
+       </div>
+     -->
     
 </body>
 <script src="/Scripts/login_signup.js"></script>
