@@ -42,7 +42,7 @@ const recent_trans = async (req,res)=>{
             response:true,
             recent_transactions:rows})
     });
-    
+ 
 }
 
 const monthly_summary=async (req,res)=>{
