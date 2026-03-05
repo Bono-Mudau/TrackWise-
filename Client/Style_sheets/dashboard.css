@@ -152,6 +152,9 @@ body {
 
 /* OVERVIEW*/
 
+#welcome_msg{
+    border-bottom:2px solid #242424 ;
+}
 #total-expenses{
     color: rgb(202, 77, 77);
     text-decoration: none;
@@ -174,15 +177,14 @@ body {
 }
 
 #summary-card{
-    border:none;
     border-radius: 10px;
     background-color: #bbbaba59;
     display: flex;
-    margin: 0px 10px;
+    margin:10px auto;
     flex-direction: column;
-    min-width:30%;
-    height: fit-content;
-    justify-content: space-between;
+    width: 25%;
+
+
 }
 #summary-card div{
     border-radius: 10px;
@@ -198,17 +200,37 @@ body {
    text-decoration: none;
 }
 #graph{
-    background-color: #eeeeee;
-    width: 100%;
-    border:none;
-    border-radius: 10px;
 
+    background-color: #fbfdfff3;
+    display: flex;
+    border-bottom:1px solid rgb(221, 164, 164);
+    border-top:5px solid rgb(94, 86, 86,0.4);
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
+    width: 80%;
+    margin: 0 auto;
 }
+#graph div{
+
+    border: 1px solid rgb(0,0,0,0.1);
+    width:50%;
+    max-height: 300px;
+    margin:0 auto;
+    padding: 0;
+    
+}
+#graph canvas{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+
 #charts{
-    height: 300px;
-    max-width:900px;
-    margin: 20px auto;
-    border: none;
+    height: 200px;
+    width: 70%;
+    margin: 10px auto;
     background-color: #ffffff;
     border-radius: 10px;
 }

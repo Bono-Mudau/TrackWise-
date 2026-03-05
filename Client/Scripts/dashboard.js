@@ -894,6 +894,9 @@ function show_overview(){
   if(overview.className!="overview1"){
     overview.classList.replace("overview","overview1");
   }
+  income_chart();
+  expense_chart();
+  monthly_summary();
 }
 
 //log out confirmation prompt 
@@ -942,6 +945,12 @@ function monthly_summary(){
       summary_chart.height = rect.height * dpr;
       ctx.scale(dpr, dpr);
 
+      const existingChart = Chart.getChart(summary_chart);
+
+      if (existingChart) {
+        existingChart.destroy();  // destroy it before creating a new chart
+      }
+
       //create a income vs expense bar graph
       new Chart(ctx,{
         type:"bar",
@@ -983,5 +992,216 @@ function monthly_summary(){
 
 }
 monthly_summary();
+
+function income_chart(){
+
+  const id=user_info.id;
+
+  fetch("http://localhost:3000/api/summary/income_chart", {
+
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({id:id})
+
+  })
+  .then(res=>{
+    if(!res.ok){
+      throw new Error("Error has occured _couldn't get graph data");
+    }
+    else{
+      return res.json();
+    }
+  })
+  .then(res=>{
+    if(!res.response){
+      alert(res.error);
+    }
+    else{
+
+      const labels=res.data.map(d=>d.category);
+      const totals=res.data.map(d=>d.total);
+
+      const summary_chart=document.getElementById("income_chart");
+      const ctx = summary_chart.getContext("2d");
+      const dpr = window.devicePixelRatio || 1;
+
+      // Resize the canvas to match CSS size * DPR
+      const rect = summary_chart.getBoundingClientRect();
+      summary_chart.width = rect.width * dpr;
+      summary_chart.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+
+       const existingChart = Chart.getChart(summary_chart);
+
+      if (existingChart) {
+        existingChart.destroy();  // destroy it before creating a new chart
+      }
+
+      new Chart(ctx,{
+
+        type:"pie",
+        data:{
+
+          labels:labels,
+
+          datasets:[{
+            data: totals,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.7)',    
+              'rgba(54, 162, 235, 0.7)',    
+              'rgba(255, 206, 86, 0.7)',   
+              'rgba(75, 192, 192, 0.7)',    
+              'rgba(153, 102, 255, 0.7)',   
+              'rgba(255, 159, 64, 0.7)',    
+              'rgba(199, 199, 199, 0.7)',   
+              'rgba(255, 99, 255, 0.7)',    
+              'rgba(99, 255, 132, 0.7)',    
+              'rgba(54, 235, 162, 0.7)',    
+              'rgba(86, 206, 255, 0.7)',   
+              'rgba(192, 75, 192, 0.7)',    
+              'rgba(255, 206, 128, 0.7)',   
+              'rgba(153, 255, 102, 0.7)',   
+              'rgba(102, 153, 255, 0.7)'  
+            ],
+            borderColor: '#fff',
+            borderWidth: 1
+          }]
+        },
+        options:{
+
+          responsive: true,
+          plugins: {
+              legend: { position: 'right',
+                labels: {
+                  boxWidth: 20, 
+                  padding: 10,
+                  font: { size: 14}
+                }},
+              title: { display: true,
+                 text: 'Income breakdown',
+                font:{
+                  size:'16',
+                  weight:'bold'
+                },
+               },
+          },
+        }
+      })
+
+    }
+  })
+
+}
+function expense_chart(){
+
+  const id=user_info.id;
+
+  fetch("http://localhost:3000/api/summary/expense_chart", {
+
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({id:id})
+
+  })
+  .then(res=>{
+
+    if(!res.ok){
+      throw new Error("Error has occured _couldn't get graph data");
+    }
+    else{
+      return res.json();
+    }
+
+  })
+  .then(res=>{
+    
+    if(!res.response){
+      alert(res.error);
+    }
+    else{
+
+      const labels=res.data.map(d=>d.category);
+      const totals=res.data.map(d=>d.total);
+
+      const maxLabelLength = 10;
+
+      const truncatedLabels = labels.map(label =>
+            label.length > maxLabelLength ? label.slice(0, maxLabelLength) + '…' : label
+      );
+
+      const summary_chart=document.getElementById("expenses_chart");
+      const ctx = summary_chart.getContext("2d");
+      const dpr = window.devicePixelRatio || 1;
+
+      // Resize the canvas to match CSS size * DPR
+      const rect = summary_chart.getBoundingClientRect();
+      summary_chart.width = rect.width * dpr;
+      summary_chart.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+
+      const existingChart = Chart.getChart(summary_chart);
+
+      if (existingChart) {
+        existingChart.destroy();  // destroy it before creating a new chart
+      }
+
+      new Chart(ctx,{
+
+        type:"pie",
+        data:{
+
+          labels:truncatedLabels,
+
+          datasets:[{
+            data: totals,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.7)',    
+              'rgba(54, 162, 235, 0.7)',    
+              'rgba(255, 206, 86, 0.7)',   
+              'rgba(75, 192, 192, 0.7)',    
+              'rgba(153, 102, 255, 0.7)',   
+              'rgba(255, 159, 64, 0.7)',    
+              'rgba(199, 199, 199, 0.7)',   
+              'rgba(255, 99, 255, 0.7)',    
+              'rgba(99, 255, 132, 0.7)',    
+              'rgba(54, 235, 162, 0.7)',    
+              'rgba(86, 206, 255, 0.7)',   
+              'rgba(192, 75, 192, 0.7)',    
+              'rgba(255, 206, 128, 0.7)',   
+              'rgba(153, 255, 102, 0.7)',   
+              'rgba(102, 153, 255, 0.7)'    
+            ],
+            borderColor: '#fff',
+            borderWidth: 1
+          }]
+        },
+
+        options:{
+
+          responsive: true,
+          plugins: {
+              legend: { position: 'right',
+                labels: {
+                  boxWidth: 20,     
+                  padding: 8,
+                  font: { size: 14}
+                }},
+              title: { display: true,
+                 text: 'Expense breakdown',
+                font:{
+                  size:'16',
+                  weight:'bold'
+                },
+               },
+          },
+        }
+      })
+
+    }
+  })
+
+}
+income_chart();
+expense_chart()
 
 
