@@ -1,4 +1,5 @@
 
+const { response } = require("express");
 const db = require("../config/db_config");
 
 const load_balances= async (req,res)=>{
@@ -44,7 +45,23 @@ const recent_trans = async (req,res)=>{
     
 }
 
+const monthly_summary=async (req,res)=>{
+
+    const {id}= req.body;
+    const sql="Select income,expense,month,year from monthly_summary where user_id=? order by year DESC, month DESC limit 5" ;
+
+    db.query(sql, [id], (err, row)=>{
+        if(err){
+            return res.status(500).json({response:false , error: err.message})
+        }
+        return res.json({
+            response:true,
+            data:row
+        })
+    })
+}
 module.exports={
     load_balances,
-    recent_trans
+    recent_trans,
+    monthly_summary
 }

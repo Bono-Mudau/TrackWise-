@@ -29,9 +29,9 @@
                 <thead>
                 </thead>
                 <tbody>
-                    <tr> <td><button onclick="overview()" class="options"><i class="fas fa-chart-line"></i>Overview</button></td></tr>
-                    <tr><td><button onclick="expense()"  class="options"><i class="fas fa-money-bill-wave"></i> Expenses</button></td></tr>
-                    <tr><td><button onclick="income()"   class="options"><i class="fas fa-wallet"></i>Income</button></td></tr>
+                    <tr> <td><button onclick="show_overview()" class="options"><i class="fas fa-chart-line"></i>Overview</button></td></tr>
+                    <tr><td><button onclick="show_expense()"  class="options"><i class="fas fa-money-bill-wave"></i> Expenses</button></td></tr>
+                    <tr><td><button onclick="show_income()"   class="options"><i class="fas fa-wallet"></i>Income</button></td></tr>
                     <tr><td><button class="options" ><i class="fas fa-receipt"></i>Trasactions</button></td></tr>
                     <tr><td> <button class="options" >Summary</button></td></tr>
                     <tr><td> <button class="options" ><i class="fas fa-bell"></i>Reminders</button></td></tr>
@@ -55,12 +55,13 @@
                         <div><h4 id="total-expenses"> Expenses: R3500.00</h4></div>
                     </div>
                     <div id="graph">
-                        <h1>Thee graph goes here</h1>
+                        
                         
                     </div>
                 </div>
                 <div id="charts">
-
+                    
+                    <canvas id="monthly_summary_graph" ></canvas>
                 </div>
                 <div  class="resent_trans">
                     <h4 class="recent-heading">Recent transactions</h4>
@@ -231,5 +232,6 @@
         </div>   
     </div>
     <script src="/Scripts/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

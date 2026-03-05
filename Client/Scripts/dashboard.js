@@ -852,7 +852,7 @@ function load_visuals(){
 }
 
 //switch between sections
-function expense(){
+function show_expense(){
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview"); 
@@ -866,7 +866,7 @@ function expense(){
     overview.classList.replace("overview1","overview");
   }
 }
-function income(){
+function show_income(){
 
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
@@ -881,7 +881,7 @@ function income(){
     overview.classList.replace("overview1","overview");
   }
 }
-function overview(){
+function show_overview(){
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview"); 
@@ -904,3 +904,84 @@ function log_out(){
   }
 
 }
+
+//load monthly summary
+function monthly_summary(){
+  const id=user_info.id;
+  fetch("http://localhost:3000/api/summary/monthly_summary", {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({id:id})
+  })
+  .then(res=>{
+    if(!res.ok){
+      throw new Error("Error has occured _couldn't get graph data");
+    }
+    else{
+      return res.json();
+    }
+  })
+  .then(res=>{
+    if(!res.response){
+      alert(res.error);
+    }
+    else{
+
+      const month_names=["Jan", "Feb", "Mar", "Apr", "May" ,"Jun" ,"Jul" , "Aug", "Sep" , "Oct" , "Nov", "Dec"];
+      const expense_data=res.data.map(d=>d.expense);
+      let income_data=res.data.map(d=>d.income);
+      let labels=res.data.map(d=>` ${month_names[d.month-1]} ${d.year}`);
+      
+      const summary_chart=document.getElementById("monthly_summary_graph");
+      const ctx = summary_chart.getContext("2d");
+      const dpr = window.devicePixelRatio || 1;
+
+      // Resize the canvas to match CSS size * DPR
+      const rect = summary_chart.getBoundingClientRect();
+      summary_chart.width = rect.width * dpr;
+      summary_chart.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+
+      //create a income vs expense bar graph
+      new Chart(ctx,{
+        type:"bar",
+        data:{
+
+          labels:labels,
+          datasets:[{
+            label:"Income",
+            data:income_data,
+            backgroundColor:'rgba(75, 192, 192, 0.6)'
+
+          },{
+
+            label:"Expense",
+            data:expense_data,
+            backgroundColor:'rgba(255, 99, 132, 0.6)'
+            
+          }]
+        },
+        options:{
+
+          responsive: true,
+          plugins: {
+              legend: { position: 'top' },
+              title: { display: true,
+                 text: 'Monthly Income vs Expense ',
+                font:{
+                  size:'16',
+                  weight:'bold'
+                },
+               },
+          },
+          scales: { y: { beginAtZero: true } }
+        }
+      })
+
+    }
+  })
+
+}
+monthly_summary();
+
+
