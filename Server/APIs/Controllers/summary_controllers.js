@@ -45,6 +45,38 @@ const recent_trans = async (req,res)=>{
  
 }
 
+const expenses_pie_chart= async (req,res)=>{
+    try {
+
+        const {id}=req.body;
+        const sql="select category, sum(amount) as total from expenses where user_id=? and month(date_created)= month(curdate()) and year(date_created)=year(curdate()) group by category"
+        const [rows]= await db.promise().query(sql,[id]);
+
+        return res.json({response:true, data:rows})
+        
+    } catch (error) {
+
+        return res.status(500).json({ response:false, reason:error.message})
+        
+    }
+}
+
+const income_pie_chart= async (req,res)=>{
+    try {
+        
+        const {id}=req.body;
+        const sql="select category, sum(amount) as total from income where user_id=? and month(date)= month(curdate()) and year(date)=year(curdate()) group by category"
+        const [rows]= await db.promise().query(sql,[id]);
+
+        return res.json({response:true, data:rows})
+        
+    } catch (error) {
+
+        return res.status(500).json({ response:false, reason:error.message})
+        
+    }
+}
+
 const monthly_summary=async (req,res)=>{
 
     const {id}= req.body;
@@ -63,5 +95,7 @@ const monthly_summary=async (req,res)=>{
 module.exports={
     load_balances,
     recent_trans,
-    monthly_summary
+    monthly_summary,
+    income_pie_chart,
+    expenses_pie_chart
 }

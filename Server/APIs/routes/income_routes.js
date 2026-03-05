@@ -6,7 +6,7 @@ const {new_income, delete_income, load_income, update_income }=require("../Contr
 router.post("/new_income",new_income);
 router.post("/delete_income",delete_income);
 router.post("/load_income",load_income);
-router.post("/update_income",update_income);  
+router.post("/update_income",update_income);
 
 
 module.exports=router;
