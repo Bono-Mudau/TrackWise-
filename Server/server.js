@@ -1,6 +1,8 @@
 const express=require("express");
 const app=express();
 const path = require("path");
+const PORT = process.env.PORT || 3000;
+
 require('dotenv').config();
 const auth_routes=require("./APIs/routes/auth_routes");
 const expense_routes=require("./APIs/routes/expense_routes");
@@ -17,9 +19,10 @@ app.use("/api/summary",summary_routes);
 app.get("/", (req, res) => {
     res.sendFile("login_signup.html", { root: path.join(__dirname, "../Client") });
 });
+
 //Start the server
-app.listen(3000,"0.0.0.0",()=>{
-    console.log("The server is listening on port 3000")
+app.listen(PORT,()=>{
+    console.log(`The server is listening on port${PORT}`);
 });
 
 
