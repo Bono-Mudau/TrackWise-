@@ -3,12 +3,14 @@ html, body {
   margin: 0;
 }
 body {
+
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  
+
 }
 #top-bar{
+
     padding-left: 10px;
     width: 100%;
     height: fit-content;
@@ -17,7 +19,9 @@ body {
     align-items: center;
     justify-content: space-between;
     background-color: rgba(31, 31, 54, 0);
+
 }
+
 #logo{
     height:50px;
     border-radius: 2px;
@@ -393,14 +397,19 @@ body {
     padding: 0px;
 }
 #add-expense{
-    margin:5px;
+    margin:0px auto;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    min-height: 50px;
+    height: 40px;
     border-bottom: 1.5px solid black;
 }
+#add-expense label{
+    font-size: 23;
+    padding: 10px;
+}
+
+
 
 #expense-month{
     font-size: x-large;
@@ -550,18 +559,24 @@ body {
 }
 
 .income1{
+
     padding:0px;
+
 }
 
 #add-income{
-    margin:5px;
+    margin:0 auto ;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    min-height: 50px;
+    height: 50px;
     border-bottom: 1.5px solid black;
 
+}
+
+#add-income label{
+    font-size: 23;
+    padding: 10px;
 }
 
 #income-month{
@@ -686,6 +701,28 @@ body {
     background-color:rgb(228, 228, 248);
     width: fit-content;
 }
+.transactions-fliter{
+    margin: 0px auto;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 50px;
+    justify-content: space-between;
+}
+.transactions-fliter select{
+    height: 70%;
+    border: none;
+    width: 100px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.transactions-fliter label{
+    height: 100%;
+    font-size: 20px;
+    
+}
+
 
 
 

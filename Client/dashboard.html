@@ -95,15 +95,57 @@
             </div>
             <!--EXPENSES SECTION -->
             <div id="expense-section">
-                <div id="expense-entry"><!-- Expense entry card --> 
+                <div id="expense-entry">
                    <h4>June 2025</h4>
                 </div>
+               
                 <div id="expense" class="expense">
 
                     <div id="add-expense">
-                       <label id="expense-month" >Expesenses for Nov 2025</label>
-                       <button  class="add-entry" onclick="addentry()">+</button>
+                       <label id="expense-month" > Expense Enteries</label>
+                       <label for="add-entry">Add entry <button  class="add-entry" onclick="addentry()">+</button> </label>
                     </div>
+                    <div class= "transactions-fliter">
+
+                        <label for="Show last last :">
+
+                            Showing the last :
+                            <select name="Show last last :" id="show-last-x-exp" onchange="load_all_expenses()">
+
+                                <option value="1"> 1 month</option>
+                                <option value="2"> 2 months</option>
+                                <option value="3"> 3 months</option>
+                                <option value="4"> 4 months</option>
+                                <option value="5"> 5 months</option>
+                                <option value="6"> 6 months</option>
+
+                            </select>
+                        </label>
+
+                        <label for="Sort by:" onchange="load_all_expenses()">
+                            Sort by:
+                            <select name="Sort by:" id="sort-exp-by">
+
+                                <option value="1">Newest first</option>
+                                <option value="2">Oldest first</option>
+                                <option value="3">Highest amount</option>
+                                <option value="4">Lowest amount</option>
+
+                            </select>
+                        </label>
+                       
+                        <label for="Filter By:" onchange="load_all_expenses()">
+                             Filter By:
+                             <select name="Filter By:" id="Filter-expense">
+                                Filter By:  
+                                <option value="1">none</option>
+                                <option value="2">Unsettled</option>
+                                <option value="3">Settled</option>
+                                <option value="4">Overdue</option>
+                            </select>
+                        </label>
+                        
+                </div >
                     <div  class="exp_trans">
                         <table id="expense-table" >
                             <thead>
@@ -171,9 +213,44 @@
             <!-- INCOME SECTION -->
             <div id="income" class="income">
                 <div id="add-income">
-                    <label id="income-month" >Income for Nov 2025</label>
-                    <button  class="add-entry" onclick="addentry1()">+</button>
+                    <label id="income-month" >Income Enteries</label>
+                    <label for="add-entry"> Add entry  <button  class="add-entry" onclick="addentry1()">+</button></label>
+                    
                 </div>
+                    <div class=transactions-fliter>
+                        <label for=""></label>
+
+                        <label for="Showing the last :">
+
+                            Show last last :
+                            <select name="Show last last :" id="show-last-x-income" onchange="load_income()">
+
+                                <option value="1"> 1 month</option>
+                                <option value="2"> 2 months</option>
+                                <option value="3"> 3 months</option>
+                                <option value="4"> 4 months</option>
+                                <option value="5"> 5 months</option>
+                                <option value="6"> 6 months</option>
+
+                            </select>
+
+                        </label>
+                       <label for="Sort by:">
+
+                           Sort by:
+                           <select name="Sort by:" id="sort-income-by" onchange="load_income()">
+
+                                <option value="1">Newest first</option>
+                                <option value="2">Oldest first</option>
+                                <option value="3">Highest amount</option>
+                                <option value="4">Lowest amount</option>
+
+                            </select>
+                       </label>
+                        
+
+                        
+                </div >
                 <div  class="income_trans">
                         <table id="income-table" >
                             <thead>

@@ -60,12 +60,60 @@ const delete_income=async (req,res)=>{
 };
 
 const load_income=async (req,res)=>{
-    const {id}=req.body;
-    db.query("select income_id,category,amount,date from income where user_id=?",[id],async(err,row)=>{
+
+    const {id,sort_by,no_of_months}=req.body;
+    let order="";
+    switch(sort_by){
+        case "1":
+            order="order by date desc"
+            break;
+
+        case "2":
+            order="order by date asc"
+            break;
+        case "3":
+            order="order by amount desc "
+            break;
+        case "4":
+            order="order by amount "
+            break;
+        default:
+         break;
+
+    }
+    let months_n=1;
+    const now=new Date();
+    
+    switch(Number(no_of_months)){
+
+        case 2:
+            months_n=2;
+            break;
+        case 3:
+            months_n=3;
+            break;
+        case 4:
+            months_n=4;
+            break;
+        case 5:
+            months_n=5;
+            break;
+        case 6:
+            months_n=6;
+            break;
+        default:
+         break;
+
+    }
+    const startMonth = new Date(now.getFullYear(), now.getMonth() - (months_n - 1), 1)
+    db.query("select income_id,category,amount,date from income where user_id=? and date>=? "+order,[id,startMonth],async(err,row)=>{
         if(err){
+           
             return res.json({bool:false})
         }else{
+            
             return res.json(row);
+            
         }
     })
 };

@@ -22,9 +22,46 @@ const user_info={
   names:localStorage.getItem("names"),
   id:Number(localStorage.getItem("id"))
 }
+//default expense fitlers/sorting
+let default_exp_filter={
+  id:user_info.id,
+  sort_by:1,
+  filter:0 ,// none
+  no_of_months:1
+}
+let default_income_filter={
+
+  id:user_info.id,
+  sort_by:1,
+  no_of_months:1
+
+}
+
+function load_income_filters(){
+
+  default_income_filter.no_of_months=Number(document.getElementById("show-last-x-income").value);
+  default_income_filter.sort_by=document.getElementById("sort-income-by").value;
+  
+}
+function load_exp_filters(){
+
+  default_exp_filter.filter=document.getElementById("Filter-expense").value;
+  default_exp_filter.sort_by=document.getElementById("sort-exp-by").value;
+  default_exp_filter.no_of_months=Number(document.getElementById("show-last-x-exp").value);
+
+}
+
 load_all_expenses();
 load_income();
 
+
+function remove_table_Rows(table_id) {
+  const table = document.getElementById(table_id);
+
+  while (table.rows.length > 1) {
+    table.deleteRow(1);
+  }
+}
 //update names on the dashboard
 document.getElementById("user-names").innerHTML="Wellcome, "+user_info.names;
 
@@ -40,10 +77,13 @@ function addentry(){
     }
 }
 
-function load_all_expenses(){
-  fetch(`http://localhost:3000/api/expenses/load_expenses?user_id=${user_info.id}`,{
-    method:"GET",
+async function load_all_expenses(){
+  remove_table_Rows("expense-table")
+  load_exp_filters();
+  fetch(`http://localhost:3000/api/expenses/load_expenses`,{
+    method:"POST",
     headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(default_exp_filter)
   })
   .then(res=>{
     if(!res.ok){
@@ -112,7 +152,7 @@ function load_all_expenses(){
 function submit_expense(){
     //Data to be sent to the database
     let expense_entry={
-      date:getdate(),
+      date:new Date().toISOString().slice(0, 19).replace("T", " "),
       description:"",
       category:"",
       amount:"",
@@ -163,7 +203,6 @@ function submit_expense(){
         if(document.getElementById("exp_table_total")){
           current_total=document.getElementById("exp_table_total").cells[4].innerHTML.substring(1);
           document.getElementById("exp_table_total").remove()
-          alert(current_total);
           current_total=Number(current_total)+expense_entry.amount;
         }
         const id=res.id;
@@ -574,11 +613,13 @@ function delete_income(event){
 }
 //Load existing income entries
 function load_income(){
-  const id=user_info.id;
+
+  remove_table_Rows("income-table")
+  load_income_filters();
   fetch("http://localhost:3000/api/income/load_income",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({id})
+    body:JSON.stringify(default_income_filter)
   }).then(res=>{
     if(!res.ok){
       throw new Error("Failed to load existing income entries");
@@ -789,8 +830,7 @@ function load_balances(){
         balace_button.innerHTML="Balance: R  "+data.balance;
         income_btn.innerHTML="Income: R  " + data.income;
         expense_btn.innerHTML="Expenses: R  "+data.expenses;
-        document.getElementById("expense-sum").innerHTML="R"+data.expenses;
-        document.getElementById("income-sum").innerHTML="R" +data.income;
+
       }
       else{
         alert("Summary not loaded!")
@@ -847,9 +887,6 @@ function recent_transactions(id){
   }
 } 
 recent_transactions(user_info.id);
-function load_visuals(){
-  
-}
 
 //switch between sections
 function show_expense(){

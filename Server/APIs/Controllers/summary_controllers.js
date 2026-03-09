@@ -88,7 +88,7 @@ const monthly_summary=async (req,res)=>{
         }
         return res.json({
             response:true,
-            data:row
+            data:row.reverse()
         })
     })
 }

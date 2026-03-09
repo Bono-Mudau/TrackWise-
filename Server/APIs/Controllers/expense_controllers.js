@@ -4,11 +4,11 @@ const db = require("../config/db_config");
 const new_expense= async (req,res)=>{
 
     try {
-        const {date,description,category,amount,status,user_id}=req.body;
-        const sql="insert into expenses (date_created, description, category, amount, status, user_id) values (?,?,?,?,?,?)"
+        const {description,category,amount,status,user_id}=req.body;
+        const sql="insert into expenses ( description, category, amount, status, user_id) values (?,?,?,?,?)"
 
         //insert new expense
-        const [results] = await db.promise().query(sql,[date,description,category,amount,status,user_id]);
+        const [results] = await db.promise().query(sql,[description,category,amount,status,user_id]);
 
         const now = new Date();
         const year = now.getFullYear();   
@@ -32,15 +32,82 @@ const new_expense= async (req,res)=>{
 
 const load_expenses= async (req,res)=>{
 
-    const user_id=req.query.user_id;
+    const {id,sort_by, filter,no_of_months}=req.body;
+    let order=" order by date_created  desc";
+
+    switch(sort_by){
+        case "1":
+            order="order by date_created desc"
+            break;
+
+        case "2":
+            order="order by date_created asc"
+            break;
+        case "3":
+            order="order by amount desc "
+            break;
+        case "4":
+            order="order by amount "
+            break;
+        default:
+         break;
+
+    }
+
+    let filter_="";
+
+    switch(filter){
+
+
+        case "2":
+            filter_="and status=0"
+            break;
+        case "3":
+            filter_="and status=1"
+            break;
+        case "4":
+            filter_=""
+            break;
+        default:
+         break;
+
+    }
+
+    let months_n=1;
+    const now=new Date();
+    
+    switch(Number(no_of_months)){
+
+        case 2:
+            months_n=2;
+            break;
+        case 3:
+            months_n=3;
+            break;
+        case 4:
+            months_n=4;
+            break;
+        case 5:
+            months_n=5;
+            break;
+        case 6:
+            months_n=6;
+            break;
+        default:
+         break;
+
+    }
+    const startMonth = new Date(now.getFullYear(), now.getMonth() - (months_n - 1), 1)
+ 
+
     try {
        
-        const [rows]= await db.promise().query("select exp_id,date_created, description, category, amount, status from expenses where user_id=?",[user_id])
+        const [rows]= await db.promise().query("select exp_id,date_created, description, category, amount, status from expenses where user_id=? and date_created >= ?"+filter_+" "+order,[id,startMonth])
         return res.json(rows)
         
     } catch (error) {
 
-        console.log
+
         return res.status(500).json({error:"Failed to load expenses"})   
     }
 };
