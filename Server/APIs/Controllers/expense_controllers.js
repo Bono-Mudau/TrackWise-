@@ -4,11 +4,11 @@ const db = require("../config/db_config");
 const new_expense= async (req,res)=>{
 
     try {
-        const {description,category,amount,status,user_id}=req.body;
-        const sql="insert into expenses ( description, category, amount, status, user_id) values (?,?,?,?,?)"
+        const {description,category,amount,status,user_id,due_date}=req.body;
+        const sql="insert into expenses ( description, category, amount, status, user_id,due_date) values (?,?,?,?,?,?)"
 
         //insert new expense
-        const [results] = await db.promise().query(sql,[description,category,amount,status,user_id]);
+        const [results] = await db.promise().query(sql,[description,category,amount,status,user_id,due_date]);
 
         const now = new Date();
         const year = now.getFullYear();   
@@ -66,7 +66,7 @@ const load_expenses= async (req,res)=>{
             filter_="and status=1"
             break;
         case "4":
-            filter_=""
+            filter_="and due_date<CURDATE() and status=0 "
             break;
         default:
          break;
@@ -102,7 +102,7 @@ const load_expenses= async (req,res)=>{
 
     try {
        
-        const [rows]= await db.promise().query("select exp_id,date_created, description, category, amount, status from expenses where user_id=? and date_created >= ?"+filter_+" "+order,[id,startMonth])
+        const [rows]= await db.promise().query("select exp_id,date_created, description, category, amount, status,due_date from expenses where user_id=? and date_created >= ?"+filter_+" "+order,[id,startMonth])
         return res.json(rows)
         
     } catch (error) {

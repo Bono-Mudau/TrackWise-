@@ -95,9 +95,7 @@
             </div>
             <!--EXPENSES SECTION -->
             <div id="expense-section">
-                <div id="expense-entry">
-                   <h4>June 2025</h4>
-                </div>
+
                
                 <div id="expense" class="expense">
 
@@ -139,8 +137,8 @@
                              <select name="Filter By:" id="Filter-expense">
                                 Filter By:  
                                 <option value="1">none</option>
-                                <option value="2">Unsettled</option>
-                                <option value="3">Settled</option>
+                                <option value="2">Not Paid</option>
+                                <option value="3">Paid</option>
                                 <option value="4">Overdue</option>
                             </select>
                         </label>
@@ -156,6 +154,7 @@
                                     <th>Category</th>
                                     <th>Amount (R)</th>
                                     <th>Status</th>
+                                    <th>Due Date</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -182,6 +181,7 @@
                                 <option value="Other">Other</option>
                         </select>
                         <input class="input-field" id="input-amount" type="text" maxlength="7" placeholder="Amount">
+                        <label > Due date : <input id="due_date" type="date" ></label>
                         <button class="submit" onclick="submit_expense()">Submit✓</button>
                     </div>
                     <!-- edit expense -->

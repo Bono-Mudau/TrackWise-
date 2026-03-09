@@ -460,22 +460,31 @@ body {
     display: none;
 }
 .create-expense-card{
-    min-height:60px;
+    min-height:50px;
     display:flex;
+    margin-left: 10px;
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
-    border: 1px solid rgb(4, 47, 110);
-    border-radius: 5px;
+    border: 2px solid rgb(68, 69, 71,0.2);
+    border-radius: 10px;
     position: fixed;
-    background-color: #3f3cd4;
+    background-color: #e2b5b3;
     top: 40%;
-    left: 30%;
+    left: 20%;
     z-index: 500;
-    gap: 2px;
+    width: 70%;
+    padding: 5px;
+
 }
+.create-expense-card label{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
 #description-input{
-    width: 50%;
+    width: 30%;
 }
 #expenses-list{
     display: flex;
@@ -534,12 +543,12 @@ body {
     padding: 10px;
 }
 .submit{
-    background-color: rgb(120, 120, 204);
+    background-color: rgba(95, 124, 112, 0.377);
     border-radius: 5px;
     margin:3px
 }
 .submit:hover{
-    background-color: rgb(146, 170, 197);
+    background-color: rgba(95, 124, 112, 0.8);
 }
 
 #expense-entry{
@@ -626,22 +635,26 @@ body {
 .create-income-card1{
     display: none;
 }
+#income-category-input{
+    width: 40%;
+}
 .create-income-card{
-    min-height:50px;
+    height:50px;
     width: 60%;
-    background-color: #3b77e6;
+    padding: 10px;
+    background-color: rgb(139, 212, 139);
     display:flex;
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
-    margin-left: 2px;
-    border: 1px solid black;
-    border-radius: 5px;
+    border: 2px solid rgba(97, 96, 96, 0.2);
+    border-radius: 10px;
     position: fixed;
     top: 40%;
     left: 30%;
+    width: 60%;
     z-index: 500;
-    gap: 2px;
+
 }
 
 #income-list{

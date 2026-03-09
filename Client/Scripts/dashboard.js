@@ -7,6 +7,8 @@ function getdate(){
     return yyyy+"-"+mm+"-"+dd
 }
 
+document.getElementById('due_date').min=getdate();
+
 function menu_toogle(){
  const menu=document.getElementById("menu-options");
   if(menu.classList.contains("menu_class")){
@@ -22,6 +24,7 @@ const user_info={
   names:localStorage.getItem("names"),
   id:Number(localStorage.getItem("id"))
 }
+
 //default expense fitlers/sorting
 let default_exp_filter={
   id:user_info.id,
@@ -63,7 +66,7 @@ function remove_table_Rows(table_id) {
   }
 }
 //update names on the dashboard
-document.getElementById("user-names").innerHTML="Wellcome, "+user_info.names;
+document.getElementById("user-names").innerHTML="Welcome, "+user_info.names;
 
 //EXPENSES SECTION/
 const expense_list=document.getElementById("expenses-list");
@@ -104,8 +107,13 @@ async function load_all_expenses(){
         const row=document.createElement("tr");
         row.id="exp_row-"+element.exp_id;
         let status="Not Paid"
+       
         if(element.status==1){
           status="Paid"
+        }
+        let due_Date="";
+        if(element.due_date!=null){
+          due_Date=element.due_date;
         }
         const edit=document.createElement("button");
         edit.innerHTML="edit";
@@ -120,6 +128,7 @@ async function load_all_expenses(){
             <td>${element.category}</td>
             <td>${element.amount}</td>
             <td>${status}</td>
+            <td>${due_Date.substring(0,10)}</td>
             <td></td>
           `;
         row.cells[row.cells.length - 1].appendChild(edit);
@@ -135,6 +144,7 @@ async function load_all_expenses(){
           <td></td>
           <td></td>
           <td id="expense-sum" >R${total}</td>
+          <td></td>
           <td></td>
           <td></td>
         `;
@@ -157,7 +167,8 @@ function submit_expense(){
       category:"",
       amount:"",
       status:0,
-      user_id:user_info.id
+      user_id:user_info.id,
+      due_date:null
     }
     if(String(document.getElementById("description-input").value).length>=1){
       expense_entry.description=document.getElementById("description-input").value;     
@@ -181,6 +192,11 @@ function submit_expense(){
     else{
       alert("Please select an option!")
       return;
+    }
+    let due_Date=document.getElementById("due_date").value;
+    if(due_Date.length>2){
+          expense_entry.due_date=due_Date;
+         
     }
 
     //send data to the database
@@ -213,6 +229,7 @@ function submit_expense(){
         if(expense_entry.status==1){
           status="Paid"
         }
+        
         row.innerHTML=`
             <td>${id}</td>
             <td>${expense_entry.date}</td>
@@ -220,9 +237,10 @@ function submit_expense(){
             <td>${expense_entry.category}</td>
             <td>${expense_entry.amount}</td>
             <td>${status}</td>
+            <td>${due_Date}</td>
             <td></td>
           `;
-        row.cells[6].innerHTML=`<button onclick="enable_exp_editing(event)"> Edit </button> <button onclick="delete_expense_entry(event)"> Delete</button> `
+        row.cells[7].innerHTML=`<button onclick="enable_exp_editing(event)"> Edit </button> <button onclick="delete_expense_entry(event)"> Delete</button> `
         const t_row=document.createElement("tr");
         t_row.id="exp_table_total";
         t_row.innerHTML=`
@@ -279,7 +297,7 @@ function enable_exp_editing(event){
   else{
     row.cells[5].innerHTML=`Paid ?<input  type="checkbox">`
   }
-  row.cells[6].innerHTML=`<button onclick="update_exp(event)" >Save</button>`;
+  row.cells[7].innerHTML=`<button onclick="update_exp(event)" >Save</button>`;
 }
 
 function add_expense_to_the_list(id,expense_entry){
@@ -383,6 +401,7 @@ function delete_expense_entry(event){
            .then(res=>{
              if(res.response){
               selected_exp.remove();
+              load_all_expenses();
               load_balances();
              }
              else{
@@ -472,7 +491,7 @@ function update_exp(event){
           }else{
             row.cells[5].innerHTML="Not paid"
           }
-          row.cells[6].innerHTML=`<button onclick="enable_exp_editing(event)" > Edit </button> 
+          row.cells[7].innerHTML=`<button onclick="enable_exp_editing(event)" > Edit </button> 
                                   <button onclick="delete_expense_entry(event)" > Delete </button>
                                 `
           load_balances();
@@ -845,6 +864,7 @@ function load_balances(){
 }
 
 function recent_transactions(id){
+  remove_table_Rows("trans-table")
   try {
     fetch("http://localhost:3000/api/summary/recent_trans",{
       method:"POST",
@@ -934,6 +954,7 @@ function show_overview(){
   income_chart();
   expense_chart();
   monthly_summary();
+  recent_transactions(user_info.id);
 }
 
 //log out confirmation prompt 
