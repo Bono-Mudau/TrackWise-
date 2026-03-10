@@ -14,7 +14,7 @@ const db = mysql.createPool({
 });
 console.log("DB connected");
 const createUsersTable = `
-create table expenses(
+create table IF NOT EXISTS expenses(
   exp_id int auto_increment primary key,
   date_created datetime default current_timestamp,
   description  varchar(300) ,
@@ -26,7 +26,7 @@ create table expenses(
  );
 `;
 const createUsersTable1 = `
- create table income(
+ create table IF NOT EXISTS income(
   income_id int auto_increment primary key,
   date datetime default current_timestamp,
   category varchar(255),
@@ -36,7 +36,7 @@ const createUsersTable1 = `
 `;
 const createUsersTable2 = `
 
- create table monthly_summary(
+ create table IF NOT EXISTS monthly_summary(
   id int auto_increment primary key,
   income decimal(11,20) default 0.00,
   income decimal(11,20) default 0.00,
@@ -47,7 +47,7 @@ const createUsersTable2 = `
 `;
 const createUsersTable3 = `
 
- create table otp(
+ create table IF NOT EXISTS otp(
   id int auto_increment primary key,
   email varchar(255) not null,
   otp varchar(6) not null,
