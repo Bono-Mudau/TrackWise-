@@ -36,14 +36,15 @@ const createUsersTable1 = `
 `;
 const createUsersTable2 = `
 
- create table IF NOT EXISTS monthly_summary(
-  id int auto_increment primary key,
-  income decimal(11,2) default 0.00,
-  income decimal(11,2) default 0.00,
-  year int not null,
-  month int not null,
-  user_id int not null
- );
+CREATE TABLE IF NOT EXISTS monthly_summary (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  income DECIMAL(11,2) DEFAULT 0.00,
+  expense DECIMAL(11,2) DEFAULT 0.00,
+  year INT NOT NULL,
+  month INT NOT NULL,
+  user_id INT NOT NULL,
+  UNIQUE KEY unique_user_month (user_id, year, month)
+);
 `;
 const createUsersTable3 = `
 
