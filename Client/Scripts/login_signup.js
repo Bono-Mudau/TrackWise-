@@ -92,7 +92,7 @@ async function verify_details(){
     return;
   }
  
-  return fetch("http://localhost:3000/api/auth/login", {
+  return fetch("https://trackwise-9l4u.onrender.com/api/auth/login", {
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({
@@ -114,7 +114,7 @@ async function verify_details(){
 
 async function send_otp(email){
 
-  return fetch("http://localhost:3000/api/auth/send_otp",{
+  return fetch("https://trackwise-9l4u.onrender.com/api/auth/send_otp",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({
@@ -230,7 +230,7 @@ async function verify_OTP(email,otp){
     return;
   }
 
-  return fetch("http://localhost:3000/api/auth/verify_email",{
+  return fetch("https://trackwise-9l4u.onrender.com/api/auth/verify_email",{
 
     method:"POST",
     headers:{"Content-Type":"application/json"},
@@ -242,7 +242,7 @@ async function verify_OTP(email,otp){
   })
   .then(res=>{
     if(!res.ok){
-      throw new Error("Error geting verifying an OTP");  
+      throw new Error("Error getting verifying an OTP");  
     }
     return res.json();
   })
@@ -273,7 +273,7 @@ async function sign_up(){
       alert("Email could not be verified");
       return
     }
-    fetch("http://localhost:3000/api/auth/signup", {
+    fetch("https://trackwise-9l4u.onrender.com/api/auth/signup", {
         method:"POST",
         headers:{
           "Content-type": "application/json"
@@ -403,7 +403,7 @@ async function sign_up(){
  }
  async function updatepassword(email,password) {
 
-    return fetch("http://localhost:3000/api/auth/reset_password", {
+    return fetch("https://trackwise-9l4u.onrender.com/api/auth/reset_password", {
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({

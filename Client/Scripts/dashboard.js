@@ -83,7 +83,7 @@ function addentry(){
 async function load_all_expenses(){
   remove_table_Rows("expense-table")
   load_exp_filters();
-  fetch(`http://localhost:3000/api/expenses/load_expenses`,{
+  fetch(`https://trackwise-9l4u.onrender.com/api/expenses/load_expenses`,{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify(default_exp_filter)
@@ -200,7 +200,7 @@ function submit_expense(){
     }
 
     //send data to the database
-    fetch("http://localhost:3000/api/expenses/new_expense",{
+    fetch("https://trackwise-9l4u.onrender.com/api/expenses/new_expense",{
       method:"POST",
       headers:{
                "Content-Type":"application/json"
@@ -383,7 +383,7 @@ function delete_expense_entry(event){
           return 
          }
          try {
-           fetch("http://localhost:3000/api/expenses/delete_expense",{
+           fetch("https://trackwise-9l4u.onrender.com/api/expenses/delete_expense",{
              method:"POST",
              headers:{"Content-Type":"application/json"},
              body:JSON.stringify({
@@ -458,7 +458,7 @@ function update_exp(event){
 
     try {
 
-      fetch("http://localhost:3000/api/expenses/update_expense",{
+      fetch("https://trackwise-9l4u.onrender.com/api/expenses/update_expense",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify(updated_expense)
@@ -531,7 +531,7 @@ function cancel_update(){
     document.getElementById("income-category-input").value="";
     document.getElementById("income-amount").value="";
     try {
-            fetch("http://localhost:3000/api/income/new_income",{
+            fetch("https://trackwise-9l4u.onrender.com/api/income/new_income",{
               method:"POST",
               headers:{"Content-Type":"application/json"},
               body: JSON.stringify({
@@ -598,7 +598,7 @@ function delete_income(event){
     const confirmed = confirm("Are you sure you want to delete this income entry?"+selected_income.id);
     if(confirmed){
     try {
-      fetch("http://localhost:3000/api/income/delete_income",{
+      fetch("https://trackwise-9l4u.onrender.com/api/income/delete_income",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
@@ -635,7 +635,7 @@ function load_income(){
 
   remove_table_Rows("income-table")
   load_income_filters();
-  fetch("http://localhost:3000/api/income/load_income",{
+  fetch("https://trackwise-9l4u.onrender.com/api/income/load_income",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify(default_income_filter)
@@ -773,7 +773,7 @@ function update_income(event){
         category:new_cate,
         amount:amount.value
       }
-      fetch("http://localhost:3000/api/income/update_income",{
+      fetch("https://trackwise-9l4u.onrender.com/api/income/update_income",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify(data)
@@ -833,7 +833,7 @@ function load_balances(){
   const income_btn=document.getElementById("total-income");
   const  expense_btn=document.getElementById("total-expenses");
   try {
-    fetch("http://localhost:3000/api/summary/load_balances", {
+    fetch("https://trackwise-9l4u.onrender.com/api/summary/load_balances", {
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({user_id:user_info.id})
@@ -866,7 +866,7 @@ function load_balances(){
 function recent_transactions(id){
   remove_table_Rows("trans-table")
   try {
-    fetch("http://localhost:3000/api/summary/recent_trans",{
+    fetch("https://trackwise-9l4u.onrender.com/api/summary/recent_trans",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({user_id:id})
@@ -969,7 +969,7 @@ function log_out(){
 //load monthly summary
 function monthly_summary(){
   const id=user_info.id;
-  fetch("http://localhost:3000/api/summary/monthly_summary", {
+  fetch("https://trackwise-9l4u.onrender.com/api/summary/monthly_summary", {
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({id:id})
@@ -1055,7 +1055,7 @@ function income_chart(){
 
   const id=user_info.id;
 
-  fetch("http://localhost:3000/api/summary/income_chart", {
+  fetch("https://trackwise-9l4u.onrender.com/api/summary/income_chart", {
 
     method:"POST",
     headers:{"Content-Type":"application/json"},
@@ -1154,7 +1154,7 @@ function expense_chart(){
 
   const id=user_info.id;
 
-  fetch("http://localhost:3000/api/summary/expense_chart", {
+  fetch("https://trackwise-9l4u.onrender.com/api/summary/expense_chart", {
 
     method:"POST",
     headers:{"Content-Type":"application/json"},
