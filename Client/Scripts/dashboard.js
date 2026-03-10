@@ -240,7 +240,7 @@ function submit_expense(){
             <td>${due_Date}</td>
             <td></td>
           `;
-        row.cells[7].innerHTML=`<button onclick="enable_exp_editing(event)"> Edit </button> <button onclick="delete_expense_entry(event)"> Delete</button> `
+        row.cells[7].innerHTML=`<button onclick="enable_exp_editing(event)"> Edit </button>  <button onclick="delete_expense_entry(event)"> Delete</button> `
         const t_row=document.createElement("tr");
         t_row.id="exp_table_total";
         t_row.innerHTML=`
