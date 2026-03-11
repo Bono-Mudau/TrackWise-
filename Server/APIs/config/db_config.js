@@ -12,43 +12,5 @@ const db = mysql.createPool({
   queueLimit: 0,
   timezone: 'Z'
 });
-db.query("ALTER TABLE monthly_summary ADD CONSTRAINT unique_user_month_year UNIQUE (user_id, month, year);",(err,ans)=>{
-  if(err){
-    console.log(err)
-  }
-  console.log("table modified")
-})
-
-db.query('SHOW TABLES', (err, tables) => {
-  if (err) {
-    console.error('Error fetching tables:', err);
-    return;
-  }
-
-  tables.forEach(tableObj => {
-    const tableName = Object.values(tableObj)[0];
-    console.log(`\n--- Table: ${tableName} ---`);
-
-    // Describe table
-    db.query(`DESCRIBE \`${tableName}\``, (err, desc) => {
-      if (err) {
-        console.error(`Error describing table ${tableName}:`, err);
-        return;
-      }
-      console.log('Description:');
-      console.table(desc);
-
-      // Fetch all rows
-      db.query(`SELECT * FROM \`${tableName}\``, (err, rows) => {
-        if (err) {
-          console.error(`Error fetching rows from table ${tableName}:`, err);
-          return;
-        }
-        console.log('Data:');
-        console.table(rows);
-      });
-    });
-  });
-});
 
 module.exports=db;
