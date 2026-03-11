@@ -4,16 +4,18 @@ html, body {
 }
 body {
 
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-
+    height: 100vh;
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+     overflow-x: hidden
+    
 
 }
 #top-bar{
 
-    padding-left: 10px;
     width: 100%;
     height: fit-content;
     display: flex;
@@ -48,6 +50,7 @@ body {
     display: flex;
     height: fit-content;
     align-items: center;
+    width: 100%;
     background-color: rgba(6, 72, 116, 0.938);
 }
 
@@ -82,6 +85,9 @@ body {
 #main-frame{
     flex: 1;
     display: flex;
+    max-width: 100%;
+    overflow-x: hidden;
+
 }
 .sidebar{
     width: 100%;
@@ -128,7 +134,8 @@ body {
 }
 
 .menu_class{
-    width: 15%;
+    width: 150px;
+    flex-shrink: 0;;
     height: auto;
     background-color: whitesmoke;
     border-right: 0.001px solid rgb(24, 23, 23,0.5);
@@ -150,7 +157,8 @@ body {
     
 }
 #display-area{
-    width: 100vw;
+    flex: 1;
+    width: 100%;
     background-color: rgb(235, 247, 246);
     display: flex;
     flex-direction: column;
@@ -188,9 +196,14 @@ body {
     display: flex;
     margin:10px auto;
     flex-direction: column;
-    width: 25%;
+    width: 300px;
+    max-width: 90%;
 
 
+}
+.resent_trans, .exp_trans, .income_trans {
+    width: 100%;
+    overflow-x: auto; 
 }
 #summary-card div{
     border-radius: 10px;
@@ -213,13 +226,14 @@ body {
     border-top:5px solid rgb(94, 86, 86,0.4);
     border-bottom-left-radius:10px;
     border-bottom-right-radius:10px;
-    width: 80%;
+    width: 100%;
+    max-width: 700px;
     margin: 0 auto;
 }
 #graph div{
 
     border: 1px solid rgb(0,0,0,0.1);
-    width:50%;
+    width:100%;
     max-height: 300px;
     margin:0 auto;
     padding: 0;
@@ -235,7 +249,8 @@ body {
 
 #charts{
     min-height: 200px;
-    width: 70%;
+    width: 100%;
+    max-width: 700px;
     margin: 10px auto;
     background-color: #ffffff;
     border-radius: 10px;
@@ -249,8 +264,9 @@ body {
 
  /* Recents trans table */
 #trans-table {
-  width: 70%;
-  margin: 10px auto;
+  min-width: 600px; 
+  width: max-content;
+  margin: 2% auto;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -286,6 +302,7 @@ body {
 /* expense table */
 
 #expense-table {
+  overflow-x: auto;
   width: 90%;
   margin: 20px auto;
   border-collapse: collapse;
@@ -323,6 +340,7 @@ body {
 
 /* Income table  */
 #income-table {
+  overflow-x: auto;
   width: 90%;
   margin: 20px auto;
   border-collapse: collapse;
@@ -370,16 +388,18 @@ body {
 
 
 /* FOOTER */
+    
 #footer{
+    width: 100%;
     margin-bottom: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     background-color: rgb(92, 88, 88);
 }
 #footer div{
-    flex: 1;
-    margin-left: 30px;
+    min-width: 250px;
 }
 
 
@@ -722,7 +742,7 @@ body {
     display: flex;
     align-items: center;
     width: 90%;
-    height: 50px;
+    min-height: 50px;
     justify-content: space-between;
 }
 .transactions-fliter select{
@@ -736,6 +756,31 @@ body {
     height: 100%;
     font-size: 20px;
     
+}
+@media (max-width: 900px){
+
+#balance-overview{
+    flex-direction: column;
+    align-items: center;
+}
+
+#summary-card{
+    width: 90%;
+}
+
+#graph{
+    flex-direction: column;
+}
+
+.menu_class{
+    width: 200px;
+}
+.transactions-fliter{
+    flex-direction: column;
+    gap:10px;
+    align-items:flex-start;
+}
+
 }
 
 
