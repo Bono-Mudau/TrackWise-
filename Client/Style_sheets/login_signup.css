@@ -1,33 +1,40 @@
+body{
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+}
 .sign_up{
-    width: 40vw;
+    max-width: 650px;
+    width: 100vw;
     height: fit-content;
     border: 1px solid black;
     border-radius: 7px;
     display: flex;
     flex-direction: column;
-    margin: 50px auto;
+    margin: 5% auto;
 }
 .sign_up1{
     display: none;
 }
 .log_in{
-    width: 40vw;
+    max-width: 500px;
+    width: 100vw;
     height: fit-content;
     border: 1px solid black;
     border-radius: 7px;
     display: flex;
     flex-direction: column;
-    margin: 50px auto;
+    margin: 5% auto;
 }
 .log_in1{
     display: none;
 }
 .top-div{
-    height:50px;
+    max-height:50px;
     background-color: gray;
     display: flex;
     flex-direction: column;
-    margin-bottom: 5px;
+    margin-bottom: 1%;
 }
 .top-div h2{
     margin: auto;
@@ -45,7 +52,8 @@
     position: fixed;
     top: 40%;
     left:40%;
-    width: 300px;
+    width: 900vw;
+    max-width: 300px;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -70,8 +78,8 @@
 }
 .otp_prompt input{
   width: 80%;
-  height:30px;
-  margin: 10px auto;
+  max-height:30px;
+  margin: 5% auto;
 }
 .otp_prompt1{
  display:none   
@@ -92,9 +100,9 @@
     display: none;
 }
 .login_form{
-    min-height: 60vh;
-    margin:40px auto;
-    width: 50vw;
+    max-height: 500px;
+    margin:5% auto;
+    width: 100vw;
     max-width: 400px;
     display: flex;
     flex-direction: column;
@@ -127,7 +135,7 @@
     border-radius: 5px;
 }
 .login_form p{
-  margin: 20px;
+  margin: 5%;
   text-align: center;
 }
 .login_form button{
@@ -146,7 +154,7 @@
     height: fit-content;
     min-height: 0;
     align-self: self-end;
-    padding: 5px;
+    padding: 3%;
     margin-bottom: 10px;
     border: none;
     background: none;
@@ -163,8 +171,8 @@
 }
 .signup_form{
     min-height: 60vh;
-    margin:40px auto;
-    width: 50vw;
+    margin:5% auto;
+    width: 100vw;
     max-width: 400px;
     display: flex;
     flex-direction: column;
@@ -217,8 +225,8 @@
 }
 .Reset_password_form{
 
-    margin:40px auto;
-    width: 50vw;
+    margin:auto;
+    width: 100vw;
     max-width: 400px;
     display: flex;
     flex-direction: column;

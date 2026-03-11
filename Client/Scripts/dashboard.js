@@ -134,7 +134,7 @@ async function load_all_expenses(){
         row.cells[row.cells.length - 1].appendChild(edit);
         row.cells[row.cells.length - 1].appendChild(delete_btn);
         trans_list.appendChild(row);
-        total+=element.amount;
+        total+=Number(element.amount);
       })
       const row=document.createElement("tr");
       row.id="exp_table_total";

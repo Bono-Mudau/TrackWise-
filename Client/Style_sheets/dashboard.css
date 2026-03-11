@@ -1,12 +1,14 @@
 
 html, body {
-  margin: 0;
+  margin: 0 auto;
 }
 body {
 
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+
 
 }
 #top-bar{
@@ -23,10 +25,10 @@ body {
 }
 
 #logo{
-    height:50px;
+    max-height:50px;
     border-radius: 2px;
     font-size: x-large;
-    width: 160px;
+    max-width: 160px;
     margin-left: 15px;
     background-color: #36977db4;
     display: flex;
@@ -37,7 +39,7 @@ body {
     height: 80%;
     border: solid black;
     border-radius: 50px;
-    width: 60px;
+    max-width: 60px;
     margin-right:20px;
     font-size: x-large;
 }
@@ -58,13 +60,13 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
- margin: 10px;
+  margin: 10px;
 }
 
 .menu-button span {
   display: block;
-  width: 28px;            
-  height: 3px;           
+  max-width: 28px;            
+  max-height: 3px;           
   background-color: #232927;  
   margin: 3px 0;      
   border-radius: 2px;
@@ -135,7 +137,7 @@ body {
     display: none;
 }
 .options{
-    height:30px;
+    min-height:30px;
     width: 95%;
     margin: none;
     text-align: center;
@@ -232,7 +234,7 @@ body {
 
 
 #charts{
-    height: 200px;
+    min-height: 200px;
     width: 70%;
     margin: 10px auto;
     background-color: #ffffff;
@@ -252,7 +254,7 @@ body {
   border-collapse: collapse;
   font-family: Arial, sans-serif;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  margin-bottom: 30px;
+  margin-bottom: 5%;
 
 }
 
@@ -260,7 +262,7 @@ body {
 #trans-table th {
   background-color: #4f72a7;
   color: white;
-  padding: 12px;
+  padding: 5%;
   text-align: left;
 }
 
