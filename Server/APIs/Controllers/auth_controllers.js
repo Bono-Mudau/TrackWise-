@@ -5,6 +5,7 @@ const {accountCreatedTemplate,otpTemplate,ChangedPasswordTemplate}=require("../s
 const {generate_OTP}=require("../services/mail/otp");;
 
 const signup=async (req,res)=>{
+
     const {names,email,password} =req.body;
     //Check if the email is already used for a different account
     db.query("Select * from users where email=?",[email],async (err,rows)=>{
@@ -87,13 +88,13 @@ const send_otp=async (req,res)=>{
     const subject="OTP";
     const expiry_time = new Date(Date.now() + 5 * 60 * 1000);
 
-    db.query("DELETE FROM OTP WHERE email = ?", [email],async (deleteErr,results)=>{
+    db.query("DELETE FROM otp WHERE email = ?", [email],async (deleteErr,results)=>{
 
         if (deleteErr) {
                 console.error(deleteErr);
                 return res.status(500).json({ response: false });
             }
-        db.query("insert  into OTP (email,otp,expiry_time) values (?,?,?) ",[email,otp,expiry_time],async (err,row)=>{
+        db.query("insert  into otp (email,otp,expiry_time) values (?,?,?) ",[email,otp,expiry_time],async (err,row)=>{
 
             if(err){
                 return res.status(500).json({response:false});
@@ -117,7 +118,7 @@ const verify_email=async (req,res)=>{
 
     const {email,otp}=req.body;
     console.log(email+":"+otp)
-    const sql="select otp,expiry_time from OTP where email=? and otp=?";
+    const sql="select otp,expiry_time from otp where email=? and otp=?";
 
     db.query(sql,[email,otp],async (err,row)=>{
 

@@ -12,6 +12,12 @@ const db = mysql.createPool({
   queueLimit: 0,
   timezone: 'Z'
 });
+db.query("ALTER TABLE monthly_summary ADD CONSTRAINT unique_user_month_year UNIQUE (user_id, month, year);",(err,ans)=>{
+  if(err){
+    console.log(err)
+  }
+  console.log("table modified")
+})
 
 db.query('SHOW TABLES', (err, tables) => {
   if (err) {
