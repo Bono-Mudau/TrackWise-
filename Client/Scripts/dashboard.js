@@ -86,9 +86,14 @@ async function load_all_expenses(){
   fetch(`https://trackwise-9l4u.onrender.com/api/expenses/load_expenses`,{
     method:"POST",
     headers:{"Content-Type":"application/json"},
+    credentials: "include",
     body:JSON.stringify(default_exp_filter)
   })
   .then(res=>{
+    if (res.status === 401) {
+        log_out(); // auto-logout on unauthorized
+        return;
+    }
     if(!res.ok){
       throw new Error("Couldn't load expense entries");
     }
@@ -205,9 +210,14 @@ function submit_expense(){
       headers:{
                "Content-Type":"application/json"
              },
+      credentials: "include",
       body:JSON.stringify(expense_entry)
     })
     .then(res=>{
+      if (res.status === 401) {
+          log_out(); // auto-logout on unauthorized
+          return;
+      }
       if(!res.ok) {
         throw new  Error("Server error: " + res.status);
       }
@@ -386,10 +396,15 @@ function delete_expense_entry(event){
            fetch("https://trackwise-9l4u.onrender.com/api/expenses/delete_expense",{
              method:"POST",
              headers:{"Content-Type":"application/json"},
+             credentials: "include",
              body:JSON.stringify({
                id:selected_exp.id.replace("exp_row-", "")})
             })
            .then(res=>{
+              if (res.status === 401) {
+                  log_out(); // auto-logout on unauthorized
+                  return;
+              }
               if(!res.ok){
                 throw new Error("Error deleting an expense");
               }
@@ -461,9 +476,14 @@ function update_exp(event){
       fetch("https://trackwise-9l4u.onrender.com/api/expenses/update_expense",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
+        credentials: "include",
         body:JSON.stringify(updated_expense)
       })
       .then(res=>{
+        if (res.status === 401) {
+          log_out(); // auto-logout on unauthorized
+          return;
+        }
         if(!res.ok){
           alert("network error, failed to update expense")
           throw new Error("Invaild db_resp");
@@ -534,6 +554,7 @@ function cancel_update(){
             fetch("https://trackwise-9l4u.onrender.com/api/income/new_income",{
               method:"POST",
               headers:{"Content-Type":"application/json"},
+              credentials: "include",
               body: JSON.stringify({
                   category: income_entry.category,
                   amount: income_entry.amount,
@@ -541,6 +562,11 @@ function cancel_update(){
                 })
             })
             .then(res=>{
+
+              if (res.status === 401) {
+                  log_out(); // auto-logout on unauthorized
+                  return;
+              }
               if(!res.ok){
                 throw new Error("error adding an income entry");
               }
@@ -601,10 +627,15 @@ function delete_income(event){
       fetch("https://trackwise-9l4u.onrender.com/api/income/delete_income",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
+        credentials: "include",
         body:JSON.stringify({
           id:selected_income.id.replace("income_row-","")
         })
       }).then(res=>{
+        if (res.status === 401) {
+            log_out(); // auto-logout on unauthorized
+            return;
+        }
         if(!res.ok){
           throw new Error("Error deleting an income entry");  
         }
@@ -638,8 +669,13 @@ function load_income(){
   fetch("https://trackwise-9l4u.onrender.com/api/income/load_income",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
+    credentials: "include",
     body:JSON.stringify(default_income_filter)
   }).then(res=>{
+    if (res.status === 401) {
+        log_out(); // auto-logout on unauthorized
+        return;
+    }
     if(!res.ok){
       throw new Error("Failed to load existing income entries");
     }
@@ -776,9 +812,14 @@ function update_income(event){
       fetch("https://trackwise-9l4u.onrender.com/api/income/update_income",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
+        credentials: "include",
         body:JSON.stringify(data)
       })
       .then(res=>{
+          if (res.status === 401) {
+              log_out(); // auto-logout on unauthorized
+              return;
+          }
         if(!res.ok){
           throw new Error("DB_Err");
           
@@ -836,9 +877,14 @@ function load_balances(){
     fetch("https://trackwise-9l4u.onrender.com/api/summary/load_balances", {
       method:"POST",
       headers:{"Content-Type":"application/json"},
+      credentials: "include",
       body:JSON.stringify({user_id:user_info.id})
     })
     .then(res=>{
+    if (res.status === 401) {
+        log_out(); // auto-logout on unauthorized
+        return;
+    }
       if(!res.ok){
         throw new Error("DB_Err_load_balaces");
       }
@@ -869,9 +915,14 @@ function recent_transactions(id){
     fetch("https://trackwise-9l4u.onrender.com/api/summary/recent_trans",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
+      credentials: "include",
       body:JSON.stringify({user_id:id})
     })
     .then(res=>{
+    if (res.status === 401) {
+        log_out(); // auto-logout on unauthorized
+        return;
+    }
       if(!res.ok){
         throw new Error("DB_trans_resp_err");
       }
@@ -958,10 +1009,28 @@ function show_overview(){
 }
 
 //log out confirmation prompt 
-function log_out(){
-  if(confirm("Are you sure you want to log out?")){
+async function  log_out(){
+
+ if (confirm("Are you sure you want to log out?")) {
+
     localStorage.clear();
-    window.location.href="login_signup.html"
+
+    try {
+      const res = await fetch("https://trackwise-9l4u.onrender.com/api/auth/log_out",{
+          method: "POST",
+          credentials: "include"
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Logout failed");
+      }
+
+    } catch (err) {
+      console.error(err);
+    }
+
+    window.location.href = "login_signup.html";
   }
 
 }
@@ -972,9 +1041,14 @@ function monthly_summary(){
   fetch("https://trackwise-9l4u.onrender.com/api/summary/monthly_summary", {
     method:"POST",
     headers:{"Content-Type":"application/json"},
+    credentials: "include",
     body:JSON.stringify({id:id})
   })
   .then(res=>{
+    if (res.status === 401) {
+        log_out(); // auto-logout on unauthorized
+        return;
+    }
     if(!res.ok){
       throw new Error("Error has occured _couldn't get graph data");
     }
@@ -1059,10 +1133,15 @@ function income_chart(){
 
     method:"POST",
     headers:{"Content-Type":"application/json"},
+    credentials: "include",
     body:JSON.stringify({id:id})
 
   })
   .then(res=>{
+      if (res.status === 401) {
+        log_out(); // auto-logout on unauthorized
+        return;
+      }
     if(!res.ok){
       throw new Error("Error has occured _couldn't get graph data");
     }
@@ -1158,10 +1237,16 @@ function expense_chart(){
 
     method:"POST",
     headers:{"Content-Type":"application/json"},
+    credentials: "include",
     body:JSON.stringify({id:id})
 
   })
   .then(res=>{
+
+    if (res.status === 401) {
+        log_out(); // auto-logout on unauthorized
+        return;
+    }
 
     if(!res.ok){
       throw new Error("Error has occured _couldn't get graph data");

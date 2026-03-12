@@ -22,9 +22,13 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.2",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "mailgun-js": "^0.22.0",
+    "express-rate-limit": "^8.3.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mailgun-js": "^0.6.7",
     "mysql2": "^3.19.0",
     "nodemailer": "^8.0.1"
   }

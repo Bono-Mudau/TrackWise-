@@ -2,7 +2,9 @@ const db = require("../config/db_config");
 const bcrypt = require("bcrypt");
 const {sendEmail}=require("../services/mail/mailer");
 const {accountCreatedTemplate,otpTemplate,ChangedPasswordTemplate}=require("../services/mail/mail_templates");
-const {generate_OTP}=require("../services/mail/otp");;
+const {generate_OTP}=require("../services/mail/otp");
+const {generate_Token}=require("../middleware/verify_token");
+const { response } = require("express");
 
 const signup=async (req,res)=>{
 
@@ -58,6 +60,13 @@ const login=async (req,res)=>{
             try {
                 const auth=await bcrypt.compare(password,results[0].password)
                 if(auth){
+                    const token= generate_Token(email);
+                    res.cookie("token", token, 
+                        { httpOnly: true, 
+                        secure: true, 
+                        sameSite: "Strict",
+                        maxAge: 15 * 60 * 1000 });
+
                     return res.json({
                         name:results[0].name,
                         id:results[0].user_id,
@@ -67,12 +76,14 @@ const login=async (req,res)=>{
                 else{
                     return res.json({user:false , reason:"Incorrect login credentials"})
                 } 
-            } catch (error) {               
+            } catch (error) { 
+                console.error("Error comparing passwords:", error);
+                return res.status(500).json({ user: false, reason: "Server error" })              
                 
             }
         }  
         else{
-            return res.json({ user:false , reason:"unknown error" })
+            return res.json({ user:false , reason:"User not found!" })
         }
 
     });
@@ -175,9 +186,18 @@ const reset_password=async (req,res)=>{
         console.log(error);
         return res.json({response:false});
         
-    }
+    } 
 
 }
+ const log_out=async (req,res)=>{
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "Strict"
+        });
+
+        return res.json({response:"Logged out successfully"});
+    }
 
 //export the functions
 module.exports={
@@ -185,5 +205,6 @@ module.exports={
     login,
     signup,
     verify_email,
-    reset_password
+    reset_password,
+    log_out
 }
