@@ -1,10 +1,13 @@
 .login{
     
-    margin: 15vh auto;
-    height: 67vh;
-    width: 40vw;
+    margin: 5% auto;
+    height: 80vh;
+    max-height: 500px;
+    min-height: 300px;
+    width: 100vw;
+    max-width: 400px;
     border-radius: 10px;
-    border: 1px black solid;
+    border: 2px black solid;
     display: flex;   
     flex-direction: column;
     background-color: rgb(252, 252, 252);

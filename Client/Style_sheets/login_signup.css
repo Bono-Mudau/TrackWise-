@@ -1,10 +1,15 @@
 body{
     padding: 0;
     margin: 0 auto;
-    width: 100%;
+     min-width: 100vw;
+     min-height: 100vh;
+     background-color: rgba(94, 52, 122, 0.22);
+     justify-content: center;
+     align-items: center;
+    display: flex; 
 }
 .sign_up{
-    max-width: 650px;
+    max-width: 800px;
     width: 100vw;
     height: fit-content;
     border: 1px solid black;
@@ -17,7 +22,7 @@ body{
     display: none;
 }
 .log_in{
-    max-width: 500px;
+    max-width: 700px;
     width: 100vw;
     height: fit-content;
     border: 1px solid black;
@@ -100,31 +105,35 @@ body{
     display: none;
 }
 .login_form{
-    max-height: 500px;
-    margin:5% auto;
-    width: 100vw;
-    max-width: 400px;
+    height: fit-content;
+    max-height: 600px;
+    margin:0 auto ;
+    width: 90vw;
+    max-width: 450px;
+    align-self: center;
     display: flex;
     flex-direction: column;
     padding: 10px;
-    border: 3px solid rgb(13, 106, 168,0.2);
+    border: 2px solid rgb(13, 106, 168,0);
+    background-color: rgb(138, 44, 226,0.1);
+    box-shadow: 5px 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    background-color: rgba(240, 255, 255, 0.22);
 }
 .login_form h2{
+
     align-self: center;
     font-size: 25px;
 
 }
 .login_form div{
     align-self: center;;
-    width: 70%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
 }
 .input-fields{
-    margin: 8px;
+    margin: 10px;
     width: 100%;
     min-height: 30px;
     align-self: center;
@@ -133,6 +142,7 @@ body{
     font-size: large;
     outline: none;
     border-radius: 5px;
+    padding: 10px;
 }
 .login_form p{
   margin: 5%;
@@ -141,10 +151,10 @@ body{
 .login_form button{
     
     font-size: 15px;
-    min-width:30%;
-    min-height: 20px;
+    min-width:40%;
+    min-height: 40px;
     padding: 5px;
-    background-color: rgb(160, 160, 238);
+    background-color: rgb(49, 49, 78,0.5);
     border-radius: 5px;
     border: none;
     align-self: center;
@@ -170,16 +180,19 @@ body{
     display: none;
 }
 .signup_form{
-    min-height: 60vh;
-    margin:5% auto;
-    width: 100vw;
-    max-width: 400px;
+    height: fit-content;
+    max-height: 600px;
+    margin:0 auto ;
+    width: 90vw;
+    max-width: 450px;
+    align-self: center;
     display: flex;
     flex-direction: column;
     padding: 10px;
-    border: 3px solid rgb(13, 106, 168,0.2);
+    border: 2px solid rgb(13, 106, 168,0);
+    background-color: rgb(138, 44, 226,0.1);
+    box-shadow: 5px 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    background-color: rgba(240, 255, 255, 0.22);
 }
 .signup_form h2{
     align-self: center;
@@ -208,7 +221,7 @@ body{
     min-width:40%;
     min-height: 40px;
     padding: 5px;
-    background-color: rgb(160, 160, 238);
+    background-color: rgb(49, 49, 78,0.5);
     border-radius: 5px;
     border: none;
     align-self: center;
