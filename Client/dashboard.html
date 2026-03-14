@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track-Wise</title>
+    <title>TrackWise</title>
     <link rel="stylesheet" href="Style_sheets/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -30,14 +30,14 @@
                 <thead>
                 </thead>
                 <tbody>
-                    <tr> <td><button onclick="show_overview()" class="options"><i class="fas fa-chart-line"></i>Overview</button></td></tr>
-                    <tr><td><button onclick="show_expense()"  class="options"><i class="fas fa-money-bill-wave"></i> Expenses</button></td></tr>
-                    <tr><td><button onclick="show_income()"   class="options"><i class="fas fa-wallet"></i>Income</button></td></tr>
+                    <tr> <td><button id="show_overview" class="options"><i class="fas fa-chart-line"></i>Overview</button></td></tr>
+                    <tr><td><button id="show_expense"  class="options"><i class="fas fa-money-bill-wave"></i> Expenses</button></td></tr>
+                    <tr><td><button id="show_income"   class="options"><i class="fas fa-wallet"></i>Income</button></td></tr>
                     <tr><td><button class="options" ><i class="fas fa-receipt"></i>Trasactions</button></td></tr>
                     <tr><td> <button class="options" >Summary</button></td></tr>
                     <tr><td> <button class="options" ><i class="fas fa-bell"></i>Reminders</button></td></tr>
                     <tr><td><button class="options" >Export data</button></td></tr>
-                    <td><button class="options" id="log-out" onclick="log_out()" >Log out</button></td>
+                    <td><button class="options" id="log-out" >Log out</button></td>
                 </tbody>
             </table>
         </div>
@@ -102,14 +102,14 @@
 
                     <div id="add-expense">
                        <label id="expense-month" > Expense Enteries</label>
-                       <label for="add-entry">Add entry <button  class="add-entry" onclick="addentry()">+</button> </label>
+                       <label for="add-entry">Add entry <button  class="add-entry" id="addentry">+</button> </label>
                     </div>
                     <div class= "transactions-fliter">
 
                         <label for="Show last last :">
 
                             Showing the last :
-                            <select name="Show last last :" id="show-last-x-exp" onchange="load_all_expenses()">
+                            <select name="Show last last :" id="show-last-x-exp">
 
                                 <option value="1"> 1 month</option>
                                 <option value="2"> 2 months</option>
@@ -121,7 +121,7 @@
                             </select>
                         </label>
 
-                        <label for="Sort by:" onchange="load_all_expenses()">
+                        <label for="Sort by:">
                             Sort by:
                             <select name="Sort by:" id="sort-exp-by">
 
@@ -133,7 +133,7 @@
                             </select>
                         </label>
                        
-                        <label for="Filter By:" onchange="load_all_expenses()">
+                        <label for="Filter By:">
                              Filter By:
                              <select name="Filter By:" id="Filter-expense">
                                 Filter By:  
@@ -183,7 +183,7 @@
                         </select>
                         <input class="input-field" id="input-amount" type="text" maxlength="7" placeholder="Amount">
                         <label > Due date : <input id="due_date" type="date" ></label>
-                        <button class="submit" onclick="submit_expense()">Submit✓</button>
+                        <button class="submit" id="submit_exp">Submit✓</button>
                     </div>
                     <!-- edit expense -->
                     <div id="edit_exp" class="edit-expense">
@@ -207,7 +207,7 @@
                         </label>
                         <label ><input id="exp-amount-edt" type="text" placeholder="Amount" maxlength="7"></label>
                         <label>Paid?<input id="edit-exp-checkbox" type="checkbox"></label>
-                        <label class="lab"> <button onclick="update_exp()">Save Changes</button>  <button onclick="cancel_update()"> Cancel</button></label>
+                        <label class="lab"> <button id="update_expen" >Save Changes</button>  <button id="cancel_exp_update"> Cancel</button></label>
                     </div>
                 </div>
             </div>
@@ -215,7 +215,7 @@
             <div id="income" class="income">
                 <div id="add-income">
                     <label id="income-month" >Income Enteries</label>
-                    <label for="add-entry"> Add entry  <button  class="add-entry" onclick="addentry1()">+</button></label>
+                    <label for="add-entry"> Add entry  <button  class="add-entry" id="addentry1" >+</button></label>
                     
                 </div>
                     <div class=transactions-fliter>
@@ -224,7 +224,7 @@
                         <label for="Showing the last :">
 
                             Show last last :
-                            <select name="Show last last :" id="show-last-x-income" onchange="load_income()">
+                            <select name="Show last last :" id="show-last-x-income">
 
                                 <option value="1"> 1 month</option>
                                 <option value="2"> 2 months</option>
@@ -239,7 +239,7 @@
                        <label for="Sort by:">
 
                            Sort by:
-                           <select name="Sort by:" id="sort-income-by" onchange="load_income()">
+                           <select name="Sort by:" id="sort-income-by">
 
                                 <option value="1">Newest first</option>
                                 <option value="2">Oldest first</option>
@@ -278,7 +278,7 @@
                             <option value="other">Other</option>
                     </select>
                     <input class="input-field" id="income-amount" type="text" maxlength="7" placeholder="Amount">
-                    <button class="submit" onclick="submit_income()">Submit✓</button>
+                    <button class="submit" id="submit_income" >Submit✓</button>
                 </div>
                 <!-- edit income entry -->
                     <div id="income_edit" class="edit-income">
@@ -293,7 +293,7 @@
                             </select> 
                         </label>
                         <label ><input class="input-field" id="income-amount-edit" type="text" placeholder="Amount" maxlength="7"></label>
-                        <label class="lab"> <button class="submit" onclick="update_income()" id="save-income-edit">Save changes</button> <button onclick="cancel_update1()">cancel</button></label>
+                        <label class="lab"> <button class="submit"  id="save-income-edit">Save changes</button> <button id="cancel_update1" >cancel</button></label>
                     </div>
             </div>
         </div>

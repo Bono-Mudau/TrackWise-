@@ -9,6 +9,38 @@ function getdate(){
 
 document.getElementById('due_date').min=getdate();
 
+//add event listeners
+document.getElementById("show_overview").addEventListener("click",show_overview);
+document.getElementById("show_expense").addEventListener("click",show_expense);
+document.getElementById("show_income").addEventListener("click",show_income);
+document.getElementById("log-out").addEventListener("click",log_out);
+document.getElementById("addentry").addEventListener("click",addentry);
+document.getElementById("show-last-x-exp").addEventListener("change",load_all_expenses);
+document.getElementById("sort_exp_by").addEventListener("change",load_all_expenses);
+document.getElementById("Filter-expense").addEventListener("click",load_all_expenses);
+document.getElementById("submit_exp").addEventListener("click",submit_expense);
+document.getElementById("update_expen").addEventListener("click",update_exp);
+document.getElementById("cancel_exp_update").addEventListener("click",cancel_update);
+document.getElementById("addentry1").addEventListener("click",addentry1);
+document.getElementById("show-last-x-income").addEventListener("change",load_income);
+document.getElementById("sort-income-by").addEventListener("change",load_income);
+document.getElementById("submit_income").addEventListener("click",submit_income);
+document.getElementById("save-income-edit").addEventListener("click",update_income);
+document.getElementById("cancel_update1").addEventListener("click",cancel_update1);
+document.getElementById("").addEventListener("click",);
+document.getElementById("").addEventListener("click",);
+document.getElementById("").addEventListener("click",);
+document.getElementById("").addEventListener("click",);
+document.getElementById("").addEventListener("click",);
+document.getElementById("").addEventListener("click",);
+document.getElementById("").addEventListener("click",);
+document.getElementById("").addEventListener("click",);
+document.getElementById("").addEventListener("click",);
+document.getElementById("").addEventListener("click",);
+document.getElementById("").addEventListener("click",);
+document.getElementById("").addEventListener("click",);
+
+
 function menu_toogle(){
  const menu=document.getElementById("menu-options");
   if(menu.classList.contains("menu_class")){

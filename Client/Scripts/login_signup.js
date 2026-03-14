@@ -10,11 +10,24 @@ function log_sign_toogle(){
         sign.classList.replace("signup_form1","signup_form");
         log.classList.replace("login_form","login_form1");;   
     }
+  
 }
+// add event listeners
+
+document.getElementById("losg-in").addEventListener("click",login);
+document.getElementById("redirect_to_recoverpassword_toogle").addEventListener("click",redirect_to_recoverpassword_toogle);
+document.getElementById("password_recovery_submit_btn").addEventListener("click",reset_password);
+document.getElementById("sign-up").addEventListener("click",validate_user_information);
+document.getElementById("submit_otp").addEventListener("click",sign_up);
+document.getElementById("login-signup_toggle").addEventListener("click",log_sign_toogle);
+document.getElementById("login-signup_toggle1").addEventListener("click",login);document.getElementById("losg-in").addEventListener("click",login);
+
+
 
 let password_strength_status=false;
 
 function password_strength(event){
+
   //Ensure that the user enters strong password 
    
   const password = event.target.value;
@@ -51,7 +64,7 @@ function password_strength(event){
   }
 
 }
-const passwordInput = document.getElementById("password");
+const passwordInput = document.getElementById("Password");
 passwordInput.addEventListener("input", password_strength);
 
 
