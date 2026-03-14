@@ -27,18 +27,8 @@ document.getElementById("sort-income-by").addEventListener("change",load_income)
 document.getElementById("submit_income").addEventListener("click",submit_income);
 document.getElementById("save-income-edit").addEventListener("click",update_income);
 document.getElementById("cancel_update1").addEventListener("click",cancel_update1);
-document.getElementById("").addEventListener("click",);
-document.getElementById("").addEventListener("click",);
-document.getElementById("").addEventListener("click",);
-document.getElementById("").addEventListener("click",);
-document.getElementById("").addEventListener("click",);
-document.getElementById("").addEventListener("click",);
-document.getElementById("").addEventListener("click",);
-document.getElementById("").addEventListener("click",);
-document.getElementById("").addEventListener("click",);
-document.getElementById("").addEventListener("click",);
-document.getElementById("").addEventListener("click",);
-document.getElementById("").addEventListener("click",);
+document.getElementById("menu").addEventListener("click",menu_toogle);
+
 
 
 function menu_toogle(){
