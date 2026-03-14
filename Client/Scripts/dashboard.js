@@ -16,7 +16,7 @@ document.getElementById("show_income").addEventListener("click",show_income);
 document.getElementById("log-out").addEventListener("click",log_out);
 document.getElementById("addentry").addEventListener("click",addentry);
 document.getElementById("show-last-x-exp").addEventListener("change",load_all_expenses);
-document.getElementById("sort_exp_by").addEventListener("change",load_all_expenses);
+document.getElementById("sort-exp-by").addEventListener("change",load_all_expenses);
 document.getElementById("Filter-expense").addEventListener("click",load_all_expenses);
 document.getElementById("submit_exp").addEventListener("click",submit_expense);
 document.getElementById("update_expen").addEventListener("click",update_exp);
