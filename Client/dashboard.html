@@ -305,6 +305,21 @@
                     <input class="input-field" id="income-amount" type="text" maxlength="7" placeholder="Amount">
                     <button class="submit" id="submit_income" >Submit✓</button>
                 </div>
+                <!-- edit income entry -->
+                    <div id="income_edit" class="edit-income">
+                        <label id="income-edit-id">005</label>
+                        <label >
+                            <select class="input-field" name="Category" id="income-category-edit">
+                              <option value="none">Select</option>
+                              <option value="Salary"> Salary</option>
+                              <option value="Investments">Investments</option>
+                              <option value="Donations">Donations</option>
+                              <option value="other">Other</option>
+                            </select> 
+                        </label>
+                        <label ><input class="input-field" id="income-amount-edit" type="text" placeholder="Amount" maxlength="7"></label>
+                        <label class="lab"> <button class="submit"  id="save-income-edit">Save changes</button> <button id="cancel_update1" >cancel</button></label>
+                    </div>
             </div>
         </div>
     </div>
