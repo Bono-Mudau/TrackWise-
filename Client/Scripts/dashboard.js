@@ -19,7 +19,6 @@ document.getElementById("show-last-x-exp").addEventListener("change",load_all_ex
 document.getElementById("sort-exp-by").addEventListener("change",load_all_expenses);
 document.getElementById("Filter-expense").addEventListener("change",load_all_expenses);
 document.getElementById("submit_exp").addEventListener("click",submit_expense);
-document.getElementById("update_expen").addEventListener("click",update_exp);
 document.getElementById("addentry1").addEventListener("click",addentry1);
 document.getElementById("show-last-x-income").addEventListener("change",load_income);
 document.getElementById("sort-income-by").addEventListener("change",load_income);

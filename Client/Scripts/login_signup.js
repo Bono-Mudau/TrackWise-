@@ -2,8 +2,13 @@
 function log_sign_toogle(){
     const sign = document.getElementById("signup_form");
     const log = document.getElementById("login_form");
-    sign.classList.toggle("signup_form1");
-    log.classList.toggle("login_form1");
+    if(sign.classList.contains("signup_form")){
+      sign.classList.replace("signup_form","signup_form1");
+      log.classList.replace("login_form1","login_form")
+    }else{
+      sign.classList.replace("signup_form1","signup_form");
+      log.classList.replace("login_form","login_form1")
+    }
   
 }
 // add event listeners
