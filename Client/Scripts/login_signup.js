@@ -61,7 +61,7 @@ function password_strength(event){
   }
 
 }
-const passwordInput = document.getElementById("Password");
+const passwordInput = document.getElementById("password");
 passwordInput.addEventListener("input", password_strength);
 
 
