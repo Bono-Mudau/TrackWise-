@@ -22,6 +22,7 @@ document.getElementById("login-signup_toggle").addEventListener("click",log_sign
 document.getElementById("login-signup_toggle1").addEventListener("click",log_sign_toogle);
 
 let password_strength_status=false;
+let password_strength_status1=false;
 
 function password_strength(event){
 
@@ -61,8 +62,49 @@ function password_strength(event){
   }
 
 }
-const passwordInput = document.getElementById("password");
+const passwordInput = document.getElementById("account_recovery_password");
 passwordInput.addEventListener("input", password_strength);
+
+function password_strength1(event){
+
+  //Ensure that the user enters strong password 
+   
+  const password = event.target.value;
+  const length=document.getElementById("Password_length");
+  const digit=document.getElementById("Password_contain_digit");
+  const special_char=document.getElementById("Password_contains_s_char");
+  const has_special_chars=/[^a-zA-Z0-9]/;
+
+  if(password.length<8){
+    length.style.color="red";
+  }
+  else{
+    length.style.color="green";
+  }
+
+  if(/\d/.test(password)){
+    digit.style.color="green";
+  }
+  else{
+    digit.style.color="red";
+  }
+  if(has_special_chars.test(password)){
+    special_char.style.color="green";
+  }
+  else{
+     special_char.style.color="red";
+  }
+
+  if(password.length>=8 && /\d/.test(password) && has_special_chars.test(password)){
+    password_strength_status1=true;
+  }
+  else{
+    password_strength_status1=false;
+  }
+
+}
+const passwordInput1 = document.getElementById("password");
+passwordInput1.addEventListener("input", password_strength1);
 
 
 function login(){
@@ -195,7 +237,7 @@ async function validate_user_information(){
       alert("Password do not match");
       return;
     }
-    if(!password_strength_status){
+    if(!password_strength_status1){
       alert("Weak password!!")
       return;
     }
