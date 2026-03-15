@@ -13,7 +13,6 @@ body {
     min-height: 100vh;   
 }
 #top-bar{
-
     width: 100%;
     height: fit-content;
     display: flex;
@@ -21,7 +20,6 @@ body {
     align-items: center;
     justify-content: space-between;
     background: none;
-
 }
 
 #logo{
@@ -47,8 +45,8 @@ body {
     border-top: 1px solid rgb(34, 33, 33);
     display: flex;
     height: 20vh;
-    max-height: 70px;
-    min-height: 30px;
+    max-height: 100px;
+    min-height: 40px;
     align-items: center;
     width: 100%;
     background-color: #4567b7;
@@ -139,8 +137,8 @@ body {
 
 .menu_class{
     width: 25vw;
-    min-width: 40px;
-    max-width: 130px;
+    min-width: 50px;
+    max-width: 200px;
     flex-shrink: 0;;
     height: 100%;
     height: auto;
@@ -244,12 +242,10 @@ body {
 
     background-color: #fbfdfff3;
     display: flex;
-    border-bottom:1px solid rgb(221, 164, 164);
-    border-top:5px solid rgb(94, 86, 86,0.4);
-    border-bottom-left-radius:10px;
-    border-bottom-right-radius:10px;
-    width: 100%;
-    max-width: 700px;
+    border:1px solid rgba(153, 153, 153, 0.1);
+    border-radius: 6px;
+    width: 95%;
+    max-width: 850px;
     margin: 0 auto;
 }
 #graph div{
@@ -272,7 +268,7 @@ body {
 #charts{
     min-height: 200px;
     width: 100%;
-    max-width: 700px;
+    max-width: 850px;
     margin: 10px auto;
     background-color: #ffffff;
     border-radius: 10px;
@@ -797,6 +793,9 @@ body {
 
 
 @media (max-width: 900px){
+#menu-bar{
+    height: 20vh;
+}
 
 #balance-overview{
     flex-direction: column;
@@ -811,15 +810,18 @@ body {
 #summary-card{
     width: 90%;
 }
+#charts{
+    width: 90vw;
+}
 
 #graph{
     flex-direction: column;
+    width: 90vw;
 }
 
 .menu_class{
     width: 40vw;
     min-width: 50px;
-    max-width: 160px;
     height: fit-content;
 
 }

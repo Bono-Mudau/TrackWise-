@@ -20,13 +20,10 @@ document.getElementById("sort-exp-by").addEventListener("change",load_all_expens
 document.getElementById("Filter-expense").addEventListener("change",load_all_expenses);
 document.getElementById("submit_exp").addEventListener("click",submit_expense);
 document.getElementById("update_expen").addEventListener("click",update_exp);
-document.getElementById("cancel_exp_update").addEventListener("click",cancel_update);
 document.getElementById("addentry1").addEventListener("click",addentry1);
 document.getElementById("show-last-x-income").addEventListener("change",load_income);
 document.getElementById("sort-income-by").addEventListener("change",load_income);
 document.getElementById("submit_income").addEventListener("click",submit_income);
-document.getElementById("save-income-edit").addEventListener("click",update_income);
-document.getElementById("cancel_update1").addEventListener("click",cancel_update1);
 document.getElementById("menu").addEventListener("click",menu_toogle);
 
 
@@ -126,10 +123,13 @@ async function load_all_expenses(){
         throw new Error("Invalid data format");
       }
       if(data.length==0){
-        return alert("No expenses available")
+        document.getElementById("expense-trans").style.display="none";
+        document.getElementById("expense-trans-alternative").style.display="";
+        return;
       }
       let total=0;
-      const trans_list=document.getElementById("expense-trans")
+      const trans_list=document.getElementById("expense-trans");
+      trans_list.style.display="";
       data.forEach(element => {
         const row=document.createElement("tr");
         row.id="exp_row-"+element.exp_id;
@@ -706,8 +706,13 @@ function load_income(){
     if(!Array.isArray(data)){
       throw new Error("Invalid data format:income entries couldn't load");
     }
+    if(data.length==0){
+        document.getElementById("income-trans").style.display="none";
+        document.getElementById("income-trans-alternative").style.display="";
+    }
     let total=0;
-    const trans_list=document.getElementById("income-trans")
+    const trans_list=document.getElementById("income-trans");
+    trans_list.style.display="";
     data.forEach(el=>{
         const edit=document.createElement("button");
         edit.innerHTML="edit";
@@ -728,7 +733,7 @@ function load_income(){
         row.cells[row.cells.length - 1].appendChild(edit);
         row.cells[row.cells.length - 1].appendChild(delete_btn);
         trans_list.appendChild(row);
-        total+=Number(el.amount)
+        total+=Number(el.amount);
     })
     const row=document.createElement("tr");
     row.id="income_table_total";
@@ -952,9 +957,14 @@ function recent_transactions(id){
     })
     .then(data=>{
       if(data.response){
+        if(data.length==0){
+          document.getElementById("recents-trans").style.display="none";
+        document.getElementById("recents-trans-alternative").style.display="";
+        }
 
         data.recent_transactions.forEach(entry=>{
-          const trans_list=document.getElementById("recents-trans")
+          const trans_list=document.getElementById("recents-trans");
+          trans_list.style.display=""
           const row=document.createElement("tr");
           row.id=entry.id;
           row.innerHTML=`

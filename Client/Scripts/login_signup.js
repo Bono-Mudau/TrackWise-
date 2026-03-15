@@ -1,15 +1,9 @@
 
 function log_sign_toogle(){
-    const sign=document.getElementById("signup_form");
-    const log=document.getElementById("login_form");
-    if(sign.classList.contains("signup_form")){
-        sign.classList.replace("signup_form","signup_form1");
-        log.classList.replace("login_form1","login_form");
-    }
-    else{
-        sign.classList.replace("signup_form1","signup_form");
-        log.classList.replace("login_form","login_form1");;   
-    }
+    const sign = document.getElementById("signup_form");
+    const log = document.getElementById("login_form");
+    sign.classList.toggle("signup_form1");
+    log.classList.toggle("login_form1");
   
 }
 // add event listeners
@@ -20,9 +14,7 @@ document.getElementById("password_recovery_submit_btn").addEventListener("click"
 document.getElementById("sign-up").addEventListener("click",validate_user_information);
 document.getElementById("submit_otp").addEventListener("click",sign_up);
 document.getElementById("login-signup_toggle").addEventListener("click",log_sign_toogle);
-document.getElementById("login-signup_toggle1").addEventListener("click",login);document.getElementById("losg-in").addEventListener("click",login);
-
-
+document.getElementById("login-signup_toggle1").addEventListener("click",log_sign_toogle);
 
 let password_strength_status=false;
 
