@@ -277,13 +277,17 @@ body{
     align-self: center;
     margin: 15px;
 }
-@media (max-width: 900px){
+@media (max-width: 720px){
     .login_form{
-        width: 80vw;
+        min-width: 90vw;
+        min-height: 60vh;
         height: fit-content;
+        margin: 0 auto;
+        
     }
     .signup_form{
-        width: 80vw;
+        width: 90vw;
+        min-height: 60vh;
         height: fit-content;
     }
 }

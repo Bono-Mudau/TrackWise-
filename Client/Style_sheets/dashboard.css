@@ -3,14 +3,13 @@ html, body {
   margin: 0 auto;
 }
 body {
-
+    margin: 0;
     padding: 0;
-    margin: 0 auto;
     width: 100%;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    min-height: 100vh;   
+    min-height: 100dvh;
 }
 #top-bar{
     width: 100%;
@@ -483,7 +482,7 @@ body {
 }
 #add-expense label{
     font-size: 23;
-    padding: 10px;
+    padding: 2%;
 }
 
 
@@ -499,47 +498,13 @@ body {
     align-content: center;
     
 }
-#expenses-label{
-    margin-left: 5px;
-    margin-top:10px;
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
-    align-items: center;
-    height: 25px;  
-}
-#expenses-label label{
-    width:20%;
-}
-.expense-card{
-    margin-top: 10px;
-    height:40px;
-    width: 100%;
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 2px;
-    flex-shrink: 0; 
-    border: 1px solid rgb(43, 41, 41) !important;
-}
-.expense-card label{
-   flex: 1;     
-   text-align: left;
-    line-clamp: 1;
-    display: -webkit-box;        
-    -webkit-line-clamp: 1;      
-    -webkit-box-orient: vertical;
-    overflow: hidden;          
-    text-overflow: ellipsis; 
-}
-.create-expense-card1{
-    display: none;
-}
+
 .create-expense-card{
     min-height:50px;
+    height: 20vh;
+    max-height: 80px;
     display:flex;
-    margin-left: 10px;
+    margin-left: 0 auto;
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
@@ -548,7 +513,7 @@ body {
     position: fixed;
     background-color: #e2b5b3;
     top: 40%;
-    left: 20%;
+    left:0;
     z-index: 500;
     width: 70%;
     padding: 5px;
@@ -687,11 +652,12 @@ body {
     width: 30%;
 }
 .create-income-card{
-    height:50px;
-    max-height:700px ;
+    min-height:50px;
+    height: 20vh;
+    max-height:80px ;
     min-width: 400px;
     width: 90%;
-    padding: 10px;
+    padding: 5%;
     background-color: rgb(139, 212, 139);
     display:flex;
     flex-direction: row;
@@ -701,7 +667,7 @@ body {
     border-radius: 10px;
     position: fixed;
     top: 40%;
-    left:auto;
+    left:0;
     z-index: 500;
 
 }
@@ -753,7 +719,8 @@ body {
 }
 
 #Overdue-expenses {
-    min-width: 600px; 
+    min-width: 80vw; 
+    max-width: 800px;
     width: max-content;
     margin: 2% auto;
     border-collapse: collapse;
@@ -792,9 +759,10 @@ body {
 
 
 
-@media (max-width: 900px){
+@media (max-width:720px){
+
 #menu-bar{
-    height: 20vh;
+    min-height: 20vh;
 }
 
 #balance-overview{
@@ -802,9 +770,10 @@ body {
     align-items: center;
 }
 .sidebar{
-    min-height: 150px;
-    height: 50vh;
-    max-height: 60vh;
+    min-height: 50vh;
+    max-height: 70vh;
+    min-width: 30vw;
+    width: 100%;
 }
 
 #summary-card{
@@ -812,24 +781,43 @@ body {
 }
 #charts{
     width: 90vw;
+    margin: 0 auto;
 }
 
 #graph{
+    display: flex;
     flex-direction: column;
     width: 90vw;
+    margin: 0 auto;
 }
 
 .menu_class{
-    width: 40vw;
+
+    min-width: 40vw;
     min-width: 50px;
     height: fit-content;
 
 }
 .transactions-fliter{
-    flex-direction: column;
+    display: flex;
     gap:10px;
     align-items:flex-start;
 }
+.create-income-card{
+    width: 90%;
+    position: absolute;
+    top: 40%;
+    left: 1%;
+    margin: 0 auto;
+}
+.create-expense-card{
+    width: 90%;
+    position: absolute;
+    top: 40%;
+    left: 1%;
+    margin: 0 auto;
+}
+
 
 }
 

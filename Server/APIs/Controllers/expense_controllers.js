@@ -111,6 +111,19 @@ const load_expenses= async (req,res)=>{
         return res.status(500).json({error:"Failed to load expenses"})   
     }
 };
+const load_overdue_expenses=async(req,res)=>{
+     try {
+        const {id} = req.body;
+        if (!id) {
+            return res.status(400).json({ response:false, error:"User_id_err" });
+        }
+        const [rows]= await db.promise().query("select exp_id, description,amount,due_date from expenses where user_id=? and due_date<curdate() and status=0 ",[id])
+        return res.json({response:true, rows:rows});
+        
+    } catch (error) {
+        return res.status(500).json({response:false, error:"Failed to load expenses"})   
+    }
+}
 
 
 const delete_expense= async (req,res)=>{
@@ -190,6 +203,7 @@ module.exports={
     new_expense,
     load_expenses,
     delete_expense,
-    update_expense
+    update_expense,
+    load_overdue_expenses
 }
 

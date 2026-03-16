@@ -6,14 +6,21 @@ function getdate(){
     const dd = String(today.getDate()).padStart(2, '0');
     return yyyy+"-"+mm+"-"+dd
 }
-
+ const month_names=["Jan", "Feb", "Mar", "Apr", "May" ,"Jun" ,"Jul" , "Aug", "Sep" , "Oct" , "Nov", "Dec"];
+const current_date=new Date();
+ document .getElementById("current-month").innerText=`${month_names[current_date.getMonth()]} ${current_date.getFullYear()}`
 document.getElementById('due_date').min=getdate();
 
 //add event listeners
 document.getElementById("show_overview").addEventListener("click",show_overview);
 document.getElementById("show_expense").addEventListener("click",show_expense);
 document.getElementById("show_income").addEventListener("click",show_income);
-document.getElementById("log-out").addEventListener("click",log_out);
+document.getElementById("log-out").addEventListener("click",(e)=>{
+   if (confirm("Are you sure you want to log out?")){
+    log_out();
+   }
+
+});
 document.getElementById("addentry").addEventListener("click",addentry);
 document.getElementById("show-last-x-exp").addEventListener("change",load_all_expenses);
 document.getElementById("sort-exp-by").addEventListener("change",load_all_expenses);
@@ -24,8 +31,6 @@ document.getElementById("show-last-x-income").addEventListener("change",load_inc
 document.getElementById("sort-income-by").addEventListener("change",load_income);
 document.getElementById("submit_income").addEventListener("click",submit_income);
 document.getElementById("menu").addEventListener("click",menu_toogle);
-
-
 
 function menu_toogle(){
  const menu=document.getElementById("menu-options");
@@ -271,7 +276,9 @@ function submit_expense(){
             <td>${due_Date}</td>
             <td></td>
           `;
-        row.cells[7].innerHTML=`<button onclick="enable_exp_editing(event)"> Edit </button>  <button onclick="delete_expense_entry(event)"> Delete</button> `
+        row.cells[7].innerHTML=`<button id="enable_exp_editing"> Edit </button>  <button id="delete_exp-"> Delete</button> `;
+        document.getElementById("enable_exp_editing").addEventListener("click",enable_exp_editing);
+        document.getElementById("delete_exp-").addEventListener("click",delete_expense_entry);
         const t_row=document.createElement("tr");
         t_row.id="exp_table_total";
         t_row.innerHTML=`
@@ -328,7 +335,8 @@ function enable_exp_editing(event){
   else{
     row.cells[5].innerHTML=`Paid ?<input  type="checkbox">`
   }
-  row.cells[7].innerHTML=`<button onclick="update_exp(event)" >Save</button>`;
+  row.cells[7].innerHTML=`<button id="update-exp-" >Save</button>`;
+  document.getElementById("update-exp-").addEventListener("click",update_exp);
 }
 
 function add_expense_to_the_list(id,expense_entry){
@@ -532,9 +540,13 @@ function update_exp(event){
           }else{
             row.cells[5].innerHTML="Not paid"
           }
-          row.cells[7].innerHTML=`<button onclick="enable_exp_editing(event)" > Edit </button> 
-                                  <button onclick="delete_expense_entry(event)" > Delete </button>
-                                `
+          row.cells[7].innerHTML=`<button id="enable-exp--"  > Edit </button> 
+                                  <button id="del-exp"  > Delete </button>
+                                `;
+          document.getElementById("enable-exp--").addEventListener("click",enable_exp_editing);
+          document.getElementById("del-exp").addEventListener("click",delete_expense_entry);
+
+
           load_balances();
         }
         else{
@@ -553,6 +565,63 @@ function cancel_update(){
     document.getElementById("edit_exp").classList.replace("edit-expense1","edit-expense");
 }
 
+async function get_overdue_expenses() {
+
+   fetch("https://trackwise-9l4u.onrender.com/api/expenses/load_overdue__expenses",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    credentials:"include",
+    body:JSON.stringify({id:user_info.id})
+   })
+   .then( res=>{
+     if (res.status === 401) {
+        log_out(); // auto-logout on unauthorized
+        return;
+    }
+    if(!res.ok){
+      throw new Error("Error has occured _couldn't get graph data");
+    }
+    else{
+      return res.json();
+    }
+   })
+   .then(data=>{
+    if(!data.response){
+      alert("over_d-load-err");
+      return;
+    }
+    else{
+      if(!Array.isArray(data.rows)){
+        alert("db-ovd-err");
+        return
+      }else{
+        if(data.rows.length==0){
+          document.getElementById("overdue_exp_list-alternative").style.display="";
+        }
+        document.getElementById("overdue_exp_list").innerText=``;
+        data.rows.forEach(item=>{
+          const row=document.createElement("tr");
+          row.innerHTML=`
+            <td>${item.exp_id}</td>
+            <td>${item.description}</td>
+            <td>${item.amount}</td>
+            <td>${item.due_date.substring(0,10)}</td>
+      
+          `;
+          document.getElementById("overdue_exp_list").appendChild(row);
+
+        })
+
+      }
+    }
+   })
+   .catch(error => {
+        console.error("Fetch failed:", error);
+        alert("Failed to load overdue expenses.");
+    });
+  
+}
+get_overdue_expenses();
 
 //Income section
   function submit_income(){
@@ -613,7 +682,10 @@ function cancel_update(){
                     <td>${income_entry.amount}</td>
                     <td></td>
                   `;
-                row.cells[4].innerHTML=`<button onclick="enable_income_editing(event)"> edit </button> <button onclick="delete_income(event)"> Delete</button> `
+                row.cells[4].innerHTML=`<button id="enable-income--edi"> edit </button> 
+                                        <button id="del--inc"> Delete</button> `
+                document.getElementById("enable-income--edi").addEventListener("click",enable_income_editing);
+                document.getElementById("del--inc").addEventListener("click",delete_income);
                 const t_row=document.createElement("tr");
                 t_row.id="income_table_total";
                 t_row.innerHTML=`
@@ -888,7 +960,8 @@ function enable_income_editing(event){
   `;
   row.cells[2].querySelector("select").value = category;
   row.cells[3].innerHTML=` <input class="input-field"  type="text" maxlength="7" value="${amount}">`
-  row.cells[4].innerHTML=`<button onclick="update_income(event)" >Save</button>`;
+  row.cells[4].innerHTML=`<button id="inc_updat" >Save</button>`;
+  document.getElementById("inc_updat").addEventListener("click",update_income)
 }
 function cancel_update1(){
     document.getElementById("income_edit").classList.replace("edit-income1","edit-income");
@@ -958,7 +1031,7 @@ function recent_transactions(id){
       if(data.response){
         if(data.length==0){
           document.getElementById("recents-trans").style.display="none";
-        document.getElementById("recents-trans-alternative").style.display="";
+          document.getElementById("recents-trans-alternative").style.display="";
         }
 
         data.recent_transactions.forEach(entry=>{
@@ -1036,16 +1109,14 @@ function show_overview(){
   income_chart();
   expense_chart();
   monthly_summary();
+  get_overdue_expenses();
   recent_transactions(user_info.id);
 }
 
 //log out confirmation prompt 
 async function  log_out(){
-
- if (confirm("Are you sure you want to log out?")) {
-
+     
     localStorage.clear();
-
     try {
       const res = await fetch("https://trackwise-9l4u.onrender.com/api/auth/log_out",{
           method: "POST",
@@ -1062,7 +1133,6 @@ async function  log_out(){
     }
 
     window.location.href = "login_signup.html";
-  }
 
 }
 
@@ -1373,7 +1443,6 @@ function expense_chart(){
 
     }
   })
-
 }
 income_chart();
 expense_chart()
