@@ -1,7 +1,6 @@
 const express=require("express");
 const router=express.Router();
 
-
 const {send_otp,login,signup,verify_email,reset_password, log_out}=require("../Controllers/auth_controllers");
 const { verify_token } = require("../middleware/verify_token");
 

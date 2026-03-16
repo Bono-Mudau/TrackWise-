@@ -529,9 +529,7 @@ body {
     flex-direction: column;
 }
 
-#description-input{
-    width: 30%;
-}
+
 #expenses-list{
     display: flex;
     flex-direction: column;
@@ -649,12 +647,6 @@ body {
     display: none;
 }
 
-#income-category-input {
-    width: 40%;
-}
-#income-anount {
-    width: 30%;
-}
 .create-income-card{
     min-height:35px;
     height: 20vh;
@@ -732,7 +724,7 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     margin-bottom: 5%;
     border-radius: 8px;
-    overflow: hidden;
+    overflow-x: auto;
 } 
   
 #Overdue-expenses th{
@@ -766,7 +758,8 @@ body {
 @media (max-width:720px){
 
 #menu-bar{
-    min-height: 20vh;
+    height: 20vh;
+    max-height: 50px;
 }
 
 #balance-overview{
@@ -776,12 +769,12 @@ body {
 .sidebar{
     min-height: 50vh;
     max-height: 70vh;
-    min-width: 30vw;
+    min-width: 40vw;
     width: 100%;
 }
 
 #summary-card{
-    width: 90%;
+    width: 99%;
 }
 #charts{
     width: 90vw;
@@ -804,8 +797,9 @@ body {
 }
 .transactions-fliter{
     display: flex;
-    gap:10px;
+    justify-content: space-between;
     align-items:flex-start;
+    min-height: 20px;
 }
 .create-income-card{
     width: 90%;
@@ -821,8 +815,12 @@ body {
     left: 1%;
     margin: 0 auto;
 }
-
-
+#footer{
+    display: flex;
+    width: 99%;
+    height: fit-content;
+    overflow: hidden;
+}
 }
 
 
