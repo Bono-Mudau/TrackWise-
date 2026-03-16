@@ -108,6 +108,10 @@ passwordInput1.addEventListener("input", password_strength1);
 
 
 function login(){
+
+  const login_btn=document.getElementById("losg-in");
+  login_btn.disabled= true;
+  login_btn.textContent = "Logging in...";
   verify_details()
   .then(verify_user=>{
     if(verify_user.user){
@@ -122,6 +126,9 @@ function login(){
   .catch(error=>{
     console.log("error has occured, try again later",error);
   });
+  
+  login_btn.textContent = "Submit";
+  login_btn.disabled= false;
 
 }
 function togglePassword(){
