@@ -174,7 +174,7 @@ async function load_all_expenses(){
           <td></td>
           <td></td>
           <td></td>
-          <td id="expense-sum" >R${total}</td>
+          <td id="expense-sum" >R${total.toFixed(2)}</td>
           <td></td>
           <td></td>
           <td></td>
@@ -532,7 +532,6 @@ function update_exp(event){
           row.cells[3].innerHTML=updated_expense.category;
 
           //update amount
-          document.getElementById("exp-amount-edt").value="";
           row.cells[4].innerHTML=updated_expense.amount;
           
           if(updated_expense.status==1){
@@ -540,9 +539,8 @@ function update_exp(event){
           }else{
             row.cells[5].innerHTML="Not paid"
           }
-          row.cells[7].innerHTML=`<button id="enable-exp--"  > Edit </button> 
-                                  <button id="del-exp"  > Delete </button>
-                                `;
+          row.cells[7].innerHTML=`<button id="enable-exp--"  > Edit </button> <button id="del-exp"  > Delete </button>
+                                `
           document.getElementById("enable-exp--").addEventListener("click",enable_exp_editing);
           document.getElementById("del-exp").addEventListener("click",delete_expense_entry);
 
@@ -567,7 +565,7 @@ function cancel_update(){
 
 async function get_overdue_expenses() {
 
-   fetch("https://trackwise-9l4u.onrender.com/api/expenses/load_overdue__expenses",{
+   fetch("https://trackwise-9l4u.onrender.com/api/expenses/load_overdue_expenses",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     credentials:"include",
@@ -812,7 +810,7 @@ function load_income(){
         <td>Total</td>
         <td></td>
         <td></td>
-        <td id="income-sum">R${total}</td>
+        <td id="income-sum">R${total.toFixed(2)}</td>
         <td></td>
       `;
     row.style.fontWeight = "bold";
@@ -931,10 +929,11 @@ function update_income(event){
           //updtate category
           category.value="";
           row.cells[2].innerHTML=new_cate;
-          //update amount
-          document.getElementById("exp-amount-edt").value="";
+  
           row.cells[3].innerHTML=amount.value;
-          row.cells[4].innerHTML=`<button onclick="enable_income_editing(event)"> Edit </button>  <button onclick="delete_income(event)" >Delete</button>`
+          row.cells[4].innerHTML=`<button id="edit1.0" > Edit </button>  <button id="del-ict"> Delete </button>`
+          document.getElementById("edit1.0").addEventListener("click",enable_income_editing)
+          document.getElementById("del-ict").addEventListener("click",delete_income)
           load_balances();
         }
       })
@@ -991,7 +990,7 @@ function load_balances(){
     })
     .then(data=>{
       if(data.response){
-        balace_button.innerHTML="Balance: R  "+data.balance;
+        balace_button.innerHTML="Balance: R  "+data.balance.toFixed(2);
         income_btn.innerHTML="Income: R  " + data.income;
         expense_btn.innerHTML="Expenses: R  "+data.expenses;
 

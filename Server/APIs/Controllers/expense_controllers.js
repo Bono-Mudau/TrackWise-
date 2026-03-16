@@ -117,7 +117,7 @@ const load_overdue_expenses=async(req,res)=>{
         if (!id) {
             return res.status(400).json({ response:false, error:"User_id_err" });
         }
-        const [rows]= await db.promise().query("select exp_id, description,amount,due_date from expenses where user_id=? and due_date<curdate() and status=0 ",[id])
+        const [rows]= await db.promise().query("select exp_id, description,amount,due_date from expenses where user_id=? and due_date<curdate() and year(date_created)=year(curdate())  and month(date_created)=month(curdate()) and status=0 ",[id])
         return res.json({response:true, rows:rows});
         
     } catch (error) {
