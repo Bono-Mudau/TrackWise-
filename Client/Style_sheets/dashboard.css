@@ -539,7 +539,6 @@ body {
     background-color: #e2b5b3;
     top: 40%;
     left:15%;
-    z-index: 500;
     width: 70%;
     max-width: 900px;
     padding: 5px;
@@ -671,22 +670,21 @@ body {
 
 .create-income-card{
     height: 20vh;
-    max-height:30px ;
-    width: 70%;
-    min-width: 400px;
-    max-width: 900px;
-    padding: 3%;
-    background-color: rgb(139, 212, 139);
+    max-height: 40px;
     display:flex;
+    margin-left: 0 auto;
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
-    border: 2px solid rgba(97, 96, 96, 0.2);
+    border: 2px solid rgb(68, 69, 71,0.2);
     border-radius: 5px;
     position: fixed;
+    background-color: #e2b5b3;
     top: 40%;
     left:15%;
-    z-index: 500;
+    width: 70%;
+    max-width: 900px;
+    padding: 5px;
 
 }
 
@@ -845,6 +843,8 @@ body {
     min-height: 300px;
     height: fit-content;
     max-height: 80%;
+    max-width: 90%;
+    margin: 0 auto;
 }
 .create-expense-card{
     display: flex;

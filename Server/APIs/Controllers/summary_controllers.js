@@ -9,7 +9,7 @@ const load_balances= async (req,res)=>{
         return res.status(400).json({ response: false, reason: "No user_id provided" });
     }
 
-    db.query("select ifnull((select sum(amount) from income where month(date)=month(curdate()) and year(date)=year(curdate()) and user_id=?),0) as total_income, ifnull((select sum(amount) from expenses where month(date_created)=month(curdate()) and year(date_created)=year(curdate())  user_id=?),0) as total_expense",[user_id,user_id],(errr,ans)=>{
+    db.query("select ifnull((select sum(amount) from income where month(date)=month(curdate()) and year(date)=year(curdate()) and user_id=?),0) as total_income, ifnull((select sum(amount) from expenses where month(date_created)=month(curdate()) and year(date_created)=year(curdate()) and  user_id=?),0) as total_expense",[user_id,user_id],(errr,ans)=>{
         if(errr){
             console.error("DB query error:", errr);
             return res.status(500).json({response:false})

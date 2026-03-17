@@ -1040,7 +1040,7 @@ function recent_transactions(id){
           row.id=entry.id;
           row.innerHTML=`
             <td>${entry.id}</td>
-            <td>${entry.date}</td>
+            <td>${entry.date.substring(0,10)}</td>
             <td>${entry.category}</td>
             <td>${entry.amount}</td>
             <td>${entry.type}</td>
