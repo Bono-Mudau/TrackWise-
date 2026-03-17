@@ -63,7 +63,7 @@ body{
     height: fit-content;
     display: flex;
     flex-direction: column;
-    background-color: rgb(96, 179, 182,0.4);
+    background-color: rgba(202, 191, 226, 0.932);
     border-radius: 5px;
 }
 .otp_prompt label{
@@ -338,6 +338,17 @@ hr{
         height: fit-content;
         margin: 0 auto;
     }
+    .otp_prompt{
+        height: 50%;
+    }
+    .otp_prompt input{
+        min-height:30px;
+    }
+    .otp_prompt button{
+        min-height: 20px;
+        width: 50%;
+    }
+
 }
 
 
