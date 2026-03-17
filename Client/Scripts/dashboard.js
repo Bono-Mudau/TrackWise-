@@ -1138,8 +1138,8 @@ function show_settings(){
   if(exp.className!="expsnse"){
     exp.classList.replace("expense1","expense")
   }
-  if(income.className!="income1"){
-    income.classList.replace("income","income1");
+  if(income.className!="income"){
+    income.classList.replace("income1","income");
   }
   if(overview.className!="overview"){
     overview.classList.replace("overview1","overview");

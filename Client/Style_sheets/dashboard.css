@@ -679,7 +679,7 @@ body {
     border: 2px solid rgb(68, 69, 71,0.2);
     border-radius: 5px;
     position: fixed;
-    background-color: #e2b5b3;
+    background-color:rgb(139, 212, 139);
     top: 40%;
     left:15%;
     width: 70%;
@@ -1014,6 +1014,9 @@ body {
     display: flex;
     flex-direction: column;
 
+}
+#month-container{
+    width: 100%;
 }
 
 }
