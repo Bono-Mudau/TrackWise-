@@ -15,6 +15,8 @@ document.getElementById('due_date').min=getdate();
 document.getElementById("show_overview").addEventListener("click",show_overview);
 document.getElementById("show_expense").addEventListener("click",show_expense);
 document.getElementById("show_income").addEventListener("click",show_income);
+document.getElementById("show-settings").addEventListener("click",show_settings);
+
 document.getElementById("log-out").addEventListener("click",(e)=>{
    if (confirm("Are you sure you want to log out?")){
     log_out();
@@ -573,7 +575,7 @@ async function get_overdue_expenses() {
    })
    .then( res=>{
      if (res.status === 401) {
-        log_out(); // auto-logout on unauthorized
+        log_out();// auto-logout on unauthorized
         return;
     }
     if(!res.ok){
@@ -993,7 +995,13 @@ function load_balances(){
         balace_button.innerHTML="Balance: R  "+data.balance.toFixed(2);
         income_btn.innerHTML="Income: R  " + data.income;
         expense_btn.innerHTML="Expenses: R  "+data.expenses;
-
+        const info={
+          unpaid_expense:data.expenses,
+          expense:data.income,
+          limit:1500
+        }
+        update_progress_bars(info);
+      
       }
       else{
         alert("Summary not loaded!")
@@ -1081,7 +1089,11 @@ function show_income(){
 
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
-  const overview=document.getElementById("overview"); 
+  const overview=document.getElementById("overview");
+  const settings=document.getElementById("show-settings");
+  if(settings.className!="show-settings"){
+    exp.classList.replace("show-settings1","show-settings")
+  } 
   if(exp.className!="expsnse"){
     exp.classList.replace("expense1","expense")
   }
@@ -1096,6 +1108,10 @@ function show_overview(){
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview"); 
+  const settings=document.getElementById("show-settings");
+  if(settings.className!="show-settings"){
+    exp.classList.replace("show-settings1","show-settings")
+  }
   if(exp.className!="expsnse"){
     exp.classList.replace("expense1","expense")
   }
@@ -1110,6 +1126,24 @@ function show_overview(){
   monthly_summary();
   get_overdue_expenses();
   recent_transactions(user_info.id);
+}
+function show_settings(){
+  const exp=document.getElementById("expense");  
+  const income=document.getElementById("income");  
+  const overview=document.getElementById("overview");
+  const settings=document.getElementById("show-settings");
+  if(settings.className!="show-settings1"){
+    exp.classList.replace("show-settings","show-settings1")
+  }
+  if(exp.className!="expsnse"){
+    exp.classList.replace("expense1","expense")
+  }
+  if(income.className!="income1"){
+    income.classList.replace("income","income1");
+  }
+  if(overview.className!="overview"){
+    overview.classList.replace("overview1","overview");
+  }
 }
 
 //log out confirmation prompt 
@@ -1442,6 +1476,48 @@ function expense_chart(){
   })
 }
 income_chart();
-expense_chart()
+expense_chart();
+
+function update_progress_bars(data){
+  const limit=data.limit;
+  const limit_progress=(limit/data.expense).toFixed(2);
+  const exp_progress=(data.unpaid_expense/data.expense).toFixed(2);
+  
+  document.getElementById("limit-progress").textContent=`You have used${limit_progress}% of the Limit`
+  document.getElementById("expense-progress").textContent=`${exp_progress}% of the expenses has been paid`
+}
+function setting_toggle(){
+  if(document.getElementById("setting-edit-button").innerHTML!="Save"){
+    document.getElementById("setting-edit-button").innerHTML=`Edit<i class="fas fa-edit"></i>`;
+  }
+  else{
+    document.getElementById("setting-edit-button").innerHTML="Save";
+
+  }
+  const inputs=document.querySelectorAll(".settings-input-field");
+  const checkboxes=document.querySelectorAll(".settings-input-checkbox");
+
+  //enable input
+  inputs.forEach(element=>{
+    if(element.readOnly){
+      element.readOnly=false;
+    }else{
+      element.readOnly=true;
+    }
+    
+  })
+   
+  //enable chekboxes
+  checkboxes.forEach(element=>{
+    if ( element.disabled) {
+      element.disabled=false;
+    }
+    else{
+      element.disabled=true;
+    }
+    
+  })
+}
+document.getElementById("setting-edit-button").addEventListener("click",setting_toggle);
 
 

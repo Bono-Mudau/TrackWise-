@@ -98,6 +98,7 @@ body{
     background-color: rgb(134, 128, 128);
     border-radius: 10px;
 }
+
 .feature.active{
     display:inline-block;
 }  

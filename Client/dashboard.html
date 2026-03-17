@@ -28,7 +28,7 @@
     <div id="main-frame">
         <!-- menu options -->
          
-        <div id="menu-options" class="menu_class">
+        <div id="menu-options" class="menu_class1">
             <table class="sidebar">
                 <thead>
                 </thead>
@@ -55,13 +55,16 @@
                 
                 <div id="balance-overview">
                     <div id="month-container">
-                        <p>BALANCE OVERVIEW</p>
                         <p id="current-month"></p>
                     </div>
                     <div id="summary-card">
                         <div><h4 id="current-balance"> R1800.00</h4></div>
                         <div><h4 id="total-income">  R5300.00</h4></div>
                         <div><h4 id="total-expenses">  R3500.00</h4></div>
+                    </div>
+                    <div class="progress-bars-container">
+                        <progress class="progress-bar" id="limit-progress" value="70" max="100"></progress>
+                        <progress class="progress-bar" id="expense-progress" value="10" max="100"></progress>
                     </div>
                    
                 </div>
@@ -290,6 +293,85 @@
             </div>
         </div>
     </div>
+    <!-- Setttings -->
+     <div  id="show-settings" class="show-settings">
+        <button id="setting-edit-button">Edit<i class="fas fa-edit"></i></button>
+        <div class="settings">
+
+            <div class="settings-sections">
+            
+                <h4>Personal Information</h4>
+                <div>
+                    <label>First name</label>
+                    <input class="settings-input-field" type="text" placeholder="First name" readonly>
+                </div>
+                <div>
+                    <label>Last name</label>
+                    <input class="settings-input-field" type="text" placeholder="Last name" readonly>
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input class="settings-input-field" type="text" placeholder="Email" readonly>
+                </div>
+                <div>
+                    <label></label>
+                    <input class="settings-input-field" type="text" placeholder="First name" readonly>
+                </div>
+
+            </div>
+
+            <div class="settings-sections">
+                <h4>Notification preference</h4>
+                <div>
+                    <label>Receive Notifications</label>
+                    <input class="settings-input-checkbox" type="checkbox" checked disabled>
+                </div>
+                <div>
+                    <label>Receive Notifications via Email</label>
+                    <input class="settings-input-checkbox" type="checkbox" checked disabled>
+                </div>
+                <div>
+                    <label>Receive expense overdue Notifications</label>
+                    <input class="settings-input-checkbox" type="checkbox" checked disabled>
+                </div>
+                <div>
+                    <label>Receive payment remainders Notifications </label>
+                    <input class="settings-input-checkbox" type="checkbox" checked disabled>
+                </div>
+
+
+            </div>
+        
+            <div class="settings-sections">
+                <h4>Spending Limits</h4>
+                <p>You'll be notifified when you reach these limits</p>
+                <div>
+                    <label>Monthly limit</label>
+                    <input class="settings-input-field"  type="text" placeholder="Amount" readonly>
+                </div>
+
+                <div>
+                    <label>Another limit</label>
+                    <input class="settings-input-field"  type="text" placeholder="Amount" readonly>
+                </div>
+            </div>
+
+            <div class="settings-sections">
+                <h4>Delete account!</h4>
+                <div>
+
+                    <p>Permanantly delete your account</p>
+                    <button>Delete account</button>
+
+                </div>
+            
+
+            </div>
+    
+        </div>
+
+     </div>
+    
 
     <!-- FOOTER -->
     <div id="footer">
