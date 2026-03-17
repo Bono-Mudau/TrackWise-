@@ -334,6 +334,7 @@ hr{
         width: 90vw;
         min-height: 60vh;
         height: fit-content;
+        margin: 0 auto;
     }
 }
 

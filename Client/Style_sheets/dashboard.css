@@ -24,31 +24,36 @@ body {
 #logo{
     max-height:50px;
     border-radius: 2px;
+    padding: 5px;
     font-size: x-large;
     max-width: 160px;
-    margin-left: 15px;
-    background-color: #36977db4;
+    background-color: #749ea525;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 2rem; 
+    color: #2b44b3
 }
 #user-initials{
-    height: 80%;
-    border: solid black;
-    border-radius: 50px;
+    height: 99%;
+    border:1px solid rgb(0, 0, 0);
+    border-radius: 600px;
+    background: none;
     max-width: 60px;
-    margin-right:20px;
-    font-size: x-large;
+    margin-right:2%;
+    font-size:x-large;
 }
 #menu-bar{
     border-top: 1px solid rgb(34, 33, 33);
     display: flex;
     height: 20vh;
-    max-height: 100px;
+    max-height: 70px;
     min-height: 40px;
     align-items: center;
     width: 100%;
-    background-color: #4567b7;
+    background-color:rgba(75, 75, 196, 0.452);
 }
 
 .menu-button {
@@ -63,6 +68,11 @@ body {
   align-items: center;
   margin: 10px;
 }
+#warning-icon {
+    color: rgba(255, 68, 0, 0.726);
+    font-size: 1.5rem;
+    padding-right: 5px;
+}
 
 .menu-button span {
   display: block;
@@ -75,9 +85,10 @@ body {
 
 #user-names{
     margin-left:5%;
-    font-family:  Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: larger;
     color: #141212;
+    
 }
 
 #main-frame{
@@ -93,8 +104,12 @@ body {
     min-height: 300px;
     max-height: 700px;
     font-family: Arial, sans-serif;
+    font-size: larger;
     border-collapse: collapse;
-    background-color: #0a2f66c9;
+    background-color: rgba(43, 68, 179, 0.877);
+}
+.sidebar td{
+    text-align: left;
 }
 
 .sidebar button{
@@ -102,13 +117,21 @@ body {
     background: none;
     border: none;
     width: 100%;
-    color: #ddd; 
+    font-family: Arial, sans-serif;
+    font-size: medium;
+    color: #ffffff; 
     min-height: 50px;
+    display: flex;         
+    align-items: center;   
+    justify-content: flex-start;
+    gap: 12px;    
+    padding-left: 20px; 
+}
+.options i {
+    min-width: 20px;
 }
 .sidebar th{
     margin: 0px;
-    
-
 }
 
 .sidebar tr{
@@ -212,7 +235,7 @@ body {
     margin:0 auto;
     flex-direction: row;
     width: 90%;
-    max-width: 90%;
+    max-width: 95%;
     justify-content: space-between;
 
 }
@@ -223,9 +246,9 @@ body {
 #summary-card div{
 
     border: 1px solid rgb(0,0,0,0.1);
-    border-radius: 10px;
+    border-radius: 8px;
     background-color: rgb(109, 138, 139,0.1);
-    padding: 5%;
+    padding: 3%;
     margin-bottom: 2%;
 
 }
@@ -330,7 +353,7 @@ body {
 
 
 #trans-table th {
-  background-color: #4f72a7;
+  background-color: rgba(94, 153, 201, 0.822);
   color: white;
   padding: 3%;
   text-align: left;
@@ -503,23 +526,22 @@ body {
 }
 
 .create-expense-card{
-    min-height:50px;
     height: 20vh;
-    max-height: 80px;
+    max-height: 40px;
     display:flex;
     margin-left: 0 auto;
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
     border: 2px solid rgb(68, 69, 71,0.2);
-    border-radius: 10px;
+    border-radius: 5px;
     position: fixed;
     background-color: #e2b5b3;
     top: 40%;
     left:15%;
     z-index: 500;
     width: 70%;
-    max-width: 800px;
+    max-width: 900px;
     padding: 5px;
 
 }
@@ -648,11 +670,11 @@ body {
 }
 
 .create-income-card{
-    min-height:35px;
     height: 20vh;
-    max-height:50px ;
+    max-height:30px ;
     width: 70%;
     min-width: 400px;
+    max-width: 900px;
     padding: 3%;
     background-color: rgb(139, 212, 139);
     display:flex;
@@ -660,7 +682,7 @@ body {
     justify-content: space-between;
     align-content: center;
     border: 2px solid rgba(97, 96, 96, 0.2);
-    border-radius: 10px;
+    border-radius: 5px;
     position: fixed;
     top: 40%;
     left:15%;
@@ -726,7 +748,7 @@ body {
 }
 
 #Overdue-expenses thead tr {
-    background-color: rgba(201, 94, 94, 0.9);
+    background-color: rgba(94, 153, 201, 0.822);
 }
 
 #Overdue-expenses th {
@@ -808,7 +830,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items:flex-start;
-    min-height: 20px;
+    min-height: 30px;
+    width: 95%;
+    padding: 1%;
 }
 .create-income-card{
     display: flex;
@@ -819,7 +843,7 @@ body {
     left: 5%;
     margin: 0 auto;
     min-height: 300px;
-    height: 50vh;
+    height: fit-content;
     max-height: 80%;
 }
 .create-expense-card{
@@ -831,14 +855,22 @@ body {
     left: 5%;
     margin: 0 auto;
     min-height: 300px;
-    height: 50vh;
+    height: fit-content;
     max-height: 80%;
 }
 .create-expense-card button, .create-income-card button{
-    width: 50%;
+    width: 60%;
     background: rgb(115, 154, 177);
-    min-height: 20px;
-    max-height: 30px;
+    min-height: 40px;
+    margin: 0 auto;
+}
+.create-expense-card select, .create-income-card select{
+    height: 15vh;
+    max-height: 50px;
+}
+.create-expense-card input, .create-income-card input{
+    height: 15vh;
+    max-height: 50px
 }
 
 #footer{
@@ -854,18 +886,8 @@ body {
     margin: 0 auto;
     padding: 0;
 }
-/* #Overdue-expenses { 
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    #Overdue-expenses th,
-    #Overdue-expenses td {
-        white-space: nowrap;
-        padding: 10px;
-    }*/
 }
+
 
 
 

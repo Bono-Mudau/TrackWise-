@@ -1256,7 +1256,6 @@ function income_chart(){
 
       const labels=res.data.map(d=>d.category);
       const totals=res.data.map(d=>d.total);
-
       const summary_chart=document.getElementById("income_chart");
       const ctx = summary_chart.getContext("2d");
       const dpr = window.devicePixelRatio || 1;

@@ -28,19 +28,20 @@
     <div id="main-frame">
         <!-- menu options -->
          
-        <div id="menu-options" class="menu_class1">
+        <div id="menu-options" class="menu_class">
             <table class="sidebar">
                 <thead>
                 </thead>
                 <tbody>
-                    <tr> <td><button id="show_overview" class="options"><i class="fas fa-chart-line"></i>Overview</button></td></tr>
+                    <tr> <td><button id="show_overview" class="options"><i class="fas fa-home"></i></i>Overview</button></td></tr>
                     <tr><td><button id="show_expense"  class="options"><i class="fas fa-money-bill-wave"></i> Expenses</button></td></tr>
                     <tr><td><button id="show_income"   class="options"><i class="fas fa-wallet"></i>Income</button></td></tr>
                     <tr><td><button class="options" ><i class="fas fa-receipt"></i>Trasactions</button></td></tr>
-                    <tr><td> <button class="options" >Summary</button></td></tr>
                     <tr><td> <button class="options" ><i class="fas fa-bell"></i>Reminders</button></td></tr>
-                    <tr><td><button class="options" >Export data</button></td></tr>
-                    <tr><td><button class="options" id="log-out" >Log out</button></td></tr>
+                    <tr><td><button class="options" ><i class="fas fa-file-export"></i>Export data</button></td></tr>
+                    <tr><td> <button class="options" ><i class="fas fa-cog"></i>Settings</button></td></tr>
+                    <tr><td><hr></td></tr>
+                    <tr><td><button class="options" id="log-out" ><i class="fas fa-sign-out-alt"></i>Log out</button></td></tr>
                 </tbody>
             </table>
         </div>
@@ -82,11 +83,11 @@
                  <hr>
                 <div class="resent_trans" >
                    
-                    <div id="Overdue-expense-section"><p> OVERDUE EXPENSES</p></div>
+                    <div id="Overdue-expense-section"><p><i id="warning-icon" class="fas fa-exclamation-triangle"></i>OVERDUE EXPENSES</p></div>
                     
                     <table id="Overdue-expenses">
                         <thead>
-                            <th>Expenese ID</th>
+                            <th>Expense ID</th>
                             <th>Description</th>
                             <th>Amount</th>
                             <th>Due date</th>
@@ -211,7 +212,7 @@
                         </select>
                         <input class="input-field" id="input-amount" type="text" maxlength="7" placeholder="Amount">
                         <label > Due date : <input id="due_date" type="date" ></label>
-                        <button class="submit" id="submit_exp">Submit✓</button>
+                        <button class="submit" id="submit_exp">Submit</button>
                     </div>
         
                 </div>
