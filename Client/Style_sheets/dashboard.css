@@ -801,9 +801,6 @@ body {
     border-radius: 10px;
 
 }
-.settings1{
-    display: none;
-}
 .settings{
     width: 100%;
     max-width: 900px;
@@ -913,7 +910,6 @@ body {
 #charts{
     width: 98vw;
     margin: 0 auto;
-    min-height: 40vh;
 }
 
 #graph{

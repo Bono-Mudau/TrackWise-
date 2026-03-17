@@ -1074,7 +1074,11 @@ recent_transactions(user_info.id);
 function show_expense(){
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
-  const overview=document.getElementById("overview"); 
+  const overview=document.getElementById("overview");
+  const settings=document.getElementById("show-settings");
+  if(settings.className!="show-settings"){
+    settings.classList.replace("show-settings1","show-settings")
+  }  
   if(exp.className!="expsnse1"){
     exp.classList.replace("expense","expense1")
   }
@@ -1092,7 +1096,7 @@ function show_income(){
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
   if(settings.className!="show-settings"){
-    exp.classList.replace("show-settings1","show-settings")
+    settings.classList.replace("show-settings1","show-settings")
   } 
   if(exp.className!="expsnse"){
     exp.classList.replace("expense1","expense")
@@ -1110,7 +1114,7 @@ function show_overview(){
   const overview=document.getElementById("overview"); 
   const settings=document.getElementById("show-settings");
   if(settings.className!="show-settings"){
-    exp.classList.replace("show-settings1","show-settings")
+    settings.classList.replace("show-settings1","show-settings")
   }
   if(exp.className!="expsnse"){
     exp.classList.replace("expense1","expense")
@@ -1133,7 +1137,7 @@ function show_settings(){
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
   if(settings.className!="show-settings1"){
-    exp.classList.replace("show-settings","show-settings1")
+    settings.classList.replace("show-settings","show-settings1")
   }
   if(exp.className!="expsnse"){
     exp.classList.replace("expense1","expense")
