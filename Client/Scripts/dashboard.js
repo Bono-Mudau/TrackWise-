@@ -6,7 +6,7 @@ function getdate(){
     const dd = String(today.getDate()).padStart(2, '0');
     return yyyy+"-"+mm+"-"+dd
 }
- const month_names=["Jan", "Feb", "Mar", "Apr", "May" ,"Jun" ,"Jul" , "Aug", "Sep" , "Oct" , "Nov", "Dec"];
+const month_names=["Jan", "Feb", "Mar", "Apr", "May" ,"Jun" ,"Jul" , "Aug", "Sep" , "Oct" , "Nov", "Dec"];
 const current_date=new Date();
  document .getElementById("current-month").innerText=`${month_names[current_date.getMonth()]} ${current_date.getFullYear()}`
 document.getElementById('due_date').min=getdate();
@@ -1130,7 +1130,6 @@ async function  log_out(){
     } catch (err) {
       console.error(err);
     }
-
     window.location.href = "login_signup.html";
 
 }

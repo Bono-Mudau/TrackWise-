@@ -759,7 +759,7 @@ body {
 
 #menu-bar{
     height: 20vh;
-    max-height: 50px;
+    max-height: 60px;
 }
 
 #balance-overview{
@@ -774,11 +774,17 @@ body {
 }
 
 #summary-card{
-    width: 99%;
+    display: flex;
+    width: 99%; 
 }
+#summary-card div{
+    padding: 1%;
+}
+
 #charts{
-    width: 90vw;
+    width: 98vw;
     margin: 0 auto;
+    min-height: 40vh;
 }
 
 #graph{
@@ -802,6 +808,8 @@ body {
     min-height: 20px;
 }
 .create-income-card{
+    display: flex;
+    flex-direction: column;
     width: 90%;
     position: absolute;
     top: 40%;
@@ -809,6 +817,8 @@ body {
     margin: 0 auto;
 }
 .create-expense-card{
+    display: flex;
+    flex-direction: column;
     width: 90%;
     position: absolute;
     top: 40%;
@@ -817,9 +827,16 @@ body {
 }
 #footer{
     display: flex;
-    width: 99%;
-    height: fit-content;
+    flex-direction: row;
+    width: 100%;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+#footer div{
+    height: fit-content;
+    margin: 0 auto;
+    padding: 0;
 }
 }
 

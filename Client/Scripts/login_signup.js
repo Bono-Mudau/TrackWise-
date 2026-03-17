@@ -212,6 +212,9 @@ let user_input={
 }
 
 async function validate_user_information(){
+  const signup_btn=document.getElementById("sign-up");
+  signup_btn.disabled= true;
+  signup_btn.textContent = "........";
 
     //validate user input before sending OTP
     const f_name=document.getElementById("f-name").value.trim();
@@ -259,6 +262,9 @@ async function validate_user_information(){
     if(!email_sent){
       alert("Error occurred sending an OTP!!")
     }
+    signup_btn.textContent = "Create account";
+    signup_btn.disabled= false;
+    
 }
 
 function redirect_to_recoverpassword_toogle(){
