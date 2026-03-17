@@ -230,6 +230,7 @@ body{
     font-size: large;
     text-align: center;
     padding: 5px;
+    padding-bottom: 10px;
 }
 
 /* Password recovery*/
@@ -292,6 +293,7 @@ body{
     background-color:rgb(20, 20, 248) ;
 }
 #login-signup_toggle1{
+    text-decoration: underline;
     background: none;
     color: aliceblue;
 }
