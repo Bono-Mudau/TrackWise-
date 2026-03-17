@@ -15,7 +15,7 @@ document.getElementById('due_date').min=getdate();
 document.getElementById("show_overview").addEventListener("click",show_overview);
 document.getElementById("show_expense").addEventListener("click",show_expense);
 document.getElementById("show_income").addEventListener("click",show_income);
-document.getElementById("show-settings").addEventListener("click",show_settings);
+document.getElementById("show-settings_btn").addEventListener("click",show_settings);
 
 document.getElementById("log-out").addEventListener("click",(e)=>{
    if (confirm("Are you sure you want to log out?")){
