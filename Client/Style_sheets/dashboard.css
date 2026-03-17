@@ -282,7 +282,7 @@ body {
 
     margin-top: 2%;
     justify-content: center;
-    border-top: 2px solid rgb(0,0,0,0.5);
+    border: none;
 }
 #Overdue-expense-section p{
     align-self: center;
@@ -715,43 +715,46 @@ body {
 }
 
 #Overdue-expenses {
-    min-width: 80vw; 
-    max-width: 800px;
     width: max-content;
+    min-width: 500px;
     margin: 2% auto;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    margin-bottom: 5%;
     border-radius: 8px;
-    overflow-x: auto;
-} 
-  
-#Overdue-expenses th{
-    background-color: #b63b3b;
+    overflow: hidden;
+}
+
+#Overdue-expenses thead tr {
+    background-color: rgba(201, 94, 94, 0.9);
+}
+
+#Overdue-expenses th {
     color: white;
     padding: 3%;
     text-align: left;
     max-height: 30px;
-}
-#Overdue-expenses tbody{
-    padding: 10px;
-}
-#Overdue-expenses tr{
-    padding: 10px;
-}
-#Overdue-expenses tr:nth-child(even){
-    background-color: #c4bebe;
-}
-#Overdue-expenses tr:hover{
-    background-color: #ddd;
-    
-}
-#Overdue-expenses td{
-   border: 1px solid #796e6e;
-   padding: 2%;
+
 }
 
+#Overdue-expenses td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#Overdue-expenses td,
+#Overdue-expenses th {
+    border: none;
+}
+
+#Overdue-expenses tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+#Overdue-expenses tbody tr:hover {
+    background-color: #ddd;
+}
 
 
 
@@ -812,19 +815,32 @@ body {
     flex-direction: column;
     width: 90%;
     position: absolute;
-    top: 40%;
-    left: 1%;
+    top: 20%;
+    left: 5%;
     margin: 0 auto;
+    min-height: 300px;
+    height: 50vh;
+    max-height: 80%;
 }
 .create-expense-card{
     display: flex;
     flex-direction: column;
     width: 90%;
     position: absolute;
-    top: 40%;
-    left: 1%;
+    top: 20%;
+    left: 5%;
     margin: 0 auto;
+    min-height: 300px;
+    height: 50vh;
+    max-height: 80%;
 }
+.create-expense-card button, .create-income-card button{
+    width: 50%;
+    background: rgb(115, 154, 177);
+    min-height: 20px;
+    max-height: 30px;
+}
+
 #footer{
     display: flex;
     flex-direction: row;
@@ -838,6 +854,17 @@ body {
     margin: 0 auto;
     padding: 0;
 }
+/* #Overdue-expenses { 
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    #Overdue-expenses th,
+    #Overdue-expenses td {
+        white-space: nowrap;
+        padding: 10px;
+    }*/
 }
 
 
