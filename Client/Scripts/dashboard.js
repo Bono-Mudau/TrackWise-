@@ -1483,21 +1483,21 @@ income_chart();
 expense_chart();
 
 function update_progress_bars(data){
-  const limit=data.limit;
-  const limit_progress=(limit/data.expense).toFixed(2);
-  const exp_progress=(data.unpaid_expense/data.expense).toFixed(2);
-  
-  document.getElementById("limit-progress").textContent=`You have used${limit_progress}% of the Limit`
-  document.getElementById("expense-progress").textContent=`${exp_progress}% of the expenses has been paid`
-}
-function setting_toggle(){
-  if(document.getElementById("setting-edit-button").innerHTML!="Save"){
-    document.getElementById("setting-edit-button").innerHTML=`Edit<i class="fas fa-edit"></i>`;
-  }
-  else{
-    document.getElementById("setting-edit-button").innerHTML="Save";
+  if (data.expense === 0) return;
 
-  }
+  const limit = data.limit;
+  const limit_progress = ((limit / data.expense) * 100).toFixed(2);
+  const exp_progress = ((data.unpaid_expense / data.expense) * 100).toFixed(2);
+
+  document.getElementById("limit-progress").textContent =
+    `You have used ${limit_progress}% of the Limit`;
+
+  document.getElementById("expense-progress").textContent =
+    `${exp_progress}% of the expenses has been paid`;
+}
+
+function setting_toggle(){
+
   const inputs=document.querySelectorAll(".settings-input-field");
   const checkboxes=document.querySelectorAll(".settings-input-checkbox");
 
@@ -1519,9 +1519,212 @@ function setting_toggle(){
     else{
       element.disabled=true;
     }
-    
   })
+  //make the update button visible
+  document.getElementById("save-settings-update").style.display="";
 }
 document.getElementById("setting-edit-button").addEventListener("click",setting_toggle);
+
+
+//Update settings
+async function validate_settings_input(){
+  setting_toggle();
+  const f_name=document.getElementById("setting-First-name").value;
+  const l_name=document.getElementById("setting-last-name").value;
+  //Ensure user provides an Input
+  if(f_name=="" || l_name==""){
+    alert("Fill all the fields!");
+    return ;
+  }
+
+  let notification_on=document.getElementById("setting-notify-via email?").checked;
+  let p_remainders=document.getElementById("setting-payment-remainder?").checked;
+  let overdue=document.getElementById("setting-overdue-exp?").checked;
+  const limit=document.getElementById("setting-monthly-limit").value;
+  if(notification_on){
+    notification_on=1;
+
+  }else{
+    notification_on=0;
+  }
+  if(p_remainders){
+
+    p_remainders=1;
+
+  }else{
+    p_remainders=0;
+  }
+  if(overdue){
+    overdue=1;
+
+  }else{
+    overdue=0;
+  }
+
+  //Ensure user provides an Input
+  if( limit=="" || isNaN(Number(limit)) || Number(limit)<=0 ){
+
+    alert("Enter a valid limit");
+    return;
+  }
+  
+
+  try {
+
+    await update_user_notifications_preference_(notification_on,p_remainders,overdue,limit);
+    alert("Settings updated successfully")
+
+  } catch (error) {
+
+    alert("Coudn't update settings, please check unchaged fields and try again");
+  }
+  
+
+  
+}
+
+document.getElementById("save-settings-update").style.display="none"
+
+async function update_user_notifications_preference_(f_name,l_name,notification_on,p_remainders,overdue,limit){
+
+  try {
+    fetch("https://trackwise-9l4u.onrender.com/api/auth/update_settings",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      credentials:"include",
+      body:JSON.stringify({
+        firstName:f_name, 
+        lastName:l_name,
+        notification_status:notification_on,
+        payment_remainders:p_remainders,
+        overdue_payments:overdue,
+        limit:limit
+       })
+      })
+      .then(res=>{
+        if(res.status==401){
+          alert("Error-occured:try to log in again");
+          log_out();
+        }
+        if(!res.ok){
+          alert("error has occured")
+          throw new Error("");
+          
+        }
+        return res.json();
+      })
+      .then(res=>{
+        if(!res.response){
+          throw new Error("");
+        }
+      }) 
+  } catch (error) {
+    throw new Error("");
+  }
+  
+}
+function delete_user_account(){
+
+  const delete_a=confirm("Are you sure you want to permanently delete your account?");
+  if(!delete_a){
+    return;
+  }
+
+
+  try {
+    fetch("https://trackwise-9l4u.onrender.com/api/auth/delete_account",{
+      method:"GET",
+      headers:{"Content-Type":"application/json"},
+      credentials:"include"
+    })
+    .then(res=>{
+      if (res.status === 401) {
+          log_out();// auto-logout on unauthorized
+          return;
+      }
+      if(!res.ok){
+        throw new Error("Error has occured _couldn't get graph data");
+      }
+      else{
+        return res.json();
+      }
+    })
+    .then(res=>{
+      if(!res.response){
+        alert("failed to delete an account,try again later")
+      }
+      else{
+        alert("account deleted");
+        log_out();
+      }
+    })
+    
+  } catch (error) {
+    alert("Error has occured, please try again later");
+  }
+}
+function load_user_details(){
+
+  try{
+    fetch("https://trackwise-9l4u.onrender.com/api/auth/load_settings",{
+      method:"GET",
+      headers:{"Content-Type":"application/json"},
+      credentials:"include"
+    }).then(res=>{
+        if(res.status==401){
+          alert("Error-occured:try to log in again");
+          log_out();
+        }
+        if(!res.ok){
+          alert("error has occured")
+          throw new Error("");
+        }
+        return res.json();     
+    })
+    .then(res=>{
+      if(res.response){
+
+        //set settings fields
+          const data=res.data;
+          document.getElementById("setting-First-name").value=data.firstName;
+          document.getElementById("setting-last-name").value=data.lasttName;
+          document.getElementById("setting-monthly-limit").value=data.budget_limitt;
+          document.getElementById("setting-user-email").value=data.email;
+          let notification_on=data.notifications_status;
+          let p_remainders=data.payment_remainder;
+          let overdue=data.overdue_expenses;
+          if(notification_on==1){
+            document.getElementById("setting-notify-via email?").checked=true;
+          }else{
+            document.getElementById("setting-notify-via email?").checked=false;
+          }
+          if(p_remainders==1){
+
+            document.getElementById("setting-payment-remainder?").checked=true;
+
+          }else{
+            document.getElementById("setting-payment-remainder?").checked=false;
+          }
+          if(overdue==1){
+            document.getElementById("setting-overdue-exp?").checked=true;
+          }else{
+            document.getElementById("setting-overdue-exp?").checked=false;
+          }
+      }
+      else{
+        alert("ERR:Settings_info-not loaded");
+      }
+    })
+
+  }
+  catch(err){
+     alert("ERR:Settings_info-not loaded");
+
+  }
+
+}
+
+  
+
 
 

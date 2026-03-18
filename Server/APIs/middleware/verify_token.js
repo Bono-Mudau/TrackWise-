@@ -16,7 +16,7 @@ const verify_token= (req,res,next)=>{
         const newToken = jwt.sign({ username: user.username }
             , process.env.JWT_key,
              { expiresIn: "15m" });
-
+        req.user = user;
         res.cookie("token", newToken, 
             { httpOnly: true, 
             secure: true, 

@@ -291,7 +291,7 @@
                     <button class="submit" id="submit_income" >Submit✓</button>
                 </div>
             </div>
-                    <!-- Setttings -->
+            <!-- SETTINGS SECTION -->
             <div  id="show-settings" class="show-settings">
             <button id="setting-edit-button">Edit<i class="fas fa-edit"></i></button>
             <div class="settings">
@@ -301,71 +301,61 @@
                     <h4>Personal Information</h4>
                     <div>
                         <label>First name</lab>
-                        <input class="settings-input-field" type="text" placeholder="First name" readonly>
+                        <input id="setting-First-name" class="settings-input-field" type="text" placeholder="First name" readonly>
                     </div>
                     <div>
                         <label>Last name</label>
-                        <input class="settings-input-field" type="text" placeholder="Last name" readonly>
+                        <input id="setting-last-name" class="settings-input-field" type="text" placeholder="Last name" readonly>
                     </div>
                     <div>
                         <label>Email</label>
-                        <input class="settings-input-field" type="text" placeholder="Email" readonly>
-                    </div>
-                    <div>
-                        <label></label>
-                        <input class="settings-input-field" type="text" placeholder="First name" readonly>
+                        <input id="setting-user-email" class="settings-input-field" type="text" placeholder="Email" readonly>
                     </div>
 
                 </div>
 
                 <div class="settings-sections">
-                    <h4>Notification preference</h4>
+                    <h4>Notification Preferences</h4>
                     <div>
                         <label>Receive Notifications</label>
-                        <input class="settings-input-checkbox" type="checkbox" checked disabled>
+                        <input id="setting-receive-notifications?" class="settings-input-checkbox" type="checkbox" checked disabled>
                     </div>
                     <div>
                         <label>Receive Notifications via Email</label>
-                        <input class="settings-input-checkbox" type="checkbox" checked disabled>
+                        <input id="setting-notify-via email?" class="settings-input-checkbox" type="checkbox" checked disabled>
                     </div>
                     <div>
-                        <label>Receive expense overdue Notifications</label>
-                        <input class="settings-input-checkbox" type="checkbox" checked disabled>
+                        <label>Overdue expenses Notifications</label>
+                        <input id="setting-overdue-exp?" class="settings-input-checkbox" type="checkbox" checked disabled>
                     </div>
                     <div>
-                        <label>Receive payment remainders Notifications </label>
-                        <input class="settings-input-checkbox" type="checkbox" checked disabled>
+                        <label>Payment remainders Notifications </label>
+                        <input id="setting-payment-remainder?" class="settings-input-checkbox" type="checkbox" checked disabled>
                     </div>
 
 
                 </div>
             
                 <div class="settings-sections">
-                    <h4>Spending Limits</h4>
+                    <h4>Budget Limits</h4>
                     <p>You'll be notifified when you reach these limits</p>
                     <div>
                         <label>Monthly limit</label>
-                        <input class="settings-input-field"  type="text" placeholder="Amount" readonly>
+                        <input id="setting-monthly-limit" class="settings-input-field"  type="text" placeholder="Amount" readonly value="1500">
                     </div>
 
-                    <div>
-                        <label>Another limit</label>
-                        <input class="settings-input-field"  type="text" placeholder="Amount" readonly>
-                    </div>
                 </div>
 
                 <div class="settings-sections">
                     <h4>Delete account!</h4>
                     <div>
-
                         <p>Permanantly delete your account</p>
-                        <button>Delete account</button>
+                        <button id="delete-account-btn">Delete account</button>
 
                     </div>
-                
 
                 </div>
-        
+                <button id="save-settings-update">Update Settings</button>
             </div>
 
          </div>
