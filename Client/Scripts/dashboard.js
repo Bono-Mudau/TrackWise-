@@ -1149,6 +1149,7 @@ function show_settings(){
   if(overview.className!="overview"){
     overview.classList.replace("overview1","overview");
   }
+  load_user_details();
 }
 
 //log out confirmation prompt 
@@ -1574,13 +1575,12 @@ async function validate_settings_input(){
 
     await update_user_notifications_preference_(notification_on,p_remainders,overdue,limit);
     alert("Settings updated successfully")
+    setting_toggle();
 
   } catch (error) {
 
     alert("Coudn't update settings, please check unchaged fields and try again");
   }
-  
-
   
 }
 
@@ -1688,6 +1688,7 @@ function load_user_details(){
 
         //set settings fields
           const data=res.data;
+          console.log(data);
           document.getElementById("setting-First-name").value=data.firstName;
           document.getElementById("setting-last-name").value=data.lasttName;
           document.getElementById("setting-monthly-limit").value=data.budget_limitt;
