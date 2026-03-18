@@ -1004,6 +1004,7 @@ body {
     grid-template-rows: auto;
     margin: 0 auto;
     gap: 2%;
+    overflow: hidden;
 }
 .settings-sections{
     width:40;
