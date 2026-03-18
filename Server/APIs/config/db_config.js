@@ -12,31 +12,33 @@ const db = mysql.createPool({
   queueLimit: 0,
   timezone: 'Z'
 });
-
 const run = async () => {
     try {
         // Replace with your actual user info
-        const user_id =1; 
+        const user_id = 1;
         const email = "genuwinephungo@gmail.com";
 
-        // 1️⃣ Create table
-        await db.promise().query(`DROP TABLE IF EXISTS settings;
+        // 1️⃣ Drop the table if it exists
+        await db.promise().query(`DROP TABLE IF EXISTS settings;`);
+        console.log("Old settings table dropped (if existed).");
 
-CREATE TABLE settings (
-    email VARCHAR(255) PRIMARY KEY,
-    user_id INT NOT NULL UNIQUE,
-    firstName VARCHAR(100) NOT NULL DEFAULT 'user',
-    lastName VARCHAR(100),
-    notifications_status BOOLEAN NOT NULL DEFAULT 1,
-    payment_remainder BOOLEAN NOT NULL DEFAULT 1,
-    overdue_expenses BOOLEAN NOT NULL DEFAULT 1,
-    budget_limit INT NOT NULL DEFAULT 2000,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
-);
+        // 2️⃣ Create table
+        await db.promise().query(`
+            CREATE TABLE settings (
+                email VARCHAR(255) PRIMARY KEY,
+                user_id INT NOT NULL UNIQUE,
+                firstName VARCHAR(100) NOT NULL DEFAULT 'user',
+                lastName VARCHAR(100),
+                notifications_status BOOLEAN NOT NULL DEFAULT 1,
+                payment_remainder BOOLEAN NOT NULL DEFAULT 1,
+                overdue_expenses BOOLEAN NOT NULL DEFAULT 1,
+                budget_limit INT NOT NULL DEFAULT 2000,
+                FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+            );
         `);
         console.log("Settings table created.");
 
-        // 2️⃣ Insert default user
+        // 3️⃣ Insert default user
         await db.promise().query(`
             INSERT INTO settings (email, user_id)
             VALUES (?, ?)
@@ -44,7 +46,6 @@ CREATE TABLE settings (
         `, [email, user_id]);
         console.log("Default user inserted into settings.");
 
-        // Done, exit process
         process.exit(0);
 
     } catch (err) {
