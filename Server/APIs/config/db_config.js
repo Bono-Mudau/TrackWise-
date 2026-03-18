@@ -24,7 +24,7 @@ const run = async () => {
             CREATE TABLE IF NOT EXISTS settings (
                 email VARCHAR(255) PRIMARY KEY,
                 user_id INT NOT NULL unique,
-                firstName VARCHAR(100) not null default "user",
+                firstName VARCHAR(100) not null default 'user',
                 lastName VARCHAR(100),
                 notifications_status BOOLEAN NOT NULL DEFAULT 1,
                 payment_remainder BOOLEAN NOT NULL DEFAULT 1,
