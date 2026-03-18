@@ -12,6 +12,7 @@ const current_date=new Date();
 document.getElementById('due_date').min=getdate();
 
 //add event listeners
+document.getElementById("save-settings-update").addEventListener("click",validate_settings_input);
 document.getElementById("show_overview").addEventListener("click",show_overview);
 document.getElementById("show_expense").addEventListener("click",show_expense);
 document.getElementById("show_income").addEventListener("click",show_income);
@@ -1663,6 +1664,7 @@ function delete_user_account(){
     alert("Error has occured, please try again later");
   }
 }
+
 function load_user_details(){
 
   try{
