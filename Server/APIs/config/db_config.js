@@ -12,50 +12,5 @@ const db = mysql.createPool({
   queueLimit: 0,
   timezone: 'Z'
 });
-const run = async () => {
-    try {
-        // Replace with your actual user info
-        const user_id = 1;
-        const email = "genuwinephungo@gmail.com";
-
-        // 1️⃣ Drop the table if it exists
-        await db.promise().query(`DROP TABLE IF EXISTS settings;`);
-        console.log("Old settings table dropped (if existed).");
-
-        // 2️⃣ Create table
-        await db.promise().query(`
-            CREATE TABLE settings (
-                email VARCHAR(255) PRIMARY KEY,
-                user_id INT NOT NULL UNIQUE,
-                firstName VARCHAR(100) NOT NULL DEFAULT 'user',
-                lastName VARCHAR(100),
-                notifications_status BOOLEAN NOT NULL DEFAULT 1,
-                payment_remainder BOOLEAN NOT NULL DEFAULT 1,
-                overdue_expenses BOOLEAN NOT NULL DEFAULT 1,
-                budget_limit INT NOT NULL DEFAULT 2000,
-                FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
-            );
-        `);
-        console.log("Settings table created.");
-
-        // 3️⃣ Insert default user
-        await db.promise().query(`
-            INSERT INTO settings (email, user_id)
-            VALUES (?, ?)
-            ON DUPLICATE KEY UPDATE email = VALUES(email)
-        `, [email, user_id]);
-        console.log("Default user inserted into settings.");
-
-        process.exit(0);
-
-    } catch (err) {
-        console.error("Error initializing settings:", err);
-        process.exit(1);
-    }
-};
-
-// run it
-run();
-
 
 module.exports=db;
