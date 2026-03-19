@@ -1523,7 +1523,16 @@ function setting_toggle(){
     }
   })
   //make the update button visible
-  document.getElementById("save-settings-update").style.display="";
+  if (document.getElementById("save-settings-update").style.display=="none") {
+
+    document.getElementById("save-settings-update").style.display="";
+    
+  } else {
+    // hide the button
+    document.getElementById("save-settings-update").style.display="none";
+    
+  }
+  
 }
 document.getElementById("setting-edit-button").addEventListener("click",setting_toggle);
 
@@ -1577,11 +1586,14 @@ async function validate_settings_input(){
     if(updated.response){
       alert("Settings updated successfully")
     }
+     else {
+        alert("Failed to update settings");
+    }
     setting_toggle();
 
   } catch (error) {
-
-    alert("Coudn't update settings, please check unchaged fields and try again");
+    console.error(error);
+    alert("An error occurred while updating settings");
   }
   
 }
