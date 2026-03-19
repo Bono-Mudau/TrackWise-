@@ -950,7 +950,6 @@ body {
 .progress-container{
     width: fit-content;
     min-width: 200px;
-    max-width: 400px;
     min-height: 40px;
     border: 1px solid rgba(0, 0, 0, 0.199);
     border-radius: 10px;  
@@ -959,8 +958,8 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    color: rgb(5, 143, 5);
     margin-bottom: 5px;
+    padding: 5px;
 }
 .progress-container label{
     width: fit-content;
