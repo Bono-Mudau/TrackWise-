@@ -997,20 +997,26 @@ body {
   margin: 0;
 }
 .settings{
-    width: 100%;
+    width: 99%;
     max-width: 900px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     margin: 0 auto;
-    gap: 2%;
+    border: 1px solid rgba(148, 188, 240, 0.87);
+    border-radius: 5px;
     overflow: hidden;
 }
 .settings-sections{
-    width:40;
+    width:100%;
     display: flex;
     flex-direction: column;
+    gap: 10px;
 
+}
+.settings-sections button {
+    width: 70%;
+    box-sizing: border-box;
 }
 #month-container{
     width: 100%;

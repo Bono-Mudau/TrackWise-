@@ -1573,8 +1573,10 @@ async function validate_settings_input(){
 
   try {
 
-    await update_user_notifications_preference_(f_name,l_name,notification_on,p_remainders,overdue,limit);
-    alert("Settings updated successfully")
+    const updated=await update_user_notifications_preference_(f_name,l_name,notification_on,p_remainders,overdue,limit);
+    if(updated.response){
+      alert("Settings updated successfully")
+    }
     setting_toggle();
 
   } catch (error) {
@@ -1598,7 +1600,7 @@ async function update_user_notifications_preference_(f_name,l_name,notification_
         l_name:l_name,
         notification_on:notification_on,
         p_remainders:p_remainders,
-        overdues:overdue,
+        overdue:overdue,
         limit:limit
        })
       })
