@@ -1597,7 +1597,6 @@ async function validate_settings_input(){
   }
   
 }
-
 load_user_details();
 document.getElementById("save-settings-update").style.display="none"
 
@@ -1701,7 +1700,6 @@ function load_user_details(){
       if(res.response){
 
         //set settings fields
-          console.log(data);
           document.getElementById("setting-First-name").value=data.firstName;
           document.getElementById("setting-last-name").value=data.lastName;
           document.getElementById("setting-monthly-limit").value=data.budget_limit;
