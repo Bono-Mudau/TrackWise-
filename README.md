@@ -49,15 +49,27 @@ The system focuses on **security, real-time updates, and data-driven decision-ma
 ### 💰 Expense Management
 - Add, edit, and delete expenses
 - Categorize expenses
-- Track payment status
-- Real-time updates
+- Track payment status (paid/unpaid)
+- Filter expenses by:
+  - Paid
+  - Unpaid
+  - Overdue
+- View expenses for the last 1–6 months
+- Sort expenses by:
+  - Amount (ascending/descending)
+  - Date (ascending/descending)
+- Real-time updates on dashboard
 
 ---
 
 ### 💵 Income Management
-- Add, edit, and delete income
+- Add, edit, and delete income entries
 - Categorize income sources
-- Real-time updates
+- View income for the last 1–6 months
+- Sort income by:
+  - Amount (ascending/descending)
+  - Date (ascending/descending)
+- Real-time updates to totals and dashboard
 
 ---
 
