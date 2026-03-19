@@ -1486,17 +1486,16 @@ income_chart();
 expense_chart();
 
 function update_progress_bars(data){
-  if (data.expense === 0) return;
+  if (data.expense === 0){
+    return;
+  } 
 
   const limit = data.limit;
   const limit_progress = ((limit / data.expense) * 100).toFixed(2);
   const exp_progress = ((data.unpaid_expense / data.expense) * 100).toFixed(2);
 
-  document.getElementById("limit-progress").textContent =
-    `You have used ${limit_progress}% of the Limit`;
-
-  document.getElementById("expense-progress").textContent =
-    `${exp_progress}% of the expenses has been paid`;
+   document.getElementById("limit-progress").value = limit_progress;
+   document.getElementById("expense-progress").value = exp_progress;
 }
 
 function setting_toggle(){
@@ -1574,7 +1573,7 @@ async function validate_settings_input(){
 
   try {
 
-    await update_user_notifications_preference_(notification_on,p_remainders,overdue,limit);
+    await update_user_notifications_preference_(f_name,l_name,notification_on,p_remainders,overdue,limit);
     alert("Settings updated successfully")
     setting_toggle();
 
@@ -1617,7 +1616,7 @@ async function update_user_notifications_preference_(f_name,l_name,notification_
       })
       .then(res=>{
         if(!res.response){
-          throw new Error("");
+          throw new Error("not update failed");
         }
       }) 
   } catch (error) {
@@ -1656,7 +1655,7 @@ function delete_user_account(){
         alert("failed to delete an account,try again later")
       }
       else{
-        alert("account deleted");
+        alert("Account deleted sucessfully");
         log_out();
       }
     })

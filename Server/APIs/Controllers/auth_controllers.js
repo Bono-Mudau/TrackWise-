@@ -23,20 +23,24 @@ const signup=async (req,res)=>{
             const hashed_password= await bcrypt.hash(password,10);
             db.query("insert into users (name,email,password) values(?,?,?)",[names,email,hashed_password],  async(err,results)=>{
             if(err){
+
                 return res.json({ 
                     user:false,
                     reason:"Unable to create an account, please try again later"
                 });
+
             }else{
+
                 const id=results.insertId;
-                await db.promise().query("insert into overview (user_id) values(?)",[id]);
+
                 await db.promise().query("INSERT INTO settings (email,user_id,firstName) VALUES (?, ?)",[email,id,names]);
                 try {
                     await sendEmail({to:email,subject:"Account created",html:accountCreatedTemplate(names)});
-                } catch (error) {     
+                } 
+                catch (error) { 
+                        
                 }
                 return res.json({user:true});
-                
             }
         });    
         } catch (error) {
@@ -65,7 +69,7 @@ const login=async (req,res)=>{
                         { httpOnly: true, 
                         secure: true, 
                         sameSite: "Strict",
-                        maxAge: 15 * 60 * 1000 });
+                        maxAge: 10 * 60 * 1000 });
 
                     return res.json({
                         name:results[0].name,
@@ -128,7 +132,6 @@ const send_otp=async (req,res)=>{
 const verify_email=async (req,res)=>{
 
     const {email,otp}=req.body;
-    console.log(email+":"+otp)
     const sql="select otp,expiry_time from otp where email=? and otp=?";
 
     db.query(sql,[email,otp],async (err,row)=>{
@@ -251,7 +254,6 @@ const load_settings=async (req,res)=>{
         return res.status(500).json({response:false, reason:error})
         
     }
-
 
 
 }
