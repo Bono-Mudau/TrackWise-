@@ -3,7 +3,6 @@ const jwt=require("jsonwebtoken");
 
 const verify_token= (req,res,next)=>{
     const token=req.cookies.token;
-    console.log(req.cookies+"cookies are being sent");
     if(!token){
         return res.status(401).json({reason:"Not authorized"});
     }
@@ -22,7 +21,7 @@ const verify_token= (req,res,next)=>{
         res.cookie("token", newToken, 
             { httpOnly: true, 
             secure: true, 
-            sameSite: "Strict",
+            sameSite: "Lax",
             maxAge: 15 * 60 * 1000 });
         next();
     })

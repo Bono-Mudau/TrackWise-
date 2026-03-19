@@ -737,7 +737,7 @@ function delete_income(event){
           return res.json();
         }
       }).then(res=>{
-        
+
         if(res.response){
           selected_income.remove();
           load_balances();
@@ -1690,8 +1690,8 @@ function load_user_details(){
           const data=res.data;
           console.log(data);
           document.getElementById("setting-First-name").value=data.firstName;
-          document.getElementById("setting-last-name").value=data.lasttName;
-          document.getElementById("setting-monthly-limit").value=data.budget_limitt;
+          document.getElementById("setting-last-name").value=data.lastName;
+          document.getElementById("setting-monthly-limit").value=data.budget_limit;
           document.getElementById("setting-user-email").value=data.email;
           let notification_on=data.notifications_status;
           let p_remainders=data.payment_remainder;
