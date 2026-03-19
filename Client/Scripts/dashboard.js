@@ -737,7 +737,7 @@ function delete_income(event){
           return res.json();
         }
       }).then(res=>{
-
+        
         if(res.response){
           selected_income.remove();
           load_balances();

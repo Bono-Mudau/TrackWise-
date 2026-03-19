@@ -3,9 +3,11 @@ const jwt=require("jsonwebtoken");
 
 const verify_token= (req,res,next)=>{
     const token=req.cookies.token;
+    console.log(req.cookies+"cookies are being sent");
     if(!token){
         return res.status(401).json({reason:"Not authorized"});
     }
+
     jwt.verify(token,process.env.JWT_key,(err,user)=>{
 
         if(err){
