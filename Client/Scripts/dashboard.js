@@ -1583,13 +1583,12 @@ async function validate_settings_input(){
   try {
 
     const updated=await update_user_notifications_preference_(f_name,l_name,notification_on,p_remainders,overdue,limit);
-    if(updated.response){
+    if(updated){
       alert("Settings updated successfully")
     }
      else {
         alert("Failed to update settings");
     }
-    setting_toggle();
 
   } catch (error) {
     console.error(error);
@@ -1622,19 +1621,20 @@ async function update_user_notifications_preference_(f_name,l_name,notification_
           log_out();
         }
         if(!res.ok){
-          alert("error has occured")
-          throw new Error("");
+
+          return false;
           
         }
         return res.json();
       })
       .then(res=>{
         if(!res.response){
-          throw new Error("not update failed");
+          return false;
         }
+        return true;
       }) 
   } catch (error) {
-    throw new Error("");
+    return false;
   }
   
 }
