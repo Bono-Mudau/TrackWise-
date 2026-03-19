@@ -45,7 +45,7 @@ function menu_toogle(){
       menu.classList.replace("menu_class1","menu_class");
   }
 }
-
+load_user_details();
 //get user details from the local storage
 const user_info={
   names:localStorage.getItem("names"),
@@ -1002,11 +1002,12 @@ function load_balances(){
         //update how much of the limit has been used
         if (!isNaN(limit) && limit>0){
           console.log("tried to update progress")//debugging purpose
-          const limitProgress = Math.min((data.expense/Numberlimit)* 100,100).toFixed(2);
-          document.getElementById("limit-progress").innerHTML= `Budget Used${limitProgress}%, (${data.expense}/${limit})`;
+          const limitProgress = Math.min((data.expenses/limit)* 100,100).toFixed(2);
+          document.getElementById("limit-progress").innerHTML= `Budget Used${limitProgress}%, (${data.expenses}/${limit})`;
           if(limitProgress>85){
-            document.getElementById(".progress-container").style.color="red"
-
+            document.getElementById(".progress-container").style.color="red";
+          }else{
+            document.getElementById(".progress-container").style.color="green"
           }
         }
          
@@ -1156,7 +1157,6 @@ function show_settings(){
   if(overview.className!="overview"){
     overview.classList.replace("overview1","overview");
   }
-  load_user_details();
 }
 
 //log out confirmation prompt 
@@ -1591,7 +1591,7 @@ async function validate_settings_input(){
   }
   
 }
-load_user_details();
+
 document.getElementById("save-settings-update").style.display="none"
 
 async function update_user_notifications_preference_(f_name,l_name,notification_on,p_remainders,overdue,limit){
