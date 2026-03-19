@@ -385,6 +385,10 @@ async function sign_up(){
 
     const btn=document.getElementById("password_recovery_submit_btn");
     const email=document.getElementById("account_recovery_email").value.trim();
+    if(email==""){
+      alert("Please enter your email!!");
+      return;
+    }
 
     if(step_count==1){
        
@@ -409,6 +413,13 @@ async function sign_up(){
     if(step_count==2){
 
         const otp=document.getElementById("account_recovery_otp").value.trim();
+        if(otp==""){
+          alert("Please enter OTP");
+          return;
+
+        }
+
+        //verify OTP
         const otp_correct= await verify_OTP(email,otp);
 
         if(otp_correct){
