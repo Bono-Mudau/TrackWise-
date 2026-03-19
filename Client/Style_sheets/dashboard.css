@@ -964,7 +964,7 @@ body {
 .progress-container label{
     width: fit-content;
     font-family: 'Poppins', sans-serif;
-    font-size: x-large;
+    font-size: large;
     font-weight: 300;
     padding: 0;
    
