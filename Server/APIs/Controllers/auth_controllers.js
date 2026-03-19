@@ -56,7 +56,7 @@ const login=async (req,res)=>{
     const {email,password}=req.body;
     db.query("select user_id,name,password from users where email=?",[email],async (err, results)=>{
         if(err){
-            console.log("Error occured while verifying the user")
+           
             return res.status(500).json({user:false, reason:"Error logging in, try again later"}) ;
         }
         if(results.length>0){
@@ -78,7 +78,7 @@ const login=async (req,res)=>{
                     })
                 }
                 else{
-                    return res.json({user:false , reason:"Incorrect login credentials"})
+                    return res.json({user:false , reason:"Invalid credentials"})
                 } 
             } catch (error) { 
                 console.error("Error comparing passwords:", error);
@@ -87,7 +87,7 @@ const login=async (req,res)=>{
             }
         }  
         else{
-            return res.json({ user:false , reason:"User not found!" })
+            return res.json({ user:false , reason:"Invalid credentials" })
         }
 
     });
@@ -239,7 +239,7 @@ const load_settings=async (req,res)=>{
         const sql="select email,firstName,lastName,notifications_status,payment_remainder,overdue_expenses,budget_limit from settings where user_id=?";
         const [rows]= await db.promise().query(sql,[id]);
         if(rows.length==0){
-            
+
             return res.json({ response: false });
         }
 

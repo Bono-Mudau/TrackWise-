@@ -1003,7 +1003,7 @@ function load_balances(){
         if (!isNaN(limit) && limit>0){
           console.log("tried to update progress")//debugging purpose
           const limitProgress = Math.min((data.expenses/limit)* 100,100).toFixed(2);
-          document.getElementById("limit-progress").innerHTML= `Budget Used : ${limitProgress}%, (${data.expenses}/${limit})`;
+          document.getElementById("limit-progress").innerHTML= `Budget Used : ${limitProgress}%, (${data.expenses}R / R${limit} )`;
           if(limitProgress>85){
             document.getElementById("progress-container").style.color="red";
           }else{

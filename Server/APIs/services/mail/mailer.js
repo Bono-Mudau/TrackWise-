@@ -15,9 +15,12 @@ const sendEmail = async ({ to, subject, html }) => {
   };
 
   try {
-    const body = await mg.messages().send(data);
-    console.log("EMAIL SENT!!", body);
-  } catch (error) {
+
+     await mg.messages().send(data);
+
+  } 
+  catch (error) {
+    
     console.error(error);
     throw error;
   }
