@@ -1594,11 +1594,11 @@ async function update_user_notifications_preference_(f_name,l_name,notification_
       headers:{"Content-Type":"application/json"},
       credentials:"include",
       body:JSON.stringify({
-        firstName:f_name, 
-        lastName:l_name,
-        notification_status:notification_on,
-        payment_remainders:p_remainders,
-        overdue_payments:overdue,
+        f_name:f_name, 
+        l_name:l_name,
+        notification_on:notification_on,
+        p_remainders:p_remainders,
+        overdues:overdue,
         limit:limit
        })
       })
