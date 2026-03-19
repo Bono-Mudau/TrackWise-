@@ -997,13 +997,19 @@ function load_balances(){
         balace_button.innerHTML="Balance: R  "+data.balance.toFixed(2);
         income_btn.innerHTML="Income: R  " + data.income;
         expense_btn.innerHTML="Expenses: R  "+data.expenses;
-        const info={
-          unpaid_expense:data.expenses,
-          expense:data.income,
-          limit:1500
+        const limit=Number(document.getElementById("setting-monthly-limit").value);
+        
+        //update how much of the limit has been used
+        if (!isNaN(limit) && limit>0){
+          console.log("tried to update progress")//debugging purpose
+          const limitProgress = Math.min((data.expense/Numberlimit)* 100,100).toFixed(2);
+          document.getElementById("limit-progress").innerHTML= `Budget Used${limitProgress}%, (${data.expense}/${limit})`;
+          if(limitProgress>85){
+            document.getElementById(".progress-container").style.color="red"
+
+          }
         }
-        update_progress_bars(info);
-      
+         
       }
       else{
         alert("Summary not loaded!")
@@ -1485,18 +1491,6 @@ function expense_chart(){
 income_chart();
 expense_chart();
 
-function update_progress_bars(data){
-  if (data.expense === 0){
-    return;
-  } 
-
-  const limit = data.limit;
-  const limit_progress = ((limit / data.expense) * 100).toFixed(2);
-  const exp_progress = ((data.unpaid_expense / data.expense) * 100).toFixed(2);
-
-   document.getElementById("limit-progress").value = 50;
-   document.getElementById("expense-progress").value = 35;
-}
 
 function setting_toggle(){
 

@@ -33,7 +33,7 @@ const signup=async (req,res)=>{
 
                 const id=results.insertId;
 
-                await db.promise().query("INSERT INTO settings (email,user_id,firstName) VALUES (?, ?)",[email,id,names]);
+                await db.promise().query("INSERT INTO settings (email,user_id,firstName) VALUES (?, ?,?)",[email,id,names]);
                 try {
                     await sendEmail({to:email,subject:"Account created",html:accountCreatedTemplate(names)});
                 } 
@@ -239,7 +239,7 @@ const load_settings=async (req,res)=>{
         const sql="select email,firstName,lastName,notifications_status,payment_remainder,overdue_expenses,budget_limit from settings where user_id=?";
         const [rows]= await db.promise().query(sql,[id]);
         if(rows.length==0){
-            console.log("no settings data")
+            
             return res.json({ response: false });
         }
 

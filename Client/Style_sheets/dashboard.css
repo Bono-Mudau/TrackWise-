@@ -912,7 +912,6 @@ body {
 }
 .settings-sections h4{
     margin: 10px auto;
-
 }
 #save-settings-update{
     margin-top: 10px;
@@ -947,6 +946,29 @@ body {
     font-size: medium;
     border:none;
     border: 1px solid rgba(248, 243, 243, 0.918);
+}
+.progress-container{
+    width: fit-content;
+    min-width: 200px;
+    max-width: 400px;
+    min-height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.199);
+    border-radius: 10px;  
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    color: rgb(5, 143, 5);
+    margin-bottom: 5px;
+}
+.progress-container label{
+    width: fit-content;
+    font-family: 'Poppins', sans-serif;
+    font-size: x-large;
+    font-weight: 300;
+    padding: 0;
+   
 }
 
 
@@ -1169,6 +1191,11 @@ body {
 #user-names{
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
+}
+.progress-container{
+    min-height: 30px;
+    width: fit-content;
+    max-width: 90%;
 }
 
 }
