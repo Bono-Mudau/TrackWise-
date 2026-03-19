@@ -18,7 +18,6 @@ const verify_token= (req,res,next)=>{
             , process.env.JWT_key,
              { expiresIn: "15m" });
         req.user = user;
-        console.log("username" +user.username)
         res.cookie("token", newToken, 
             { httpOnly: true, 
             secure: true, 

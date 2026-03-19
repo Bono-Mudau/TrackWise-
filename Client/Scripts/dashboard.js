@@ -1539,6 +1539,7 @@ document.getElementById("setting-edit-button").addEventListener("click",setting_
 
 //Update settings
 async function validate_settings_input(){
+  
   setting_toggle();
   const f_name=document.getElementById("setting-First-name").value;
   const l_name=document.getElementById("setting-last-name").value;
@@ -1596,13 +1597,14 @@ async function validate_settings_input(){
   }
   
 }
+
 load_user_details();
 document.getElementById("save-settings-update").style.display="none"
 
 async function update_user_notifications_preference_(f_name,l_name,notification_on,p_remainders,overdue,limit){
 
   try {
-    fetch("https://trackwise-9l4u.onrender.com/api/auth/update_settings",{
+    const res= await fetch("https://trackwise-9l4u.onrender.com/api/auth/update_settings",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       credentials:"include",
@@ -1614,25 +1616,21 @@ async function update_user_notifications_preference_(f_name,l_name,notification_
         overdue:overdue,
         limit:limit
        })
-      })
-      .then(res=>{
+      });
         if(res.status==401){
           alert("Error-occured:try to log in again");
           log_out();
+          return false
         }
         if(!res.ok){
 
           return false;
-          
+
         }
-        return res.json();
-      })
-      .then(res=>{
-        if(!res.response){
-          return false;
-        }
-        return true;
-      }) 
+        const data= await res.json();
+
+        return data.response;
+ 
   } catch (error) {
     return false;
   }
@@ -1691,6 +1689,7 @@ function load_user_details(){
         if(res.status==401){
           alert("Error-occured:try to log in again");
           log_out();
+          return;
         }
         if(!res.ok){
           alert("error has occured")
@@ -1702,7 +1701,6 @@ function load_user_details(){
       if(res.response){
 
         //set settings fields
-          const data=res.data;
           console.log(data);
           document.getElementById("setting-First-name").value=data.firstName;
           document.getElementById("setting-last-name").value=data.lastName;
