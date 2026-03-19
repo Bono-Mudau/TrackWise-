@@ -60,7 +60,7 @@ const login=async (req,res)=>{
             try {
                 const auth=await bcrypt.compare(password,results[0].password)
                 if(auth){
-                    const token= generate_Token(email);
+                    const token= generate_Token(results[0].user_id);
                     res.cookie("token", token, 
                         { httpOnly: true, 
                         secure: true, 
