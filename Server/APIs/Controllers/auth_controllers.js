@@ -229,12 +229,12 @@ const delete_account= async (req,res) => {
 const load_settings=async (req,res)=>{
 
      if (!req.user) {
-        return res.status(401).json({ response: false });
+        return res.status(409).json({ response: false });
     }
     const id=req.user.username;
     try {
         const sql="select email,firstName,lastName,notifications_status,payment_remainder,overdue_expenses,budget_limit from settings where user_id=?";
-        const rows= await db.promise().query(sql,[id]);
+        const [rows]= await db.promise().query(sql,[id]);
         if(rows.length==0){
             return res.json({ response: false });
         }

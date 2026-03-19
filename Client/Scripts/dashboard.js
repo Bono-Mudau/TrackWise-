@@ -1670,10 +1670,9 @@ function load_user_details(){
 
   try{
     fetch("https://trackwise-9l4u.onrender.com/api/auth/load_settings",{
-      method:"POST",
+      method:"GET",
       headers:{"Content-Type":"application/json"},
       credentials:"include",
-      body:JSON.stringify({})
     }).then(res=>{
         if(res.status==401){
           alert("Error-occured:try to log in again");

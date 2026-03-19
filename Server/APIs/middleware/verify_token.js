@@ -21,7 +21,7 @@ const verify_token= (req,res,next)=>{
         res.cookie("token", newToken, 
             { httpOnly: true, 
             secure: true, 
-            sameSite: "Lax",
+            sameSite: "Strict",
             maxAge: 15 * 60 * 1000 });
         next();
     })

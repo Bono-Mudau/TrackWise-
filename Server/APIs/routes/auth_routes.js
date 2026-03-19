@@ -10,8 +10,8 @@ router.post("/send_otp",send_otp);
 router.post("/verify_email",verify_email);
 router.post("/reset_password",reset_password);
 router.post("/login",verify_token,log_out);
-router.post("/update_settings",update_settings);
-router.post("/load_settings",load_settings);
-router.get("/delete_account",delete_account);
+router.post("/update_settings",verify_token,update_settings);
+router.get("/load_settings",verify_token,load_settings);
+router.get("/delete_account",verify_token,delete_account);
 
 module.exports=router;
