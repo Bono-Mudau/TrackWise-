@@ -1,3 +1,4 @@
+const { json } = require("body-parser");
 
 function getdate(){
     const today = new Date();
@@ -1583,7 +1584,7 @@ async function validate_settings_input(){
   }
   
 }
-
+load_user_details();
 document.getElementById("save-settings-update").style.display="none"
 
 async function update_user_notifications_preference_(f_name,l_name,notification_on,p_remainders,overdue,limit){
@@ -1669,9 +1670,10 @@ function load_user_details(){
 
   try{
     fetch("https://trackwise-9l4u.onrender.com/api/auth/load_settings",{
-      method:"GET",
+      method:"POST",
       headers:{"Content-Type":"application/json"},
-      credentials:"include"
+      credentials:"include",
+      body:JSON.stringify({})
     }).then(res=>{
         if(res.status==401){
           alert("Error-occured:try to log in again");
