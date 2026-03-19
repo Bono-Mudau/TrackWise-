@@ -1665,6 +1665,7 @@ function delete_user_account(){
     alert("Error has occured, please try again later");
   }
 }
+document.getElementById("delete-account-btn").addEventListener("click",delete_user_account);
 
 function load_user_details(){
 
