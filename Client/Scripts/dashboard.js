@@ -1494,8 +1494,8 @@ function update_progress_bars(data){
   const limit_progress = ((limit / data.expense) * 100).toFixed(2);
   const exp_progress = ((data.unpaid_expense / data.expense) * 100).toFixed(2);
 
-   document.getElementById("limit-progress").value = limit_progress;
-   document.getElementById("expense-progress").value = exp_progress;
+   document.getElementById("limit-progress").value = 50;
+   document.getElementById("expense-progress").value = 35;
 }
 
 function setting_toggle(){
@@ -1700,6 +1700,7 @@ function load_user_details(){
       if(res.response){
 
         //set settings fields
+          const data=res.data;
           document.getElementById("setting-First-name").value=data.firstName;
           document.getElementById("setting-last-name").value=data.lastName;
           document.getElementById("setting-monthly-limit").value=data.budget_limit;
