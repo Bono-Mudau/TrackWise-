@@ -107,6 +107,7 @@ body {
     font-size: larger;
     border-collapse: collapse;
     background-color: rgba(43, 68, 179, 0.877);
+    
 }
 .sidebar td{
     text-align: left;
@@ -810,12 +811,18 @@ body {
     margin: 0 auto;
     gap: 2%;
     min-height: max-content;
+    gap: 10px;
 }
 .settings-sections{
     padding-left: 10px;
     width:40;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    padding: 5px;
+    border: 0.1px solid hsla(0, 0%, 0%, 0.336);
+    border-radius: 7.5px;
+    height: max-content;
 
 }
 .settings-sections div{
@@ -878,6 +885,70 @@ body {
 
 }
 
+.settings-sections{
+    width:92%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    
+  
+
+}
+.settings-sections button {
+    width: min(250px, 50%);
+    align-self: center;
+    justify-self: center;
+    box-sizing: border-box;
+    background-color: #6e7879c4;
+    border: none;
+    border-radius: 5px;
+
+}
+.settings-sections input{
+    border-radius: 3px;
+    border: none;
+    background-color: #eeececab;
+    font-size: medium;
+}
+.settings-sections h4{
+    margin: 10px auto;
+
+}
+#save-settings-update{
+    margin-top: 10px;
+    width:80%;
+    min-height: 40px;
+    justify-self: center;
+    align-self: center;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(43, 68, 179, 0.533);
+    margin-bottom: 3px;
+}
+#save-settings-update:hover{
+    width: 90%;
+    padding: 15px;
+}
+#month-container{
+    width: 100%;
+    justify-content: right;
+}
+#month-container p{
+    font-size: 25px;
+    font-family: 'poppins';
+}
+#setting-edit-button{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: none;
+    min-width: 60px;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: medium;
+    border:none;
+    border: 1px solid rgba(248, 243, 243, 0.918);
+}
+
 
 
 @media (max-width:720px){
@@ -896,11 +967,13 @@ body {
     max-height: 70vh;
     min-width: 40vw;
     width: 100%;
+    background: none;
 }
 
 #summary-card{
     display: flex;
     width: 99%; 
+    
 }
 #summary-card div{
     padding: 1%;
@@ -909,20 +982,26 @@ body {
 #charts{
     width: 98vw;
     margin: 0 auto;
+    margin: 10px auto;
 }
 
 #graph{
     display: flex;
     flex-direction: column;
-    width: 90vw;
+    width: 98vw;
     margin: 0 auto;
 }
 
 .menu_class{
-
+    position: absolute;
+    left: 0;
     min-width:max-content;
     height: fit-content;
     z-index: 100;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    border-bottom-right-radius: 7.5px;
+    background-color: rgba(43, 68, 179, 0.966);
 
 }
 .transactions-fliter{
@@ -1076,15 +1155,19 @@ body {
     border:none;
     border: 1px solid rgba(248, 243, 243, 0.918);
 }
+#main-frame{
+    display: flex;
+    flex-direction: row;
+}
 #display-area{
-    min-width: 99%;
     margin: 0 auto;
     background-color: #9eaadb34;
     border: none;
+    max-width: 99.9%;
+
 }
 #user-names{
     font-family: 'Poppins', sans-serif;
-    /* font-size: 23px; */
     font-weight: 400;
 }
 
