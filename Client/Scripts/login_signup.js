@@ -442,7 +442,7 @@ async function sign_up(){
       }
 
       const password=document.getElementById("account_recovery_password").value.trim();
-      const password1=document.getElementById("account_recovery_password").value.trim();
+      const password1=document.getElementById("account_recovery_c-password").value.trim();
 
       if(password!=password1){
         alert("Password don't match!!")

@@ -338,15 +338,35 @@ hr{
         height: fit-content;
         margin: 0 auto;
     }
+    .signup_form div{
+        padding-bottom: 5px;
+    }
+    .signup_form p{
+        margin: 0;
+        padding: 0;
+        padding-top: 5px;
+    }
     .otp_prompt{
-        height: 50%;
+        height: max-content;
+        margin: 0px auto;
+        padding-right: 5px;
+
     }
     .otp_prompt input{
-        min-height:30px;
+        min-height:40px;
+        font-size: large;
+        text-align: center;
     }
     .otp_prompt button{
-        min-height: 20px;
+        min-height: 30px;
         width: 50%;
+        font-size: large;
+    }
+    #login-signup_toggle1{
+       margin-bottom: 10px;
+        padding: 0;
+        font-size:large;
+
     }
 
 }

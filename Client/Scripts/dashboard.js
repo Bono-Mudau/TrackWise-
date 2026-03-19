@@ -280,9 +280,9 @@ function submit_expense(){
             <td>${due_Date}</td>
             <td></td>
           `;
-        row.cells[7].innerHTML=`<button id="enable_exp_editing"> Edit </button>  <button id="delete_exp-"> Delete</button> `;
-        document.getElementById("enable_exp_editing").addEventListener("click",enable_exp_editing);
-        document.getElementById("delete_exp-").addEventListener("click",delete_expense_entry);
+        row.cells[7].innerHTML=`<button class="enable_exp_editing"> Edit </button>  <button class="delete_exp"> Delete</button> `;
+        row.cells[7].querySelector(".enable_exp_editing").addEventListener("click", enable_exp_editing);
+        row.cells[7].querySelector(".delete_exp").addEventListener("click", delete_expense_entry);
         const t_row=document.createElement("tr");
         t_row.id="exp_table_total";
         t_row.innerHTML=`
@@ -684,10 +684,10 @@ get_overdue_expenses();
                     <td>${income_entry.amount}</td>
                     <td></td>
                   `;
-                row.cells[4].innerHTML=`<button id="enable-income--edi"> edit </button> 
-                                        <button id="del--inc"> Delete</button> `
-                document.getElementById("enable-income--edi").addEventListener("click",enable_income_editing);
-                document.getElementById("del--inc").addEventListener("click",delete_income);
+                row.cells[4].innerHTML=`<button class="enable-income--edi"> edit </button> 
+                                        <button class="del--inc"> Delete</button> `
+                row.cells[4].querySelector(".enable-income--edi").addEventListener("click", enable_income_editing);
+                row.cells[4].querySelector(".del--inc").addEventListener("click", delete_income);
                 const t_row=document.createElement("tr");
                 t_row.id="income_table_total";
                 t_row.innerHTML=`
@@ -1139,6 +1139,7 @@ function show_overview(){
   monthly_summary();
   get_overdue_expenses();
   recent_transactions(user_info.id);
+  load_balances();
 }
 function show_settings(){
   const exp=document.getElementById("expense");  
