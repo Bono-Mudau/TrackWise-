@@ -865,8 +865,11 @@ body {
     
 }
 .show-settings1{
+
   background-color: #ddd;
   height: fit-content;
+  height: 100%;
+  padding-bottom: 10px;
 
 }
 .show-settings1 label {
@@ -890,8 +893,6 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    
-  
 
 }
 .settings-sections button {
@@ -971,17 +972,24 @@ body {
 }
 
 /* SUMMARY SECTION */
-.summary-section{
-    display: none;
-}
 
-.summary-section1{
+.show-summary1{
+
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+
+}
+.show-summary{
+    display: none;
+    
+}
+.summary-section{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
-    background: rgb(255, 255, 255);
-    font-family: 'Montserrat', sans-serif
-
+    background-color: rgb(255, 255, 255);
+    font-family: 'Montserrat', sans-serif;
     
 }
 .summary-card-month{
@@ -1016,6 +1024,25 @@ body {
   
     
 }
+#summary-heading{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    font-family:'poppins', sans-serif ;
+}
+#summary-heading h4{
+    align-self: center;
+    padding: 0px;
+    font-size: larger;
+    font-weight: 300;
+    text-decoration: underline;
+}
+#summary-heading p{
+    text-align: center;
+    padding: 10px;
+    
+}
+
 
 
 
@@ -1032,7 +1059,7 @@ body {
 }
 .sidebar{
     min-height: 50vh;
-    max-height: 70vh;
+    max-height: fit-content;
     min-width: 40vw;
     width: 100%;
     background: none;
@@ -1064,11 +1091,12 @@ body {
     position: absolute;
     left: 0;
     min-width:max-content;
-    height: fit-content;
+    height: 80vh;
     z-index: 100;
     padding-right: 10px;
     padding-bottom: 10px;
     border-bottom-right-radius: 7.5px;
+    border-top-right-radius: 7.5px;
     background-color: rgba(43, 68, 179, 0.966);
 
 }

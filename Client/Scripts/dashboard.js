@@ -621,7 +621,6 @@ async function get_overdue_expenses() {
    })
    .catch(error => {
         console.error("Fetch failed:", error);
-        alert("Failed to load overdue expenses.");
     });
   
 }
@@ -710,6 +709,7 @@ get_overdue_expenses();
                 }
             })             
            } catch (error) {
+            console.log(error);
             
            }
     document.getElementById('C-income-card').classList.replace("create-income-card","create-income-card1");
@@ -1087,10 +1087,10 @@ function show_expense(){
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
-   const summary=document.getElementById("summary-section");
+  const summary=document.getElementById("show-summary");
 
-  if(summary.className!="summary-section"){
-    summary.classList.replace("summary-section1","summary-section")
+  if(summary.className!="show-summary"){
+    summary.classList.replace("show-summary1","show-summary")
   }
   if(settings.className!="show-settings"){
     settings.classList.replace("show-settings1","show-settings")
@@ -1112,10 +1112,10 @@ function show_income(){
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
-  const summary=document.getElementById("summary-section");
+  const summary=document.getElementById("show-summary");
 
-  if(summary.className!="summary-section"){
-    summary.classList.replace("summary-section1","summary-section")
+  if(summary.className!="show-summary"){
+    summary.classList.replace("show-summary1","show-summary")
   }
   if(settings.className!="show-settings"){
     settings.classList.replace("show-settings1","show-settings")
@@ -1136,10 +1136,10 @@ function show_overview(){
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview"); 
   const settings=document.getElementById("show-settings");
-  const summary=document.getElementById("summary-section");
+  const summary=document.getElementById("show-summary");
 
-  if(summary.className!="summary-section"){
-    summary.classList.replace("summary-section1","summary-section")
+  if(summary.className!="show-summary"){
+    summary.classList.replace("show-summary1","show-summary")
   }
   if(settings.className!="show-settings"){
     settings.classList.replace("show-settings1","show-settings")
@@ -1166,10 +1166,10 @@ function show_settings(){
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
-  const summary=document.getElementById("summary-section");
+  const summary=document.getElementById("show-summary");
 
-  if(summary.className!="summary-section"){
-    summary.classList.replace("summary-section1","summary-section")
+  if(summary.className!="show-summary"){
+    summary.classList.replace("show-summary1","show-summary")
   }
   if(settings.className!="show-settings1"){
     settings.classList.replace("show-settings","show-settings1")
@@ -1191,10 +1191,10 @@ function show_summary(){
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview"); 
   const settings=document.getElementById("show-settings");
-  const summary=document.getElementById("summary-section");
+   const summary=document.getElementById("show-summary");
 
-  if(summary.className!="summary-section1"){
-    summary.classList.replace("summary-section","summary-section1")
+  if(summary.className!="show-summary1"){
+    summary.classList.replace("show-summary","show-summary1")
   }
   if(settings.className!="show-settings"){
     settings.classList.replace("show-settings1","show-settings")

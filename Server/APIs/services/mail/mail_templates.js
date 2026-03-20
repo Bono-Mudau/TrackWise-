@@ -48,7 +48,7 @@ const overdueExpensesTemplate = (userName, expenses) => `
                 <tr>
                     <td style="padding:10px; border:1px solid #ddd;">${exp.description}</td>
                     <td style="padding:10px; border:1px solid #ddd;">R ${exp.amount}</td>
-                    <td style="padding:10px; border:1px solid #ddd;">R ${(exp.due_date).toLocaleDateString()}</td>
+                    <td style="padding:10px; border:1px solid #ddd;"> ${(exp.due_date).toLocaleDateString()}</td>
                 </tr>
             `).join('')}
         </tbody>
@@ -79,7 +79,7 @@ const upcomingPaymentsTemplate = (userName, payments) => `
                 <tr>
                     <td style="padding:10px; border:1px solid #ddd;">${pay.description}</td>
                     <td style="padding:10px; border:1px solid #ddd;">R ${pay.amount}</td>
-                    <td style="padding:10px; border:1px solid #ddd;">R ${(pay.due_date).toLocaleDateString()}</td>
+                    <td style="padding:10px; border:1px solid #ddd;"> ${(pay.due_date).toLocaleDateString()}</td>
                 </tr>
             `).join('')}
         </tbody>
