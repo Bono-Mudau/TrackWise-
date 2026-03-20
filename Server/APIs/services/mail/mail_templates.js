@@ -46,9 +46,9 @@ const overdueExpensesTemplate = (userName, expenses) => `
         <tbody>
             ${expenses.map(exp => `
                 <tr>
-                    <td style="padding:10px; border:1px solid #ddd;">${exp.name}</td>
+                    <td style="padding:10px; border:1px solid #ddd;">${exp.description}</td>
                     <td style="padding:10px; border:1px solid #ddd;">${exp.amount}</td>
-                    <td style="padding:10px; border:1px solid #ddd;">${exp.dueDate}</td>
+                    <td style="padding:10px; border:1px solid #ddd;">${exp.due_ate}</td>
                 </tr>
             `).join('')}
         </tbody>
