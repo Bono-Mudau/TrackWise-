@@ -1087,6 +1087,11 @@ function show_expense(){
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
+   const summary=document.getElementById("summary-section");
+
+  if(summary.className!="summary-section"){
+    summary.classList.replace("summary-section1","summary-section")
+  }
   if(settings.className!="show-settings"){
     settings.classList.replace("show-settings1","show-settings")
   }  
@@ -1788,10 +1793,11 @@ function generate_monthly_summary_cards( month, year,  expense, income ,amount,d
 
   //set background colour to red where the user overspent
   if( expense > income ){
-    summaryCard.style.backgroundColor="rgba(255, 150, 150, 0.2)";
+    summaryCard.style.backgroundColor="rgba(255, 150, 150, 0.3)";
   }
   else{
-    summaryCard.style.backgroundColor="rgba(170, 255, 170, 0.2)"
+
+    summaryCard.style.backgroundColor="rgba(170, 255, 170, 0.3)";
 
   }
 
