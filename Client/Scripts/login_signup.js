@@ -214,7 +214,7 @@ let user_input={
 async function validate_user_information(){
   const signup_btn=document.getElementById("sign-up");
   signup_btn.disabled= true;
-  signup_btn.textContent = "........";
+  signup_btn.textContent = "Loading......";
 
     //validate user input before sending OTP
     const f_name=document.getElementById("f-name").value.trim();
@@ -223,12 +223,16 @@ async function validate_user_information(){
     if(f_name==""){
 
       alert("Please enter your full names");
+      signup_btn.textContent = "Create account";
+      signup_btn.disabled= false;
       return;
     }
 
      if(email==""){
 
       alert("Eamil can't be empty");
+      signup_btn.textContent = "Create account";
+      signup_btn.disabled= false;
       return;
     }
 
@@ -237,6 +241,8 @@ async function validate_user_information(){
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(document.getElementById("email").value.trim())) {
         alert("Invalid email format");
+         signup_btn.textContent = "Create account";
+         signup_btn.disabled= false;
         return;
     }
 
@@ -245,10 +251,14 @@ async function validate_user_information(){
 
     if(password1!=password){
       alert("Password do not match");
+      signup_btn.textContent = "Create account";
+      signup_btn.disabled= false;
       return;
     }
     if(!password_strength_status1){
       alert("Weak password!!")
+       signup_btn.textContent = "Create account";
+       signup_btn.disabled= false;
       return;
     }
     
@@ -285,7 +295,6 @@ function redirect_to_recoverpassword_toogle(){
 async function verify_OTP(email,otp){
 
   //validate input
-  
   if( !Number(String(otp)) ){
     alert("Enter a valid otp");
     return;
@@ -378,7 +387,8 @@ async function sign_up(){
 
  
 }
-  //step count to control the reset passoword process
+  
+//step count to control the reset passoword process
  let step_count=1;
 
  async function reset_password(){
