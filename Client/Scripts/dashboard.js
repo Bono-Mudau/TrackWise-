@@ -1788,10 +1788,13 @@ function generate_monthly_summary_cards( month, year,  expense, income ,amount,d
 
   //set background colour to red where the user overspent
   if( expense > income ){
-
     summaryCard.style.backgroundColor="rgba(255, 150, 150, 0.2)";
+  }
+  else{
+    summaryCard.style.backgroundColor="rgba(170, 255, 170, 0.2)"
 
   }
+
   summaryCard.innerHTML= `
         <p >${ month_names[month-1] } ${year}</p>
 
