@@ -1771,6 +1771,20 @@ function load_user_details(){
           }else{
             document.getElementById("setting-overdue-exp?").checked=false;
           }
+
+          //get user initials
+          if(data.lastName!=""){
+            document.getElementById("user-initials").innerHTML=data.lastName.charAt(0)+""+data.firstName.charAt(0)
+          }
+          if(data.firstName.split(" ").length>1){
+            const initials=data.firstName.split(" ");
+            document.getElementById("user-initials").innerHTML=initials[1].charAt(0)+""+initials[0].charAt(0);
+          }
+          else{
+
+            document.getElementById("user-initials").innerHTML=data.firstName.charAt(0)
+
+          }
       }
       else{
         alert("ERR:Settings_info-not loaded");
