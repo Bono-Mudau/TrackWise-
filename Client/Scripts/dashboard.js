@@ -1780,7 +1780,7 @@ function load_user_details(){
             const initials=data.firstName.split(" ");
             document.getElementById("user-initials").innerHTML=initials[1].charAt(0)+""+initials[0].charAt(0);
           }
-          else{
+          if( data.lastName=="" && data.firstName.split(" ").length < 1){
 
             document.getElementById("user-initials").innerHTML=data.firstName.charAt(0)
 
