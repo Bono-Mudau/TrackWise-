@@ -84,6 +84,7 @@ function load_exp_filters(){
 
 load_all_expenses();
 load_income();
+load_summary();
 
 
 function remove_table_Rows(table_id) {
@@ -1199,10 +1200,10 @@ function show_summary(){
   if(income.className!="income"){
     income.classList.replace("income1","income");
   }
-  if(overview.className!="overview1"){
-    overview.classList.replace("overview","overview1");
+  if(overview.className!="overview"){
+    overview.classList.replace("overview1","overview");
   }
-   load_summary();
+
 }
 
 //log out confirmation prompt 
@@ -1792,9 +1793,9 @@ function generate_monthly_summary_cards( month, year,  expense, income ,amount,d
 
   }
   summaryCard.innerHTML= `
-        <p >${ month_names[month] } ${year}</p>
+        <p >${ month_names[month-1] } ${year}</p>
 
-        <label  > Total Income:R  ${ expense} </label>
+        <label  > Total Expenses:R  ${ expense} </label>
         <label  > Total Income: R ${income}</label>
         <label  > Biggest spending: R ${ amount }:  ${description} </label>
       `;
