@@ -1079,6 +1079,7 @@ function recent_transactions(id){
 recent_transactions(user_info.id);
 
 //switch between sections
+
 function show_expense(){
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
@@ -1097,12 +1098,18 @@ function show_expense(){
     overview.classList.replace("overview1","overview");
   }
 }
+
 function show_income(){
 
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
+  const summary=document.getElementById("summary-section");
+
+  if(summary.className!="summary-section"){
+    summary.classList.replace("summary-section1","summary-section")
+  }
   if(settings.className!="show-settings"){
     settings.classList.replace("show-settings1","show-settings")
   } 
@@ -1116,11 +1123,17 @@ function show_income(){
     overview.classList.replace("overview1","overview");
   }
 }
+
 function show_overview(){
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview"); 
   const settings=document.getElementById("show-settings");
+  const summary=document.getElementById("summary-section");
+
+  if(summary.className!="summary-section"){
+    summary.classList.replace("summary-section1","summary-section")
+  }
   if(settings.className!="show-settings"){
     settings.classList.replace("show-settings1","show-settings")
   }
@@ -1140,11 +1153,17 @@ function show_overview(){
   recent_transactions(user_info.id);
   load_balances();
 }
+
 function show_settings(){
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
+  const summary=document.getElementById("summary-section");
+
+  if(summary.className!="summary-section"){
+    summary.classList.replace("summary-section1","summary-section")
+  }
   if(settings.className!="show-settings1"){
     settings.classList.replace("show-settings","show-settings1")
   }
@@ -1157,6 +1176,32 @@ function show_settings(){
   if(overview.className!="overview"){
     overview.classList.replace("overview1","overview");
   }
+}
+
+
+function show_summary(){
+  const exp=document.getElementById("expense");  
+  const income=document.getElementById("income");  
+  const overview=document.getElementById("overview"); 
+  const settings=document.getElementById("show-settings");
+  const summary=document.getElementById("summary-section");
+
+  if(summary.className!="summary-section1"){
+    summary.classList.replace("summary-section","summary-section1")
+  }
+  if(settings.className!="show-settings"){
+    settings.classList.replace("show-settings1","show-settings")
+  }
+  if(exp.className!="expsnse"){
+    exp.classList.replace("expense1","expense")
+  }
+  if(income.className!="income"){
+    income.classList.replace("income1","income");
+  }
+  if(overview.className!="overview1"){
+    overview.classList.replace("overview","overview1");
+  }
+   load_summary();
 }
 
 //log out confirmation prompt 
@@ -1673,7 +1718,7 @@ document.getElementById("delete-account-btn").addEventListener("click",delete_us
 
 function load_user_details(){
 
-  try{
+  try{        
     fetch("https://trackwise-9l4u.onrender.com/api/auth/load_settings",{
       method:"GET",
       headers:{"Content-Type":"application/json"},
@@ -1731,6 +1776,65 @@ function load_user_details(){
 
   }
 
+}
+
+
+function generate_monthly_summary_cards( month, year,  expense, income ,amount,description){
+
+  const summaryCard=document.createElement("div");
+  summaryCard.classList.add("summary-card-month");
+
+  //set background colour to red where the user overspent
+  if( expense > income ){
+
+    summaryCard.style.backgroundColor="rgba(255, 150, 150, 0.2)";
+
+  }
+  summaryCard.innerHTML= `
+        <p >${ month_names[month] } ${year}</p>
+
+        <label  > Total Income:R  ${ expense} </label>
+        <label  > Total Income: R ${income}</label>
+        <label  > Biggest spending: R ${ amount }:  ${description} </label>
+      `;
+  document.getElementById("summary-section").appendChild(summaryCard);
+}
+
+async function load_summary() {
+  try {
+        const res= await fetch("https://trackwise-9l4u.onrender.com/api/summary/load_summary",{
+          method:"GET",
+          headers:{"Content-Type":"application/json"},
+          credentials:"include"
+        })
+        if (res.status === 401) {
+            log_out(); // auto-logout on unauthorized
+            return;
+        }
+        if(!res.ok){
+          throw new Error("Couldn't load expense entries");
+        }
+        
+        const results = await res.json();
+
+        if(results.response){
+          
+          results.data.forEach( data=>{
+
+            generate_monthly_summary_cards(data.month, data.year, data.expense, data.income, data.amount, data.description);
+
+          })
+        }
+        else{
+           alert("failed to load summary!!, try again later");
+        }
+
+
+    
+  } catch (error) {
+    console.log("err"+ error);
+    
+  }
 }
 
   

@@ -81,7 +81,7 @@ const monthly_summary=async (req,res)=>{
 
     const {id}= req.body;
     const sql="Select income,expense,month,year from monthly_summary where user_id=? order by year DESC, month DESC limit 5" ;
-
+    
     db.query(sql, [id], (err, row)=>{
         if(err){
             return res.status(500).json({response:false , error: err.message})
@@ -92,10 +92,78 @@ const monthly_summary=async (req,res)=>{
         })
     })
 }
+
+const summary= async (req,res)=>{
+
+    try {
+
+        const id=req.user.username;
+
+        if(!id){
+
+            return res.status(501).json({response:false})
+        }
+        const [months]= await db.promise().query("Select income,expense,month,year from monthly_summary where user_id=? order by year DESC, month DESC limit 6",[id]);
+         
+        let array=[];
+
+        for(const month of months){
+
+            if(month.expense==0){
+                array.push({
+                    month:month.month,
+                    year:month.year,
+                    income:month.income,
+                    expense:month.expense,
+                    amount:0,
+                    description:""
+                })
+                continue;
+            }
+            const sql="select amount,description from expenses where amount = (select max(amount) from expenses where user_id = ? and month(date_created) = ? and year(date_created) = ? ) and month(date_created) = ? and year(date_created) = ? and user_id = ? limit 1"
+            const [rows]= await db.promise().query( sql, [id,  month.month, month.year, month.month, month.year, id]);
+            if(rows.length==0){
+
+                array.push({
+                    month:month.month,
+                    year:month.year,
+                    income:month.income,
+                    expense:month.expense,
+                    amount:0,
+                    description:""
+                })
+                continue;
+                
+            }
+
+            const data={
+
+                month:month.month,
+                year:month.year,
+                income:month.income,
+                expense:month.expense,
+                amount:rows[0].amount,
+                description:rows[0].description
+            }
+            array.push(data);
+
+         }
+
+         return res.json({response:true, data:array});
+
+    } catch (error) {
+
+        return res.status(500).json({response:false});
+
+        
+    }
+}
+
 module.exports={
     load_balances,
     recent_trans,
     monthly_summary,
     income_pie_chart,
-    expenses_pie_chart
+    expenses_pie_chart,
+    summary
 }

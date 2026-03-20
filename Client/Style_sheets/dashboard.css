@@ -970,6 +970,53 @@ body {
    
 }
 
+/* SUMMARY SECTION */
+.summary-section{
+    display: none;
+}
+
+.summary-section1{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    background: rgb(255, 255, 255);
+    font-family: 'Montserrat', sans-serif
+
+    
+}
+.summary-card-month{
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #c6d1d665;
+    border: 2px solid rgba(6, 85, 131, 0.281);
+    margin: 10px 10px;
+
+}
+.summary-card-month p{
+
+    font-size: larger;
+    padding: 0;
+    margin: 5px auto;
+
+}
+.summary-card-month label{
+
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(43, 55, 226, 0.11);
+  margin: 5px auto;
+  padding: 5px;
+  min-height: 30px;
+  width: 95%;
+  align-content: center;
+  max-height: max-content;
+  
+    
+}
+
 
 
 @media (max-width:720px){
