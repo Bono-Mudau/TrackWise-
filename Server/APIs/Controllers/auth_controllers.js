@@ -9,8 +9,10 @@ const { response } = require("express");
 const signup=async (req,res)=>{
 
     const {names,email,password} =req.body;
-    //Check if the email is already used for a different account
+
     db.query("Select * from users where email=?",[email],async (err,rows)=>{
+
+        //Check if the email is already in use
         if(rows.length>0){
             return res.json({
                 user:false,
@@ -31,13 +33,15 @@ const signup=async (req,res)=>{
 
             }else{
 
-                const id=results.insertId;
-
+                const id=results.insertId;//retrieve user id
                 await db.promise().query("INSERT INTO settings (email,user_id,firstName) VALUES (?, ?,?)",[email,id,names]);
+                
                 try {
                     await sendEmail({to:email,subject:"Account created",html:accountCreatedTemplate(names)});
                 } 
-                catch (error) { 
+                catch (error) {
+                    
+                    console.log("ERR:failedd to send an email:Account created")
                         
                 }
                 return res.json({user:true});
@@ -180,6 +184,12 @@ const reset_password=async (req,res)=>{
                 return res.status(500).json({ response:false });
             }
             else{
+
+                //check if user has an account 
+                if(data.affectedRows==0){
+                    return res.json({response:false, reason:"No account linked to this email,please create an account"})
+                }
+
                 await sendEmail({to,subject,html})
                 return res.json({response:true});
             }
