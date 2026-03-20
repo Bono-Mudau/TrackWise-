@@ -1773,14 +1773,14 @@ function load_user_details(){
           }
 
           //get user initials
-          if(data.lastName!=""){
+          if( data.lastName && data.lastName.trim()!=""){
             document.getElementById("user-initials").innerHTML=data.lastName.charAt(0)+""+data.firstName.charAt(0)
           }
-          if(data.firstName.split(" ").length>1){
+          else if( data.firstName && data.firstName.split(" ").length>1){
             const initials=data.firstName.split(" ");
             document.getElementById("user-initials").innerHTML=initials[1].charAt(0)+""+initials[0].charAt(0);
           }
-          if( data.lastName=="" && data.firstName.split(" ").length < 1){
+          else if( data.firstName){
 
             document.getElementById("user-initials").innerHTML=data.firstName.charAt(0)
 
