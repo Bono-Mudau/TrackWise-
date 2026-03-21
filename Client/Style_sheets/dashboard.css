@@ -1042,7 +1042,88 @@ body {
     padding: 5px;
     
 }
+.recurring {
+    background: #f9fafb;
+    padding: 20px;
+    border-radius: 12px;
+    font-family: system-ui, -apple-system, sans-serif;
+}
 
+.recurring p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.recurring h4 {
+    margin-bottom: 10px;
+    color: #222;
+}
+
+
+.recurring > div {
+    margin-bottom: 25px;
+}
+
+
+.recurring-tables {
+    width: 100%;
+    border-collapse: collapse;
+    background: #eeeeee;
+    border-radius: 10px;
+    border: 2px solid blueviolet;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+
+.recurring-tables thead {
+    background: #f1f5f9;
+}
+
+.recurring-tables th {
+    text-align: left;
+    padding: 12px;
+    font-size: 13px;
+    color: #444;
+    font-weight: 600;
+}
+
+
+.recurring-tables td {
+    padding: 12px;
+    font-size: 14px;
+    color: #333;
+    border-top: 1px solid #eee;
+}
+
+
+.recurring-tables tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+
+.recurring-tables tbody tr:hover {
+    background: #f1f5f9;
+    transition: 0.2s;
+}
+
+
+.recurring-tables td:nth-child(3) {
+    font-weight: 600;
+    color: #111;
+}
+
+
+#recurring-income td:nth-child(2) {
+    color: #16a34a; /* green */
+    font-weight: 600;
+}
+
+#recurring-expenses td:nth-child(3) {
+    color: #dc2626; 
+    font-weight: 600;
+}
 
 
 

@@ -1862,6 +1862,131 @@ async function load_summary() {
   }
 }
 
+//recurring Income / Expenses
+
+function delete_recurring_expense(){
+
+
+}
+
+function delete_recurring_income(){
+
+  try {
+    
+  } catch (error) {
+    
+  }
+  
+}
+
+async function load_recurring(){
+
+  try{
+
+    const res= await fetch("",{
+      method: "GET",
+      headers:{"Content-Type":"application/json"},
+      credentials:"include"
+    });
+
+    if (res.status === 401) {
+          log_out(); // auto-logout on unauthorized
+          return;
+    }
+
+    if(!res.ok){
+      alert("network error, failed to load reccuring entries")
+      throw new Error("Invaild db_resp");
+    }
+    
+    const results= await res.json();
+     
+    if(!results.response){
+      return;//return if no data is received
+    }
+
+    const incomeTable= document.getElementById("recurring-income");
+    incomeTable.innerHTML = ""//clear the table
+    //Update recurring income table
+    if(results.income.length!=0){
+      
+      
+      const incomeEntries=results.income;
+
+      
+      incomeEntries.forEach(entry=>{
+
+        const category=entry.category;
+        const amount=entry.amount;
+        const id=entry.id;
+        const row=document.createElement("tr");
+
+        row.innerHTML=`
+                      <td>${id} </td>
+                      <td>${category}</td>
+                      <td>${amount} </td>
+                      <td><button class="delete-recurring-income"  data-id=${id} ><i class="fa-regular fa-trash-can"></i></button> </td>
+                      `
+        incomeTable.appendChild(row);
+
+
+      });
+
+      // add event listener to delete buttons
+      const recurring_income_delete_btn=document.querySelectorAll(".delete-recurring-income");
+      recurring_income_delete_btn.forEach( btn=>{
+        btn.addEventListener("click", delete_recurring_income);
+
+      })
+
+    }
+
+    const expenseTable= document.getElementById("recurring-expenses");
+    expenseTable.innerHTML = ""//clear the table
+    
+    //update recurring expenses table
+    if(results.expense.length!=0){
+
+      
+
+      const expenseEntries=results.expense;
+      
+      
+      expenseEntries.forEach(entry=>{
+
+        const category=entry.category;
+        const amount=entry.amount;
+        const id=entry.id;
+        const description=entry.description;
+        const row=document.createElement("tr");
+
+        row.innerHTML=`
+                      <td>${id} </td>
+                      <td>${description} </td>
+                      <td>${category}</td>
+                      <td>${amount} </td>
+                      <td><button class="delete-recurring-expense" data-id=${id}><i class="fa-regular fa-trash-can"></i></button> </td>
+                      `
+        expenseTable.appendChild(row);
+
+      });
+
+      // add event listener to delete buttons
+      const recurring_expense_delete_btn=document.querySelectorAll(".delete-recurring-expense");
+      recurring_expense_delete_btn.forEach( btn=>{
+        btn.addEventListener("click", delete_recurring_expense);
+
+      })
+    }
+
+  }
+  catch(error){
+    alert("Err loading-recurring entries")
+  }
+
+
+}
+
   
 
 
