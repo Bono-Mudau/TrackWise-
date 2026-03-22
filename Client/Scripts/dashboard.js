@@ -19,6 +19,7 @@ document.getElementById("show_expense").addEventListener("click",show_expense);
 document.getElementById("show_income").addEventListener("click",show_income);
 document.getElementById("show-settings_btn").addEventListener("click",show_settings);
 document.getElementById("show_summary").addEventListener("click",show_summary);
+document.getElementById("show_recurring").addEventListener("click", show_recurring)
 
 document.getElementById("log-out").addEventListener("click",(e)=>{
    if (confirm("Are you sure you want to log out?")){
@@ -1262,7 +1263,7 @@ function show_recurring(){
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
   const summary=document.getElementById("show-summary");
-  const recurring=document.getElementById("show_recurring");
+  const recurring=document.getElementById("recurring-section");
 
   if(recurring.className!="recurring1"){
     recurring.classList.replace("recurring","recurring1")
