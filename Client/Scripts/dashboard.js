@@ -2096,13 +2096,11 @@ async function load_recurring(){
       return;//return if no data is received
     }
 
-    const incomeTable= document.getElementById("recurring-income");
+    const incomeTable= document.getElementById("recurring-income-t");
     incomeTable.innerHTML = ""//clear the table
     
     //Update recurring income table
     if(results.income.length!=0){
-      console.log("adding income row")
-      console.log(incomeTable);
       
       const incomeEntries=results.income;
       
@@ -2120,8 +2118,6 @@ async function load_recurring(){
                       <td><button class="delete-recurring-income"  data-id=${id} ><i class="fa-regular fa-trash-can"></i></button> </td>
                       `
         incomeTable.appendChild(row);
-        console.log(row);
-        console.log(row.innerHTML)
 
 
       });
@@ -2167,7 +2163,8 @@ async function load_recurring(){
 
 
 }
-const incomeTable = document.getElementById("recurring-income");
+
+const incomeTable = document.getElementById("recurring-income-t");
 incomeTable.addEventListener("click", function(e){
   const btn = e.target.closest(".delete-recurring-income");
   if (!btn) return;
