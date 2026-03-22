@@ -2101,6 +2101,7 @@ async function load_recurring(){
     
     //Update recurring income table
     if(results.income.length!=0){
+      console.log("adding income row")
       
       const incomeEntries=results.income;
       
@@ -2131,8 +2132,7 @@ async function load_recurring(){
     //update recurring expenses table
     if(results.expense.length!=0){
 
-      
-
+    
       const expenseEntries=results.expense;
       
       
