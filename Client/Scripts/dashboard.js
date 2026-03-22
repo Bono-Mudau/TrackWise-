@@ -2098,12 +2098,11 @@ async function load_recurring(){
 
     const incomeTable= document.getElementById("recurring-income");
     incomeTable.innerHTML = ""//clear the table
+    
     //Update recurring income table
     if(results.income.length!=0){
       
-      
       const incomeEntries=results.income;
-
       
       incomeEntries.forEach(entry=>{
 
@@ -2123,15 +2122,6 @@ async function load_recurring(){
 
       });
 
-      // add event listener to delete buttons
-      incomeTable.addEventListener("click", function(e){
-
-        const element=e.target;
-        if(element.classList.contains("delete-recurring-income")){
-          element.addEventListener("click", delete_recurring_income);
-        }
-
-      });
 
     }
 
@@ -2165,15 +2155,6 @@ async function load_recurring(){
 
       });
 
-      // add event listener to delete buttons
-      expenseTable.addEventListener("click", function(e){
-
-        const element=e.target;
-        if(element.classList.contains("delete-recurring-expense")){
-          element.addEventListener("click", delete_recurring_expense);
-        }
-
-      });
     }
 
   }
@@ -2183,6 +2164,19 @@ async function load_recurring(){
 
 
 }
+const incomeTable = document.getElementById("recurring-income");
+incomeTable.addEventListener("click", function(e){
+  const btn = e.target.closest(".delete-recurring-income");
+  if (!btn) return;
+  delete_recurring_income(e);
+});
+
+const expenseTable = document.getElementById("recurring-expenses");
+expenseTable.addEventListener("click", function(e){
+  const btn = e.target.closest(".delete-recurring-expense");
+  if (!btn) return;
+  delete_recurring_expense(e);
+});
 
   
 
