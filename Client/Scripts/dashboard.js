@@ -1109,7 +1109,7 @@ function show_expense(){
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
   const summary=document.getElementById("show-summary");
-  const recurring=document.getElementById("show_recurring");
+  const recurring=document.getElementById("recurring-section");
 
   if(recurring.className!="recurring"){
     recurring.classList.replace("recurring1","recurring")
@@ -1139,7 +1139,7 @@ function show_income(){
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
   const summary=document.getElementById("show-summary");
-  const recurring=document.getElementById("show_recurring");
+  const recurring=document.getElementById("recurring-section");
 
   if(recurring.className!="recurring"){
     recurring.classList.replace("recurring1","recurring")
@@ -1168,7 +1168,7 @@ function show_overview(){
   const overview=document.getElementById("overview"); 
   const settings=document.getElementById("show-settings");
   const summary=document.getElementById("show-summary");
-  const recurring=document.getElementById("show_recurring");
+  const recurring=document.getElementById("recurring-section");
 
   if(recurring.className!="recurring"){
     recurring.classList.replace("recurring1","recurring")
@@ -1203,7 +1203,7 @@ function show_settings(){
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
   const summary=document.getElementById("show-summary");
-  const recurring=document.getElementById("show_recurring");
+  const recurring=document.getElementById("recurring-section");
 
   if(recurring.className!="recurring"){
     recurring.classList.replace("recurring1","recurring")
@@ -1233,7 +1233,7 @@ function show_summary(){
   const overview=document.getElementById("overview"); 
   const settings=document.getElementById("show-settings");
   const summary=document.getElementById("show-summary");
-  const recurring=document.getElementById("show_recurring");
+  const recurring=document.getElementById("recurring-section");
 
   if(recurring.className!="recurring"){
     recurring.classList.replace("recurring1","recurring")
@@ -1268,18 +1268,23 @@ function show_recurring(){
   if(recurring.className!="recurring1"){
     recurring.classList.replace("recurring","recurring1")
   }
+
   if(summary.className!="show-summary"){
     summary.classList.replace("show-summary1","show-summary")
   }
+
   if(settings.className!="show-settings"){
     settings.classList.replace("show-settings1","show-settings")
-  } 
+  }
+
   if(exp.className!="expsnse"){
     exp.classList.replace("expense1","expense")
   }
+
   if(income.className!="income"){
     income.classList.replace("income1","income");
   }
+
   if(overview.className!="overview"){
     overview.classList.replace("overview1","overview");
   }

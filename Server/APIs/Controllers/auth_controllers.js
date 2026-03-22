@@ -4,7 +4,6 @@ const {sendEmail}=require("../services/mail/mailer");
 const {accountCreatedTemplate,otpTemplate,ChangedPasswordTemplate}=require("../services/mail/mail_templates");
 const {generate_OTP}=require("../services/mail/otp");
 const {generate_Token}=require("../middleware/verify_token");
-const { response } = require("express");
 
 const signup=async (req,res)=>{
 
