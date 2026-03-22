@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self'; style-src 'self' https://cdnjs.cloudflare.com;">
     <title>TrackWise</title>
     <link rel="stylesheet" href="Style_sheets/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
+
 <body>
-    
+
 
     <div id="menu-bar">
          <button id="menu" class="menu-button" aria-label="Open menu">
@@ -37,7 +40,7 @@
                     <tr><td><button id="show_expense"  class="options"><i class="fas fa-money-bill-wave"></i> Expenses</button></td></tr>
                     <tr><td><button id="show_income"   class="options"><i class="fas fa-wallet"></i>Income</button></td></tr>
                     <tr><td><button id="show_summary" class="options" ><i class="fas fa-receipt"></i>Summary</button></td></tr>
-                    <tr><td> <button class="options" ><i class="fas fa-bell"></i>Reminders</button></td></tr>
+                    <tr><td> <button id="show_recurring" class="options" ><i class="fas fa-bell"></i>Recurring</button></td></tr>
                     <tr><td><button class="options" ><i class="fas fa-file-export"></i>Export data</button></td></tr>
                     <tr><td> <button id="show-settings_btn"class="options" ><i class="fas fa-cog"></i>Settings</button></td></tr>
                     <tr><td><hr></td></tr>
@@ -48,9 +51,9 @@
         <!--Display area -->
         <div  id="display-area">
             <!-- OVERVIEW  SECTION -->
-            <div id="overview" class="overview">
+            <div id="overview" class="overview1">
                 <div id="welcome_msg">
-                    <h1 id="user-names">WELCOME,Mudau Bono</h1>
+                    <h1 id="user-names">WELCOME,User</h1>
                 </div>
                 
                 <div id="balance-overview">
@@ -215,7 +218,9 @@
                                 <option value="Other">Other</option>
                         </select>
                         <input class="input-field" id="input-amount" type="text" maxlength="7" placeholder="Amount">
+                        <label> Recurring income? <input type="checkbox" id="recurring-income"></label>
                         <label > Due date : <input id="due_date" type="date" ></label>
+
                         <button class="submit" id="submit_exp">Submit</button>
                     </div>
         

@@ -1,10 +1,11 @@
 
+const { response } = require("express");
 const db = require("../config/db_config");
 
 const new_expense= async (req,res)=>{
 
     try {
-        const {description,category,amount,status,user_id,due_date}=req.body;
+        const {description,category,amount,status,user_id,due_date,recurring}=req.body;
         const sql="insert into expenses ( description, category, amount, status, user_id,due_date) values (?,?,?,?,?,?)"
 
         //insert new expense
@@ -13,14 +14,29 @@ const new_expense= async (req,res)=>{
         const now = new Date();
         const year = now.getFullYear();   
         const month = now.getMonth() + 1;
-        
+
         //Update monthly summary
          await db.promise().query("insert into monthly_summary (expense,user_id,year,month) values(?,?,?,?) on duplicate key update  expense=expense+values(expense) ",[
                        amount,
                        user_id,
                        year,
                        month]);
+        
+        if(Number(recurring)==1){
+
+            //add expense to recurring expenses table
+           sql="insert into recurringExpense (category,amount,due_date) values(?,?,?)";
+           const [result]= await db.promise().query(sql,[category, amount, due_date]);
+
+           if(!result.insertId){
+            console.log("err-recurring exp not added")
+           }
+
+        }
+
+
         return res.json({ status: true, id: results.insertId });
+
      
     } catch (error) {
 
@@ -199,11 +215,39 @@ const update_expense= async (req,res)=>{
 
 };
 
+const delete_recurring_expense= async (req,res)=>{
+
+    const {id}=req.body;
+    const user_id=req.user.username;
+
+    if(!id){
+        return res.json({response:false, reason:"No entry id"});
+    }
+
+    try {
+        
+        const[result] = await db.promise().query("Delete from recurringExpenses where id = ? and user_id = ?",[id,user_id]);
+     
+        //check if entry was deleted
+        if(result.affectedRows==0){
+            return res.json({response:false, reason:"Entry not found"});
+        }
+
+        return res.json({response:true});
+        
+    } 
+    catch (error) {
+        return res.status(500).json({response:false, reason:"db_err"});
+        
+    }
+}
+
 module.exports={
     new_expense,
     load_expenses,
     delete_expense,
     update_expense,
-    load_overdue_expenses
+    load_overdue_expenses,
+    delete_recurring_expense
 }
 

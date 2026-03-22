@@ -1,8 +1,7 @@
 
-const { response } = require("express");
 const db = require("../config/db_config");
 const new_income=async (req,res)=>{
-    const {category,amount,user_id}=req.body;
+    const {category,amount,user_id,recurring}=req.body;
     try {
         const sql="insert into income ( category, amount, user_id) values (?,?,?)"
 
@@ -19,6 +18,19 @@ const new_income=async (req,res)=>{
                        user_id,
                        year,
                        month]);
+
+        if(Number(recurring)==1){
+        
+            //add expense to recurring income table
+            sql="insert into recurringIncome (category,amount) values(?,?)";
+            const [result]= await db.promise().query(sql,[category, amount]);
+
+            if(!result.insertId){
+            console.log("err-recurring income entry not added")
+            }
+
+        }
+
         return res.json({ response: true, id: results.insertId });
      
     } catch (error) {
@@ -154,10 +166,37 @@ const update_income=async (req,res)=>{
         
     }
 } 
+const delete_recurring_income= async (req,res)=>{
+
+    const {id}=req.body;
+    const user_id=req.user.username;
+
+    if(!id){
+        return res.json({response:false, reason:"No entry id"});
+    }
+
+    try {
+        
+        const[result] = await db.promise().query("Delete from recurringIncome where id = ? and user_id = ?",[id,user_id]);
+     
+        //check if entry was deleted
+        if(result.affectedRows==0){
+            return res.json({response:false, reason:"Entry not found"});
+        }
+
+        return res.json({response:true});
+        
+    } 
+    catch (error) {
+        return res.status(500).json({response:false, reason:"db_err"});
+        
+    }
+}
 
 module.exports={
     new_income,
     delete_income,
     load_income,
-    update_income
+    update_income,
+    delete_recurring_income
 }

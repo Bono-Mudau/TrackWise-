@@ -1042,26 +1042,29 @@ body {
     padding: 5px;
     
 }
-.recurring {
+.recurring{
+    display: none;
+}
+.recurring1 {
     background: #f9fafb;
     padding: 20px;
     border-radius: 12px;
     font-family: system-ui, -apple-system, sans-serif;
 }
 
-.recurring p {
+.recurring1 p {
     font-size: 14px;
     color: #555;
     margin-bottom: 20px;
 }
 
-.recurring h4 {
+.recurring1 h4 {
     margin-bottom: 10px;
     color: #222;
 }
 
 
-.recurring > div {
+.recurring1 > div {
     margin-bottom: 25px;
 }
 

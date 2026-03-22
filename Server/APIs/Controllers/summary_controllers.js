@@ -159,11 +159,28 @@ const summary= async (req,res)=>{
     }
 }
 
+const recurring_income_expenses= async (req,res)=>{
+
+    const user_id=req.user.username;
+    try {
+
+        const [income]= await db.promise().query("select id,category,amount from recurringIncome where user_id=?",[user_id]);
+        const [expense] = await db.promise().query("select id, description, category, amount, due_date from recurringExpenses where user_id=?",[user_id]);
+        
+        return res.json({response:true, expense:expense, income:income});
+        
+    } catch (error) {
+        return res.status(500).json({response:false});
+    }
+
+}
+
 module.exports={
     load_balances,
     recent_trans,
     monthly_summary,
     income_pie_chart,
     expenses_pie_chart,
-    summary
+    summary,
+    recurring_income_expenses
 }

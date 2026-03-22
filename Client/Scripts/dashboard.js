@@ -47,6 +47,7 @@ function menu_toogle(){
   }
 }
 load_user_details();
+
 //get user details from the local storage
 const user_info={
   names:localStorage.getItem("names"),
@@ -99,12 +100,12 @@ document.getElementById("user-names").innerHTML="Welcome, "+user_info.names;
 
 //EXPENSES SECTION/
 const expense_list=document.getElementById("expenses-list");
-function addentry(){
+function addentry(){//show add expense card
     const entry=document.getElementById('C-exp-card');
     if(entry.classList.contains("create-expense-card1")){
         entry.classList.replace("create-expense-card1","create-expense-card");
-    }else
-    {
+    }
+    else{
         entry.classList.replace("create-expense-card","create-expense-card1");
     }
 }
@@ -205,7 +206,8 @@ function submit_expense(){
       amount:"",
       status:0,
       user_id:user_info.id,
-      due_date:null
+      due_date:null,
+      recurring:0
     }
     if(String(document.getElementById("description-input").value).length>=1){
       expense_entry.description=document.getElementById("description-input").value;     
@@ -234,6 +236,14 @@ function submit_expense(){
     if(due_Date.length>2){
           expense_entry.due_date=due_Date;
          
+    }
+
+    //check if its a recurring expense
+    const recurring_input=document.getElementById("recurring-expense");
+    if(recurring_input || recurring_input.checked){
+
+      expense_entry.recurring=1;
+
     }
 
     //send data to the database
@@ -639,7 +649,16 @@ get_overdue_expenses();
     }
     const income_entry={
       category:document.getElementById("income-category-input").value,
-      amount:document.getElementById("income-amount").value
+      amount:document.getElementById("income-amount").value,
+      recurring:0
+    }
+
+    //check if its a recurring income entry
+    const recurring_input=document.getElementById("recurring-income");
+    if(recurring_input || recurring_input.checked){
+
+      income_entry.recurring=1;
+
     }
     document.getElementById("income-category-input").value="";
     document.getElementById("income-amount").value="";
@@ -651,7 +670,8 @@ get_overdue_expenses();
               body: JSON.stringify({
                   category: income_entry.category,
                   amount: income_entry.amount,
-                  user_id: user_info.id
+                  user_id: user_info.id,
+                  recurring:income_entry.recurring
                 })
             })
             .then(res=>{
@@ -1088,6 +1108,11 @@ function show_expense(){
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
   const summary=document.getElementById("show-summary");
+  const recurring=document.getElementById("show_recurring");
+
+  if(recurring.className!="recurring"){
+    recurring.classList.replace("recurring1","recurring")
+  }
 
   if(summary.className!="show-summary"){
     summary.classList.replace("show-summary1","show-summary")
@@ -1113,6 +1138,11 @@ function show_income(){
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
   const summary=document.getElementById("show-summary");
+  const recurring=document.getElementById("show_recurring");
+
+  if(recurring.className!="recurring"){
+    recurring.classList.replace("recurring1","recurring")
+  }
 
   if(summary.className!="show-summary"){
     summary.classList.replace("show-summary1","show-summary")
@@ -1137,6 +1167,11 @@ function show_overview(){
   const overview=document.getElementById("overview"); 
   const settings=document.getElementById("show-settings");
   const summary=document.getElementById("show-summary");
+  const recurring=document.getElementById("show_recurring");
+
+  if(recurring.className!="recurring"){
+    recurring.classList.replace("recurring1","recurring")
+  }
 
   if(summary.className!="show-summary"){
     summary.classList.replace("show-summary1","show-summary")
@@ -1167,6 +1202,11 @@ function show_settings(){
   const overview=document.getElementById("overview");
   const settings=document.getElementById("show-settings");
   const summary=document.getElementById("show-summary");
+  const recurring=document.getElementById("show_recurring");
+
+  if(recurring.className!="recurring"){
+    recurring.classList.replace("recurring1","recurring")
+  }
 
   if(summary.className!="show-summary"){
     summary.classList.replace("show-summary1","show-summary")
@@ -1191,7 +1231,12 @@ function show_summary(){
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview"); 
   const settings=document.getElementById("show-settings");
-   const summary=document.getElementById("show-summary");
+  const summary=document.getElementById("show-summary");
+  const recurring=document.getElementById("show_recurring");
+
+  if(recurring.className!="recurring"){
+    recurring.classList.replace("recurring1","recurring")
+  }
 
   if(summary.className!="show-summary1"){
     summary.classList.replace("show-summary","show-summary1")
@@ -1210,8 +1255,37 @@ function show_summary(){
   }
 
 }
+function show_recurring(){
 
-//log out confirmation prompt 
+  const exp=document.getElementById("expense");  
+  const income=document.getElementById("income");  
+  const overview=document.getElementById("overview");
+  const settings=document.getElementById("show-settings");
+  const summary=document.getElementById("show-summary");
+  const recurring=document.getElementById("show_recurring");
+
+  if(recurring.className!="recurring1"){
+    recurring.classList.replace("recurring","recurring1")
+  }
+  if(summary.className!="show-summary"){
+    summary.classList.replace("show-summary1","show-summary")
+  }
+  if(settings.className!="show-settings"){
+    settings.classList.replace("show-settings1","show-settings")
+  } 
+  if(exp.className!="expsnse"){
+    exp.classList.replace("expense1","expense")
+  }
+  if(income.className!="income"){
+    income.classList.replace("income1","income");
+  }
+  if(overview.className!="overview"){
+    overview.classList.replace("overview1","overview");
+  }
+}
+
+
+//log out 
 async function  log_out(){
      
     localStorage.clear();
@@ -1854,7 +1928,6 @@ async function load_summary() {
            alert("failed to load summary!!, try again later");
         }
 
-
     
   } catch (error) {
     console.log("err"+ error);
@@ -1864,17 +1937,126 @@ async function load_summary() {
 
 //recurring Income / Expenses
 
-function delete_recurring_expense(){
+async function delete_recurring_expense(){
+
+  if(!confirm("Delete entry?")){
+    return;
+  }
+
+  //get entry's id
+  const btn=e.target.closest("[data-id]");
+
+  if(!btn){
+    return;
+  }
+  const id=btn.dataset.id;
+
+  if(!id){
+    alert("Err:entry not deleted");
+    return;
+  }
+
+  try {
+
+    const res=await fetch("https://trackwise-9l4u.onrender.com/api/expenses/delete_recurring_expense", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      credentials:"include",
+      body:JSON.stringify({id:id})
+    });
+
+    if (res.status === 401) {
+          log_out(); // auto-logout on unauthorized
+          return;
+    }
+
+    if(!res.ok){
+      alert("network error, entry not deleted")
+      throw new Error("Invaild db_resp");
+    }
+    
+    const results= await res.json();
+    if(results.response){
+
+      //remove element from the table
+      const row=btn.closest("tr");
+      if(row){
+        row.remove();
+      }
+
+    }
+    else{
+      alert("err:entry not deleted")
+      return;
+    }
+    
+
+    
+  } catch (error) {
+    alert("err:entry not deleted")
+      return;
+  }
 
 
 }
 
-function delete_recurring_income(){
+async function delete_recurring_income(e){
+
+  if(!confirm("Delete entry?")){
+    return;
+  }
+
+  //get entry's id
+  const btn=e.target.closest("[data-id]")
+  if(!btn){
+    return;
+  }
+  const id=btn.dataset.id
+
+  if(!id){
+    alert("Err:entry not deleted");
+    return;
+  }
 
   try {
+
+    const res=await fetch("https://trackwise-9l4u.onrender.com/api/income/delete_recurring_income", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      credentials:"include",
+      body:JSON.stringify({id:id})
+    });
+
+    if (res.status === 401) {
+          log_out(); // auto-logout on unauthorized
+          return;
+    }
+
+    if(!res.ok){
+      alert("Err:entry not deleted");
+      throw new Error("Invaild db_resp");
+    }
+    
+    const results= await res.json();
+    if(results.response){
+
+      //remove element from the table
+      const row=btn.closest("tr");
+      if(row){
+        row.remove();
+      }
+
+    }
+    else{
+      alert("err:entry not deleted")
+      return;
+    }
+    
+
     
   } catch (error) {
-    
+    alert("err:entry not deleted")
+      return;
   }
   
 }
@@ -1883,7 +2065,7 @@ async function load_recurring(){
 
   try{
 
-    const res= await fetch("",{
+    const res= await fetch("https://trackwise-9l4u.onrender.com/api/summary/load_recurring_income_expenses",{
       method: "GET",
       headers:{"Content-Type":"application/json"},
       credentials:"include"
@@ -1933,11 +2115,14 @@ async function load_recurring(){
       });
 
       // add event listener to delete buttons
-      const recurring_income_delete_btn=document.querySelectorAll(".delete-recurring-income");
-      recurring_income_delete_btn.forEach( btn=>{
-        btn.addEventListener("click", delete_recurring_income);
+      incomeTable.addEventListener("click", function(e){
 
-      })
+        const element=e.target;
+        if(element.classList.contains("delete-recurring-income")){
+          element.addEventListener("click", delete_recurring_income);
+        }
+
+      });
 
     }
 
@@ -1972,11 +2157,14 @@ async function load_recurring(){
       });
 
       // add event listener to delete buttons
-      const recurring_expense_delete_btn=document.querySelectorAll(".delete-recurring-expense");
-      recurring_expense_delete_btn.forEach( btn=>{
-        btn.addEventListener("click", delete_recurring_expense);
+      expenseTable.addEventListener("click", function(e){
 
-      })
+        const element=e.target;
+        if(element.classList.contains("delete-recurring-expense")){
+          element.addEventListener("click", delete_recurring_expense);
+        }
+
+      });
     }
 
   }
