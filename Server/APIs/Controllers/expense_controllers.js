@@ -25,9 +25,9 @@ const new_expense= async (req,res)=>{
         if(Number(recurring)==1){
 
             //add expense to recurring expenses table
-           const sql1="insert into recurringExpenses (description,category,amount,due_date) values(?,?,?,?)";
+           const sql1="insert into recurringExpenses (description,category,amount,due_date,user_id) values(?,?,?,?)";
 
-           const [result]= await db.promise().query(sql1,[description, category, amount, due_date]);
+           const [result]= await db.promise().query(sql1,[description, category, amount, due_date,user_id]);
 
 
            if(!result.insertId){

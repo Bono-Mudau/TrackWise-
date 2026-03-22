@@ -22,8 +22,8 @@ const new_income=async (req,res)=>{
         if(Number(recurring)==1){
         
             //add expense to recurring income table
-           const sql1="insert into recurringIncome (category,amount) values(?,?)";
-            const [result]= await db.promise().query(sql1,[category, amount]);
+           const sql1="insert into recurringIncome (category, amount, user_id) values(?,?)";
+            const [result]= await db.promise().query(sql1,[category, amount, user_id]);
 
             if(!result.insertId){
             console.log("err-recurring income entry not added")

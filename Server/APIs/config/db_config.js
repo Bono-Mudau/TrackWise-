@@ -12,14 +12,5 @@ const db = mysql.createPool({
   queueLimit: 0,
   timezone: 'Z'
 });
-function altertable(){
 
-  db.query("alter table recurringExpenses add description varchar(250) not null ", (err,res)=>{
-    if(err){
-      console.log(err);
-    }
-  });
-
-}
-altertable();
 module.exports=db;
