@@ -1283,6 +1283,9 @@ function show_recurring(){
   if(overview.className!="overview"){
     overview.classList.replace("overview1","overview");
   }
+
+  //load recurring entries
+  load_recurring();
 }
 
 
