@@ -1946,7 +1946,7 @@ async function load_summary() {
 
 //recurring Income / Expenses
 
-async function delete_recurring_expense(){
+async function delete_recurring_expense(e){
 
   if(!confirm("Delete entry?")){
     return;
