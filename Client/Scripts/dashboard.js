@@ -2018,12 +2018,13 @@ async function delete_recurring_income(e){
   //get entry's id
   const btn=e.target.closest("[data-id]")
   if(!btn){
+    console.log("but not found");
     return;
   }
   const id=btn.dataset.id
 
   if(!id){
-    alert("Err:entry not deleted");
+    alert("Err:entry not deleted"+id);
     return;
   }
 
