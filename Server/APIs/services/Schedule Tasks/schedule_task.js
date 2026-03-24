@@ -51,7 +51,7 @@ const upcoming_payments = async (req,res)=>{
 
 }
 
-const overdue_expense_reminders = async ()=>{
+const overdue_expense_reminders = async (req,res)=>{
 
     try{
 
