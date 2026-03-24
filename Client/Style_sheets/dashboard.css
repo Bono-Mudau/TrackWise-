@@ -53,7 +53,7 @@ body {
     min-height: 40px;
     align-items: center;
     width: 100%;
-    background-color:rgba(75, 75, 196, 0.452);
+    background-color:rgba(79, 79, 243, 0.652);
 }
 
 .menu-button {
@@ -501,13 +501,20 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 40px;
+    height: 50px;
     border-bottom: 1.5px solid black;
+    margin-top: 5px;
+    padding: 5px;
+    font-size: larger;
+    
 }
 #add-expense label{
     font-size: 23;
     padding: 2%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: x-larger;
 }
+
 
 
 
@@ -537,7 +544,7 @@ body {
     border: 2px solid rgb(68, 69, 71,0.2);
     border-radius: 5px;
     position: fixed;
-    background-color: #e2b5b3;
+    background-color: #fadcdb;
     top: 40%;
     left:15%;
     width: 70%;
@@ -646,14 +653,18 @@ body {
     align-items: center;
     height: 50px;
     border-bottom: 1.5px solid black;
+    margin-top: 5px;
+    font-family:Arial, Helvetica, sans-serif ;
+    font-size: larger;
 
 }
 
 #add-income label{
     font-size: 23;
-    padding: 10px;
+    padding: 2%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: x-larger;
 }
-
 #income-month{
     font-size: x-large;
     font-family: Arial, Helvetica, sans-serif;
@@ -680,7 +691,7 @@ body {
     border: 2px solid rgb(68, 69, 71,0.2);
     border-radius: 5px;
     position: fixed;
-    background-color:rgb(139, 212, 139);
+    background-color:rgb(156, 202, 156);
     top: 40%;
     left:15%;
     width: 70%;
@@ -1127,6 +1138,9 @@ body {
     color: #dc2626; 
     font-weight: 600;
 }
+#due_date{
+    height: 90%;
+}
 
 
 
@@ -1151,11 +1165,17 @@ body {
 
 #summary-card{
     display: flex;
-    width: 99%; 
+    flex-direction: row;
+    width: 100%; 
+    padding: 0;
+    margin: 0;
     
 }
 #summary-card div{
     padding: 1%;
+    gap: 5px;
+    margin: 0 auto;
+    font-size: medium;
 }
 
 #charts{
@@ -1185,20 +1205,30 @@ body {
 
 }
 .transactions-fliter{
+    margin-top: 10px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    align-items:flex-start;
     min-height: 30px;
     width: 95%;
     padding: 1%;
+
 }
+.transactions-fliter select{
+    padding: 5px;
+    font-size: medium;
+    width: max-content;
+}
+
 .create-income-card{
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     width: 90%;
     position: absolute;
+    max-width: 95%;
     top: 20%;
-    left: 5%;
+    left: 4%;
     margin: 0 auto;
     min-height: 300px;
     height: fit-content;
@@ -1207,30 +1237,51 @@ body {
     margin: 0 auto;
 }
 .create-expense-card{
+    padding-top: 20px;
     display: flex;
+    border-radius: 10px;
     flex-direction: column;
     width: 90%;
     position: absolute;
     top: 20%;
-    left: 5%;
+    left: 4%;
     margin: 0 auto;
-    min-height: 300px;
-    height: fit-content;
+    min-height: 50vh;
     max-height: 80%;
+    max-width: 90%;
+    margin: 0 auto;
 }
 .create-expense-card button, .create-income-card button{
     width: 60%;
     background: rgb(115, 154, 177);
     min-height: 40px;
     margin: 0 auto;
+    margin-bottom: 10px;
 }
 .create-expense-card select, .create-income-card select{
     height: 15vh;
     max-height: 50px;
+
 }
 .create-expense-card input, .create-income-card input{
     height: 15vh;
-    max-height: 50px
+    max-height: 50px;
+    max-width: 100%;
+}
+.create-expense-card label , .create-income-card label{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    margin-top: 10px;
+    min-height: 10px;
+    max-height: 30px;
+    padding: 0;
+    margin: 0 auto;
+    font-size: large;
+    font-weight: 100;
+
 }
 
 #footer{
@@ -1360,6 +1411,7 @@ body {
     min-width: 99%;
     background: none;
 }
+
 
 }
 

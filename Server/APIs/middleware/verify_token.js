@@ -13,7 +13,7 @@ const verify_token= (req,res,next)=>{
             return res.status(401).json({reason:"Invalid token"});
         }
 
-        //create a new token
+        //Generate  new token
         const newToken = jwt.sign({ username: user.username }
             , process.env.JWT_key,
              { expiresIn: "15m" });

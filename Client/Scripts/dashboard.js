@@ -354,6 +354,7 @@ function enable_exp_editing(event){
   }
   row.cells[7].innerHTML=`<button id="update-exp-" >Save</button>`;
   document.getElementById("update-exp-").addEventListener("click",update_exp);
+  
 }
 
 function add_expense_to_the_list(id,expense_entry){
@@ -723,6 +724,7 @@ get_overdue_expenses();
                 t_row.style.height = "20px"; 
                 trans_list.appendChild(row)
                 trans_list.appendChild(t_row);
+                addentry1()
                 load_balances();
                 }
               else{
@@ -2116,6 +2118,7 @@ async function load_recurring(){
                       <td>${id} </td>
                       <td>${category}</td>
                       <td>${amount} </td>
+                      <td></td>
                       <td><button class="delete-recurring-income"  data-id=${id} ><i class="fa-regular fa-trash-can"></i></button> </td>
                       `
         incomeTable.appendChild(row);
@@ -2149,6 +2152,7 @@ async function load_recurring(){
                       <td>${description} </td>
                       <td>${category}</td>
                       <td>${amount} </td>
+                      <td></td>
                       <td><button class="delete-recurring-expense" data-id=${id}><i class="fa-regular fa-trash-can"></i></button> </td>
                       `
         expenseTable.appendChild(row);
