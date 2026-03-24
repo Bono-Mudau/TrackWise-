@@ -3,7 +3,7 @@ const { overdueExpensesTemplate, upcomingPaymentsTemplate } = require("../mail/m
 const { sendEmail } = require("../mail/mailer");
 
 
-const upcoming_payments = async ()=>{
+const upcoming_payments = async (req,res)=>{
 
     try{
 
@@ -30,6 +30,7 @@ const upcoming_payments = async ()=>{
                     const to = element.email;
                     const subject="Payment Reminders";
                     await sendEmail({ to:to, subject:subject, html:html });
+                  
                     
                 }
                 catch(err){
@@ -38,11 +39,13 @@ const upcoming_payments = async ()=>{
                 
             };
             console.log(" all payment reminders have been sent!!")
+              return res.json({});
         }
 
     }
     catch(err){
         console.log("Error sending scheduled payments!!"+err)
+        return res.status(500).json({});
 
     }
 
@@ -82,11 +85,13 @@ const overdue_expense_reminders = async ()=>{
                 
             };
             console.log(" all overdue reminders have been sent!!")
+            return res.json({});
         }
 
     }
     catch(err){
         console.log("Error sending scheduled payments!!"+err)
+         return res.status(500).json({});;
 
     }
 
