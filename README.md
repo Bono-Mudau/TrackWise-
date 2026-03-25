@@ -1,31 +1,31 @@
 # 🧾 TrackWise
 
 ## 🚀 Overview
-**TrackWise** is a full-stack personal finance management application that enables users to track income, manage expenses, and gain meaningful financial insights through a secure and interactive dashboard.
+TrackWise is a full-stack personal finance management application that enables users to track income, manage expenses, and gain meaningful insights through a secure, automated, and real-time dashboard.
 
-The system is designed with a strong focus on **security, automation, and data-driven decision-making**, combining modern backend architecture with a responsive frontend experience.
+The system emphasizes security, automation, and intelligent data handling, combining modern backend architecture with a fully responsive frontend.
 
-🌐 **Live Demo:** https://trackwise-9l4u.onrender.com
+🌐 Live link: https://trackwise-9l4u.onrender.com
 
 ---
 
 ## ✨ Features
 
 ### 🔐 Authentication & Security
-- JWT authentication (stored in secure HTTP-only cookies)
+- JWT authentication (HTTP-only cookies)
 - Token expiry (15 minutes) with automatic regeneration
-- Protected API routes (all post-login endpoints secured)
-- Auto logout on expired/invalid tokens
+- Protected API routes (post-login endpoints secured)
+- Auto logout on invalid/expired tokens
 - Password hashing using bcrypt
-- OTP-based email verification before account creation
-- Secure password recovery via OTP
+- OTP-based email verification
+- Password recovery via OTP
 - Rate limiting (brute-force protection)
 - Security headers using Helmet
 
 ---
 
-### 📧 Email & Notification System
-- Integrated with Mailgun
+### 📧 Email & Notifications
+- Mailgun integration
 - OTP delivery for:
   - Signup verification
   - Password recovery
@@ -36,19 +36,27 @@ The system is designed with a strong focus on **security, automation, and data-d
 ---
 
 ### ⏰ Scheduled Tasks & Automation
-- Daily background job (runs automatically at a fixed time)
+- Daily background jobs (node-cron)
 - Automated email reminders:
-  - 📅 **Upcoming payments** (within 24 hours)
-  - ⚠️ **Overdue expenses**
+  - Upcoming payments (within 24 hours)
+  - Overdue expenses
 - User preference-based notifications
-- Demonstrates real-world **time-based event processing**
+
+---
+
+### 🔁 Recurring Transactions
+- Mark income/expenses as recurring
+- Stored in dedicated recurring tables
+- Automatically processed monthly
+- Supports recurring income and expenses
+- Users can manage recurring entries
 
 ---
 
 ### ⚙️ User Settings
-- Update personal information (name, surname, email)
+- Update personal details (name, surname, email)
 - Email preferences:
-  - Receive general emails
+  - General emails
   - Overdue alerts
   - Payment reminders
 - Monthly budget limit (default: R2000)
@@ -57,70 +65,74 @@ The system is designed with a strong focus on **security, automation, and data-d
 ---
 
 ### 💰 Expense Management
-- Add, edit, and delete expenses
+- Add, edit, delete expenses
 - Categorize expenses
 - Track payment status (paid/unpaid)
-- Filter expenses by:
+- Filter by:
   - Paid
   - Unpaid
   - Overdue
-- View expenses for the last **1–6 months**
-- Sort expenses by:
-  - Amount (ascending/descending)
-  - Date (ascending/descending)
-- Real-time updates on dashboard
+- View last 1–6 months
+- Sort by:
+  - Amount (asc/desc)
+  - Date (asc/desc)
+- Real-time updates
 
 ---
 
 ### 💵 Income Management
-- Add, edit, and delete income entries
+- Add, edit, delete income
 - Categorize income sources
-- View income for the last **1–6 months**
-- Sort income by:
-  - Amount (ascending/descending)
-  - Date (ascending/descending)
-- Real-time updates to totals and dashboard
+- View last 1–6 months
+- Sort by:
+  - Amount (asc/desc)
+  - Date (asc/desc)
+- Real-time updates
 
 ---
 
-### 📊 Dashboard & Analytics
+### 📊 Dashboard & Insights
 
-#### 📌 Overview
+#### Overview
 - Current balance
 - Total income & expenses
 - Budget usage indicator:
-  - 🟢 Below 85%
-  - 🔴 Above 85%
+  - Green (<85%)
+  - Red (≥85%)
 - Recent transactions (color-coded)
 - Overdue expenses table
 
 ---
 
-#### 📈 Visualizations (Chart.js)
-- 📊 Income vs Expense (last 6 months)
-- 🥧 Expense breakdown by category
-- 🥧 Income breakdown by category
+### 📈 Visualizations (Chart.js)
+- Income vs Expense (last 6 months)
+- Expense breakdown (pie chart)
+- Income breakdown (pie chart)
 
 ---
 
-### 📅 Monthly Financial Summary
-- Displays up to **6 past months**
-- Each summary card includes:
+### 📅 Monthly Summary
+- Up to 6 previous months
+- Each card includes:
   - Month & Year
-  - Total Income
-  - Total Expenses
+  - Total income
+  - Total expenses
   - Highest spending (amount + description)
 - Visual indicators:
-  - 🟢 Green → Income ≥ Expenses
-  - 🔴 Red → Expenses exceed Income
+  - Green → income ≥ expenses
+  - Red → expenses > income
+
+---
+
+### ⚡ Real-Time Data Handling
+- Dynamic updates after CRUD operations
+- Immediate UI updates
+- Efficient client-server communication
 
 ---
 
 ### 📱 Responsive Design
-- Fully responsive across:
-  - Desktop
-  - Tablet
-  - Mobile
+- Works across desktop, tablet, and mobile
 
 ---
 
@@ -133,7 +145,7 @@ The system is designed with a strong focus on **security, automation, and data-d
 ### Frontend
 - HTML5
 - CSS3
-- JavaScript (Vanilla)
+- JavaScript
 
 ### Database
 - MySQL (Aiven Cloud)
@@ -145,16 +157,27 @@ The system is designed with a strong focus on **security, automation, and data-d
 - express-rate-limit
 - Chart.js
 - Mailgun
+- node-cron
 - Git & GitHub
 
 ---
 
-## 🏗 Architecture Highlights
+## 🏗 Architecture
 - RESTful API design
-- Modular backend structure (controllers, routes, middleware,service)
-- Secure authentication flow with token lifecycle management
-- Background task scheduling for automated processes
+- Modular structure (controllers, routes, middleware, services)
+- Secure authentication flow
+- Background job scheduling
+- Separation of concerns
 
 ---
+
+## 🔐 Security
+- Cookie-based JWT authentication
+- Input validation & sanitization
+- Rate limiting
+- Secure password hashing
+- OTP verification flows
+- Protected routes
+
 
 
