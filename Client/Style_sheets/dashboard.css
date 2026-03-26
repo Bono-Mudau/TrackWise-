@@ -1,6 +1,7 @@
 
 html, body {
   margin: 0 auto;
+  background-color: #beb4ce25;
 }
 body {
     margin: 0;
@@ -44,6 +45,7 @@ body {
     max-width: 60px;
     margin-right:2%;
     font-size:x-large;
+    font-family: system-ui, -apple-system, sans-serif;
 }
 #menu-bar{
     border-top: 1px solid rgb(34, 33, 33);
@@ -88,6 +90,7 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: larger;
     color: #141212;
+    font-family: system-ui, -apple-system, sans-serif;
     
 }
 
@@ -196,7 +199,8 @@ body {
 /* OVERVIEW*/
 
 #welcome_msg{
-    border-bottom:2px solid #242424 ;
+    border-bottom:2px solid #a7a2a2 ;
+    font-family: system-ui, -apple-system, sans-serif;
 }
 #total-expenses{
     color: rgb(202, 77, 77);
@@ -209,7 +213,8 @@ body {
 #balance-overview{
     display: flex;
     flex-direction:column;
-    border-bottom: 2px solid rgb(0,0,0,0.5);
+    border-bottom:2px solid #a7a2a2 ;
+    font-family: system-ui, -apple-system, sans-serif;
 }
 #month-container{
     display: flex;
@@ -256,10 +261,10 @@ body {
 
 #summary-card h4{
    margin: 0;
-   font-family: Arial, sans-serif;
+   font-family: system-ui, -apple-system, sans-serif;
    font-size: larger;
    background-color: none;
-   text-decoration: none;
+   font-weight: 500;
 }
 #graph{
 
@@ -312,20 +317,32 @@ body {
     align-self: center;
     text-align: center;
     text-decoration: underline;
-    font-size: large;
+    font-family: system-ui, -apple-system, sans-serif;
     
 }
 #recents-trans-alternative{
     display: none;
+    font-family: system-ui, -apple-system, sans-serif;
+    text-align: center;
+    
 }
 #income-trans-alternative{
     display: none;
+    font-family: system-ui, -apple-system, sans-serif;
+    text-align: center;
+    
 }
 #expense-trans-alternative{
-    display: none;
+     display: none; 
+    font-family: system-ui, -apple-system, sans-serif;
+    text-align: center;
+    
 }
 #overdue_exp_list-alternative{
     display: none;
+    font-family: system-ui, -apple-system, sans-serif;
+    text-align: center;
+    
 }
 
 .resent_trans{
@@ -494,7 +511,7 @@ body {
     display: none;
 }
 .expense1{
-    padding: 0px;
+    padding: 5px;
 }
 #add-expense{
     margin:0px auto;
@@ -642,7 +659,7 @@ body {
 
 .income1{
 
-    padding:0px;
+     padding: 5px;
 
 }
 
@@ -732,6 +749,7 @@ body {
     width: 90%;
     min-height: 50px;
     justify-content: space-between;
+    gap: 5px;
 }
 .transactions-fliter select{
     height: 70%;
@@ -893,6 +911,7 @@ body {
 
 }
 .settings-input-field{
+    text-align: center;
     min-height: 30px;
     min-width: 100px;
     margin-left:2px;
@@ -1077,6 +1096,7 @@ body {
 
 .recurring1 > div {
     margin-bottom: 25px;
+    overflow-x: auto;
 }
 
 
@@ -1085,7 +1105,6 @@ body {
     border-collapse: collapse;
     background: #eeeeee;
     border-radius: 10px;
-    border: 2px solid blueviolet;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
@@ -1130,7 +1149,7 @@ body {
 
 
 #recurring-income td:nth-child(2) {
-    color: #16a34a; /* green */
+    color: #16a34a; 
     font-weight: 600;
 }
 
@@ -1166,16 +1185,27 @@ body {
 #summary-card{
     display: flex;
     flex-direction: row;
-    width: 100%; 
+    min-width: 99%; 
     padding: 0;
-    margin: 0;
-    
+    margin: 0 auto;
+    gap: 5px;
+    overflow: hidden;  
+    height: auto;  
 }
 #summary-card div{
     padding: 1%;
-    gap: 5px;
     margin: 0 auto;
-    font-size: medium;
+    font-size: small;
+    height: auto;
+    max-width:31%;
+    padding: 5px;
+    overflow: hidden;
+}
+#summary-card h4{
+
+    font-weight: 400;
+    font-family: system-ui, -apple-system, sans-serif;
+    
 }
 
 #charts{
@@ -1405,11 +1435,12 @@ body {
     font-weight: 400;
 }
 .progress-container{
-    margin: 4px auto ;
+    margin: 10px auto ;
     min-height: 30px;
     width: fit-content;
     min-width: 99%;
     background: none;
+    
 }
 
 
