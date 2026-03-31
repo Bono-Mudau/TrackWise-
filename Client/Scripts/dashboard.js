@@ -7,9 +7,10 @@ function getdate(){
     const dd = String(today.getDate()).padStart(2, '0');
     return yyyy+"-"+mm+"-"+dd
 }
+
 const month_names=["Jan", "Feb", "Mar", "Apr", "May" ,"Jun" ,"Jul" , "Aug", "Sep" , "Oct" , "Nov", "Dec"];
 const current_date=new Date();
- document .getElementById("current-month").innerText=`${month_names[current_date.getMonth()]} ${current_date.getFullYear()}`
+document .getElementById("current-month").innerText=`${month_names[current_date.getMonth()]} ${current_date.getFullYear()}`
 document.getElementById('due_date').min=getdate();
 
 //add event listeners
@@ -90,8 +91,8 @@ load_summary();
 
 
 function remove_table_Rows(table_id) {
-  const table = document.getElementById(table_id);
 
+  const table = document.getElementById(table_id);
   while (table.rows.length > 1) {
     table.deleteRow(1);
   }
@@ -101,8 +102,11 @@ document.getElementById("user-names").innerHTML="Welcome, "+user_info.names;
 
 //EXPENSES SECTION/
 const expense_list=document.getElementById("expenses-list");
+
 function addentry(){//show add expense card
+
     const entry=document.getElementById('C-exp-card');
+
     if(entry.classList.contains("create-expense-card1")){
         entry.classList.replace("create-expense-card1","create-expense-card");
     }
@@ -112,8 +116,10 @@ function addentry(){//show add expense card
 }
 
 async function load_all_expenses(){
+
   remove_table_Rows("expense-table")
   load_exp_filters();
+
   fetch(`https://trackwise-9l4u.onrender.com/api/expenses/load_expenses`,{
     method:"POST",
     headers:{"Content-Type":"application/json"},
@@ -139,6 +145,7 @@ async function load_all_expenses(){
         document.getElementById("expense-trans-alternative").style.display="";
         return;
       }
+
       let total=0;
       const trans_list=document.getElementById("expense-trans");
       trans_list.style.display="";
@@ -155,19 +162,18 @@ async function load_all_expenses(){
           due_Date=element.due_date;
         }
         const edit=document.createElement("button");
-        edit.innerHTML="edit";
-        edit.addEventListener("click", enable_exp_editing)
+        edit.innerHTML=`<i class="fa-solid fa-pen">`;
+        edit.classList.add("enable_exp_editing");
+
         const delete_btn=document.createElement("button");
-        delete_btn.innerHTML="Delete";
-        delete_btn.addEventListener("click",delete_expense_entry)
+        delete_btn.innerHTML=`<i class="fa-solid fa-trash"></i>`;
+        delete_btn.classList.add("delete_exp");
         row.innerHTML=`
-            <td>${element.exp_id}</td>
-            <td>${element.date_created.substring(0,10)}</td>
             <td>${element.description}</td>
-            <td>${element.category}</td>
             <td>${element.amount}</td>
             <td>${status}</td>
             <td>${due_Date.substring(0,10)}</td>
+            <td>${element.category}</td>
             <td></td>
           `;
         row.cells[row.cells.length - 1].appendChild(edit);
@@ -179,10 +185,8 @@ async function load_all_expenses(){
       row.id="exp_table_total";
       row.innerHTML=`
           <td>Total</td>
-          <td></td>
-          <td></td>
-          <td></td>
           <td id="expense-sum" >R${total.toFixed(2)}</td>
+          <td></td>
           <td></td>
           <td></td>
           <td></td>
@@ -199,6 +203,7 @@ async function load_all_expenses(){
 }
 
 function submit_expense(){
+
     //Data to be sent to the database
     let expense_entry={
       date:new Date().toISOString().slice(0, 19).replace("T", " "),
@@ -267,10 +272,12 @@ function submit_expense(){
        return res.json()
     })
     .then(res=>{
+
       if(res.status){
         let current_total=0;
         if(document.getElementById("exp_table_total")){
-          current_total=document.getElementById("exp_table_total").cells[4].innerHTML.substring(1);
+
+          current_total=document.getElementById("exp_table_total").cells[1].innerHTML.substring(1);
           document.getElementById("exp_table_total").remove()
           current_total=Number(current_total)+expense_entry.amount;
         }
@@ -284,26 +291,24 @@ function submit_expense(){
         }
         
         row.innerHTML=`
-            <td>${id}</td>
-            <td>${expense_entry.date}</td>
             <td>${expense_entry.description}</td>
-            <td>${expense_entry.category}</td>
             <td>${expense_entry.amount}</td>
             <td>${status}</td>
             <td>${due_Date}</td>
+            <td>${expense_entry.category}</td>
             <td></td>
           `;
-        row.cells[7].innerHTML=`<button class="enable_exp_editing"> Edit </button>  <button class="delete_exp"> Delete</button> `;
-        row.cells[7].querySelector(".enable_exp_editing").addEventListener("click", enable_exp_editing);
-        row.cells[7].querySelector(".delete_exp").addEventListener("click", delete_expense_entry);
+        row.cells[5].innerHTML=`<button class="enable_exp_editing"><i class="fa-solid fa-pen"></i></button>  <button class="delete_exp"> <i class="fa-solid fa-trash"></i> </button> `;
+        row.cells[5].querySelector(".enable_exp_editing").addEventListener("click", enable_exp_editing);
+        row.cells[5].querySelector(".delete_exp").addEventListener("click", delete_expense_entry);
+        
         const t_row=document.createElement("tr");
         t_row.id="exp_table_total";
         t_row.innerHTML=`
             <td>Total</td>
-            <td></td>
-            <td></td>
-            <td></td>
             <td id="expense-sum">R${current_total}</td>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
           `;
@@ -319,16 +324,17 @@ function submit_expense(){
 
 //Enable editing in the expense table
 function enable_exp_editing(event){
+
   const row = event.target.closest("tr");
-  const row_id=row.id;
+
   //Retrieve current data in the cells
-  const description=row.cells[2].innerText;
-  const category=row.cells[3].innerText;
-  const amount=row.cells[4].innerText;
-  const status=row.cells[5].innerHTML;
-  row.cells[2].innerHTML=`<input class="input-field"  type="text" maxlength="30" value="${description}">
+  const description=row.cells[0].innerText;
+  const category=row.cells[4].innerText;
+  const amount=row.cells[1].innerText;
+  const status=row.cells[2].innerHTML;
+  row.cells[0].innerHTML=`<input class="input-field"  type="text" maxlength="30" value="${description}">
   `;
-  row.cells[3].innerHTML=` <select class="input-field" name="Category">
+  row.cells[4].innerHTML=` <select class="input-field" name="Category">
                             <option value="none">Select</option>
                             <option value="Groceries"> Groceries</option>
                             <option value="Entertainment"> Entertainment</option>
@@ -343,143 +349,90 @@ function enable_exp_editing(event){
                             <option value="Other">Other</option>
                           </select>
   `;
-  row.cells[3].querySelector("select").value = category;
-  row.cells[4].innerHTML=` <input class="input-field"  type="text" maxlength="7" value="${amount}">`;
-  row.cells[5].innerHTML=`Paid ?<input  type="checkbox">`
+  row.cells[4].querySelector("select").value = category;
+  row.cells[1].innerHTML=` <input class="input-field"  type="text" maxlength="7" value="${amount}">`;
+  row.cells[2].innerHTML=`Paid ?<input  type="checkbox">`
   if(status=="Paid"){
-    row.cells[5].innerHTML=`Paid ?<input  type="checkbox"  checked>`
+    row.cells[2].innerHTML=`Paid ?<input  type="checkbox"  checked>`
   }
   else{
-    row.cells[5].innerHTML=`Paid ?<input  type="checkbox">`
+    row.cells[2].innerHTML=`Paid ? <input  type="checkbox">`
   }
-  row.cells[7].innerHTML=`<button id="update-exp-" >Save</button>`;
+  row.cells[5].innerHTML=`<button class="update-exp-" >Save</button>`;
   document.getElementById("update-exp-").addEventListener("click",update_exp);
   
 }
 
-function add_expense_to_the_list(id,expense_entry){
+//event delagation
+document.getElementById("expense-table").addEventListener("click", (e)=>{
+  const element=e.target;
 
-        //Create an expense card and add it to the expsenses list
-        const entry=document.createElement("div");
-        entry.id=id+"";
+  if(element.classList.contains("update-exp-")){
+    update_exp(e);
+  }
 
-        const exp_=document.createElement("label");
-        exp_.textContent=id+"";
-        exp_.id=id+"id";
-        entry.appendChild(exp_);
+  if(element.closest(".enable_exp_editing")){
+    enable_exp_editing(e);
+  }
 
-        //date
-        const exp_date=document.createElement("label");
-        let date = expense_entry.date_created+"";
-        date=date.substring(0,10);
-        exp_date.textContent= date;
+  if(element.closest(".delete_exp")){
+    delete_expense_entry(e);
+  }
 
-        exp_date.id=id+"-date";
-        entry.appendChild(exp_date);
-    
-        //expense description
-        const exp_des=document.createElement("label");
-        exp_des.textContent=expense_entry.description;
-        exp_des.id=id+"-description";
-        entry.appendChild(exp_des);
-      
-        const exp_cate=document.createElement("label");
-        exp_cate.textContent=expense_entry.category;
-        exp_cate.id=id+"-category";
-        entry.appendChild(exp_cate);
-   
-        const exp_amount=document.createElement("label");
-        exp_amount.textContent=expense_entry.amount;
-        exp_amount.id=id+"-amount";
-        entry.appendChild(exp_amount);
+})
 
-
-        //Status label
-        const exp_status=document.createElement("label");
-        exp_status.id=id+"-status";
-        if(expense_entry.status==1){
-          exp_status.textContent="Paid"
-        }
-        else{
-          exp_status.textContent="Not paid"
-        }
-        entry.appendChild(exp_status);
-    
-        //Edit button
-        const edit_button=document.createElement("button");
-        edit_button.textContent="edit";
-        edit_button.addEventListener("click", function(e){
-           //get the id of expense to be edited
-           const parent_element=e.target.closest(".expense-card");
-           const edit_id=parent_element.id;
-           document.getElementById("expense-edit-id").textContent=String(edit_id);
-           document.getElementById("edit_exp").classList.replace("edit-expense","edit-expense1") 
-        })    
-        //delete expense button
-       const exp_button=document.createElement("button");
-       exp_button.textContent="Delete";
-       exp_button.id=id+"";
-       //delete an expense from the list 
-       exp_button.addEventListener("click",delete_expense_entry); 
-       
-      const lab=document.createElement("label");
-      lab.appendChild(edit_button);
-      lab.appendChild(exp_button);
-      lab.className="lab"
-      entry.appendChild(lab);
-      expense_list.appendChild(entry);
-      entry.className="expense-card";
-      document.getElementById('C-exp-card').classList.replace("create-expense-card","create-expense-card1");
-
-}
 function delete_expense_entry(event){
-         const selected_exp=event.target.closest("tr");
-         const confirmed = confirm("Are you sure you want to delete this expense?");
-         //confirm first if a user wants to delete an expense 
-         if (!confirmed){
-          return 
-         }
-         try {
-           fetch("https://trackwise-9l4u.onrender.com/api/expenses/delete_expense",{
-             method:"POST",
-             headers:{"Content-Type":"application/json"},
-             credentials: "include",
-             body:JSON.stringify({
-               id:selected_exp.id.replace("exp_row-", "")})
-            })
-           .then(res=>{
-              if (res.status === 401) {
-                  log_out(); // auto-logout on unauthorized
-                  return;
-              }
-              if(!res.ok){
-                throw new Error("Error deleting an expense");
-              }
-              else{
-                return res.json();
-              }
-              
-            })
-           .then(res=>{
-             if(res.response){
-              selected_exp.remove();
-              load_all_expenses();
-              load_balances();
-             }
-             else{
-               window.alert("expense not deleted");
-             }
-            })
-           .catch(err=>{
-              alert(err); 
-              console.log(err)
-            })
-  
-        } 
-         catch (error) {
-          window.alert("expense not deleted");
-          
-        }
+
+  const selected_exp=event.target.closest("tr");
+  const confirmed = confirm("Are you sure you want to delete this expense?");
+
+  //confirm first if a user wants to delete an expense 
+  if (!confirmed){
+    return 
+  }
+  try {
+    fetch("https://trackwise-9l4u.onrender.com/api/expenses/delete_expense",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      credentials: "include",
+      body:JSON.stringify({
+        id:selected_exp.id.replace("exp_row-" , "")})
+    })
+    .then(res=>{
+
+      if (res.status === 401) {
+          log_out(); // auto-logout on unauthorized
+          return;
+      }
+      if(!res.ok){
+        throw new Error("Error deleting an expense");
+      }
+      else{
+        return res.json();
+      }
+      
+    })
+    .then(res=>{
+
+      if(res.response){
+      selected_exp.remove();
+      load_balances();
+
+      }
+      else{
+        window.alert("expense not deleted");
+      }
+    })
+    .catch(err=>{
+      alert(err); 
+      console.log(err)
+    })
+
+  } 
+  catch (error) {
+  window.alert("expense not deleted");
+
+  }
 }
 
 function update_exp(event){
@@ -996,10 +949,11 @@ function cancel_update1(){
 }
 
 function load_balances(){
+
   const balace_button=document.getElementById("current-balance");
-  const welcome_btn=document.getElementById("welcome-msg");
   const income_btn=document.getElementById("total-income");
   const  expense_btn=document.getElementById("total-expenses");
+
   try {
     fetch("https://trackwise-9l4u.onrender.com/api/summary/load_balances", {
       method:"POST",
@@ -1024,13 +978,16 @@ function load_balances(){
         expense_btn.innerHTML="Expenses: R  "+data.expenses;
         const limit=Number(document.getElementById("setting-monthly-limit").value);
         
-        //update how much of the limit has been used
+        //update budget indicator
         if (!isNaN(limit) && limit>0){
+
           const limitProgress = Math.min((data.expenses/limit)* 100,100).toFixed(2);
           document.getElementById("limit-progress").innerHTML= `Budget Used : ${limitProgress}%, (R${data.expenses} / R${limit} )`;
+          
           if(limitProgress>85){
             document.getElementById("progress-container").style.color="red";
-          }else{
+          }
+          else{
             document.getElementById("progress-container").style.color="green"
           }
         }
@@ -1070,18 +1027,19 @@ function recent_transactions(id){
     .then(data=>{
       if(data.response){
         if(data.length==0){
+
           document.getElementById("recents-trans").style.display="none";
           document.getElementById("recents-trans-alternative").style.display="";
         }
 
         data.recent_transactions.forEach(entry=>{
+
           const trans_list=document.getElementById("recents-trans");
           trans_list.style.display=""
+
           const row=document.createElement("tr");
           row.id=entry.id;
           row.innerHTML=`
-            <td>${entry.id}</td>
-            <td>${entry.date.substring(0,10)}</td>
             <td>${entry.category}</td>
             <td>${entry.amount}</td>
             <td>${entry.type}</td>
@@ -1106,6 +1064,7 @@ recent_transactions(user_info.id);
 //switch between sections
 
 function show_expense(){
+  
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview");
@@ -1150,21 +1109,27 @@ function show_income(){
   if(summary.className!="show-summary"){
     summary.classList.replace("show-summary1","show-summary")
   }
+
   if(settings.className!="show-settings"){
     settings.classList.replace("show-settings1","show-settings")
   } 
+
   if(exp.className!="expsnse"){
     exp.classList.replace("expense1","expense")
   }
+
   if(income.className!="income1"){
     income.classList.replace("income","income1");
   }
+
   if(overview.className!="overview"){
     overview.classList.replace("overview1","overview");
   }
+
 }
 
 function show_overview(){
+
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview"); 
@@ -1179,18 +1144,23 @@ function show_overview(){
   if(summary.className!="show-summary"){
     summary.classList.replace("show-summary1","show-summary")
   }
+
   if(settings.className!="show-settings"){
     settings.classList.replace("show-settings1","show-settings")
   }
+
   if(exp.className!="expsnse"){
     exp.classList.replace("expense1","expense")
   }
+
   if(income.className!="income"){
     income.classList.replace("income1","income");
   }
+
   if(overview.className!="overview1"){
     overview.classList.replace("overview","overview1");
   }
+
   income_chart();
   expense_chart();
   monthly_summary();
@@ -1214,15 +1184,19 @@ function show_settings(){
   if(summary.className!="show-summary"){
     summary.classList.replace("show-summary1","show-summary")
   }
+
   if(settings.className!="show-settings1"){
     settings.classList.replace("show-settings","show-settings1")
   }
+
   if(exp.className!="expsnse"){
     exp.classList.replace("expense1","expense")
   }
+
   if(income.className!="income"){
     income.classList.replace("income1","income");
   }
+
   if(overview.className!="overview"){
     overview.classList.replace("overview1","overview");
   }
@@ -1230,6 +1204,7 @@ function show_settings(){
 
 
 function show_summary(){
+
   const exp=document.getElementById("expense");  
   const income=document.getElementById("income");  
   const overview=document.getElementById("overview"); 
@@ -1244,15 +1219,19 @@ function show_summary(){
   if(summary.className!="show-summary1"){
     summary.classList.replace("show-summary","show-summary1")
   }
+
   if(settings.className!="show-settings"){
     settings.classList.replace("show-settings1","show-settings")
   }
+
   if(exp.className!="expsnse"){
     exp.classList.replace("expense1","expense")
   }
+
   if(income.className!="income"){
     income.classList.replace("income1","income");
   }
+
   if(overview.className!="overview"){
     overview.classList.replace("overview1","overview");
   }
@@ -1299,7 +1278,6 @@ function show_recurring(){
 //log out 
 async function  log_out(){
      
-    localStorage.clear();
     try {
       const res = await fetch("https://trackwise-9l4u.onrender.com/api/auth/log_out",{
           method: "POST",
@@ -1314,6 +1292,7 @@ async function  log_out(){
     } catch (err) {
       console.error(err);
     }
+    localStorage.clear();
     window.location.href = "login_signup.html";
 
 }
@@ -1322,12 +1301,15 @@ async function  log_out(){
 function monthly_summary(){
   const id=user_info.id;
   fetch("https://trackwise-9l4u.onrender.com/api/summary/monthly_summary", {
+
     method:"POST",
     headers:{"Content-Type":"application/json"},
     credentials: "include",
     body:JSON.stringify({id:id})
+
   })
   .then(res=>{
+
     if (res.status === 401) {
         log_out(); // auto-logout on unauthorized
         return;
@@ -1338,8 +1320,10 @@ function monthly_summary(){
     else{
       return res.json();
     }
+
   })
   .then(res=>{
+
     if(!res.response){
       alert(res.error);
     }
