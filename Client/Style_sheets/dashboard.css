@@ -166,7 +166,7 @@ body {
     width: 25vw;
     min-width: 50px;
     max-width: 200px;
-    flex-shrink: 0;;
+    flex-shrink: 0;
     height: 100%;
     height: auto;
     background-color: whitesmoke;
@@ -250,7 +250,6 @@ body {
     overflow-x: auto; 
 }
 #summary-card div{
-
     border: 1px solid rgb(0,0,0,0.1);
     border-radius: 8px;
     background-color: whitesmoke;
@@ -260,6 +259,7 @@ body {
 }
 
 #summary-card h4{
+    display: flex;
    margin: 0;
    font-family: system-ui, -apple-system, sans-serif;
    background-color: whitesmoke;
@@ -267,6 +267,8 @@ body {
    padding: 1px;
    border-radius: 5px;
    font-weight: 500;
+   align-items: center;
+   justify-content: center;
 }
 #graph{
 
@@ -1011,7 +1013,6 @@ body {
     display: flex;
     flex-direction: column;
     background-color: rgb(255, 255, 255);
-    background-color: #73a3f0;
 
 }
 .show-summary{

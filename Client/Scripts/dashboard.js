@@ -321,6 +321,7 @@ function submit_expense(){
 function enable_exp_editing(event){
   const row = event.target.closest("tr");
   const row_id=row.id;
+  
   //Retrieve current data in the cells
   const description=row.cells[2].innerText;
   const category=row.cells[3].innerText;
