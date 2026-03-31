@@ -50,7 +50,8 @@ const new_expense= async (req,res)=>{
 
 const load_expenses= async (req,res)=>{
 
-    const {id,sort_by, filter,no_of_months}=req.body;
+    const {sort_by, filter,no_of_months}=req.body;
+    const id = req.user.username;
     let order=" order by date_created  desc";
 
     switch(sort_by){
@@ -131,7 +132,7 @@ const load_expenses= async (req,res)=>{
 };
 const load_overdue_expenses=async(req,res)=>{
      try {
-        const {id} = req.body;
+        const id = req.user.username;
         if (!id) {
             return res.status(400).json({ response:false, error:"User_id_err" });
         }

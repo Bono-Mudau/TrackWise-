@@ -58,14 +58,12 @@ const user_info={
 
 //default expense fitlers/sorting
 let default_exp_filter={
-  id:user_info.id,
   sort_by:1,
   filter:0 ,// none
   no_of_months:1
 }
 let default_income_filter={
 
-  id:user_info.id,
   sort_by:1,
   no_of_months:1
 
@@ -556,10 +554,9 @@ function cancel_update(){
 async function get_overdue_expenses() {
 
    fetch("https://trackwise-9l4u.onrender.com/api/expenses/load_overdue_expenses",{
-    method:"POST",
+    method:"GET",
     headers:{"Content-Type":"application/json"},
     credentials:"include",
-    body:JSON.stringify({id:user_info.id})
    })
    .then( res=>{
      if (res.status === 401) {
@@ -610,143 +607,153 @@ async function get_overdue_expenses() {
 get_overdue_expenses();
 
 //Income section
-  function submit_income(){
-    
-    if(document.getElementById("income-category-input").value=="none"){
-      alert("Please select a category");
-      return;
+function submit_income(){
+
+  if(document.getElementById("income-category-input").value=="none"){
+    alert("Please select a category");
+    return;
+  }
+  if(document.getElementById("income-amount").value=="" || isNaN(Number(document.getElementById("income-amount").value))){
+    alert("Enter a valid amount");
+    return;
+  }
+
+  const income_entry={
+  category:document.getElementById("income-category-input").value,
+  amount:document.getElementById("income-amount").value,
+  recurring:0
+  }
+
+  //check if its a recurring income entry
+  const recurring_input=document.getElementById("recurring-income");
+  if(recurring_input || recurring_input.checked){
+     income_entry.recurring=1;
+  }
+
+  document.getElementById("income-category-input").value="";
+  document.getElementById("income-amount").value="";
+  try {
+    fetch("https://trackwise-9l4u.onrender.com/api/income/new_income",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      credentials: "include",
+      body: JSON.stringify({
+      category: income_entry.category,
+      amount: income_entry.amount,
+      user_id: user_info.id,
+      recurring:income_entry.recurring
+      })
+    })
+    .then(res=>{
+
+      if (res.status === 401) {
+        log_out(); // auto-logout on unauthorized
+        return;
+      }
+      if(!res.ok){
+        throw new Error("error adding an income entry");
+      }
+      return res.json()
+      })
+    .then(res=>{
+
+      if(res.response){//entry added to the Database successfully
+
+        let current_total=0;
+        if(document.getElementById("income_table_total")){
+
+          current_total=document.getElementById("income_table_total").cells[3].innerHTML.substring(1);
+          document.getElementById("income_table_total").remove()
+          current_total=Number(current_total)+Number(income_entry.amount);
+
+        }
+
+        const id=res.id;
+        const trans_list=document.getElementById("income-trans")
+        const row=document.createElement("tr");
+
+        row.id="income_row-"+id;
+        row.innerHTML=`
+          <td>${getdate()}</td>
+          <td>${income_entry.category}</td>
+          <td>${income_entry.amount}</td>
+          <td></td>
+        `;
+        row.cells[3].innerHTML=`
+          <button class="enable_income_editing"><i class="fa-solid fa-pen"></i></button>  
+          <button class="delete_inc"> <i class="fa-solid fa-trash"></i> </button> 
+        `;
+
+        const t_row=document.createElement("tr");
+        t_row.id="income_table_total";
+        t_row.innerHTML=`
+          <td>Total</td>
+          <td></td>
+          <td id="income-sum">R${current_total}</td>
+          <td></td>
+        `;
+        t_row.style.fontWeight = "bold";
+        t_row.style.height = "20px"; 
+        trans_list.appendChild(row)
+        trans_list.appendChild(t_row);
+        load_balances();
+      }
+      else{
+        alert("entry not added")
+      }
+      })             
     }
-    if(document.getElementById("income-amount").value=="" || isNaN(Number(document.getElementById("income-amount").value))){
-      alert("Enter a valid amount");
-      return;
-    }
-    const income_entry={
-      category:document.getElementById("income-category-input").value,
-      amount:document.getElementById("income-amount").value,
-      recurring:0
+    catch (error) {
+      console.log(error);
     }
 
-    //check if its a recurring income entry
-    const recurring_input=document.getElementById("recurring-income");
-    if(recurring_input || recurring_input.checked){
-
-      income_entry.recurring=1;
-
-    }
-    document.getElementById("income-category-input").value="";
-    document.getElementById("income-amount").value="";
-    try {
-            fetch("https://trackwise-9l4u.onrender.com/api/income/new_income",{
-              method:"POST",
-              headers:{"Content-Type":"application/json"},
-              credentials: "include",
-              body: JSON.stringify({
-                  category: income_entry.category,
-                  amount: income_entry.amount,
-                  user_id: user_info.id,
-                  recurring:income_entry.recurring
-                })
-            })
-            .then(res=>{
-
-              if (res.status === 401) {
-                  log_out(); // auto-logout on unauthorized
-                  return;
-              }
-              if(!res.ok){
-                throw new Error("error adding an income entry");
-              }
-              return res.json()
-            })
-            .then(res=>{
-              if(res.response){//entry added to the Database successfully
-                let current_total=0;
-                if(document.getElementById("income_table_total")){
-                  current_total=document.getElementById("income_table_total").cells[3].innerHTML.substring(1);
-                  document.getElementById("income_table_total").remove()
-                  current_total=Number(current_total)+Number(income_entry.amount);
-                }
-                
-                const id=res.id;
-                const trans_list=document.getElementById("income-trans")
-                const row=document.createElement("tr");
-                row.id="income_row-"+id;
-                row.innerHTML=`
-                    <td>${id}</td>
-                    <td>${getdate()}</td>
-                    <td>${income_entry.category}</td>
-                    <td>${income_entry.amount}</td>
-                    <td></td>
-                  `;
-                row.cells[4].innerHTML=`<button class="enable-income--edi"> edit </button> 
-                                        <button class="del--inc"> Delete</button> `
-                row.cells[4].querySelector(".enable-income--edi").addEventListener("click", enable_income_editing);
-                row.cells[4].querySelector(".del--inc").addEventListener("click", delete_income);
-                const t_row=document.createElement("tr");
-                t_row.id="income_table_total";
-                t_row.innerHTML=`
-                    <td>Total</td>
-                    <td></td>
-                    <td></td>
-                    <td id="expense-sum">R${current_total}</td>
-                    <td></td>
-                  `;
-                t_row.style.fontWeight = "bold";
-                t_row.style.height = "20px"; 
-                trans_list.appendChild(row)
-                trans_list.appendChild(t_row);
-                addentry1()
-                load_balances();
-                }
-              else{
-                 alert("entry not added")
-                }
-            })             
-           } catch (error) {
-            console.log(error);
-            
-           }
-    document.getElementById('C-income-card').classList.replace("create-income-card","create-income-card1");
+  addentry1()
 }
 
 //delete income entry
 function delete_income(event){
+
     const selected_income=event.target.closest("tr");
     const confirmed = confirm("Are you sure you want to delete this income entry?"+selected_income.id);
+    
     if(confirmed){
-    try {
-      fetch("https://trackwise-9l4u.onrender.com/api/income/delete_income",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        credentials: "include",
-        body:JSON.stringify({
-          id:selected_income.id.replace("income_row-","")
+      try {
+        fetch("https://trackwise-9l4u.onrender.com/api/income/delete_income",{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          credentials: "include",
+          body:JSON.stringify({
+            id:selected_income.id.replace("income_row-","")
+          })
         })
-      }).then(res=>{
-        if (res.status === 401) {
+        .then(res=>{
+          if (res.status === 401) {
             log_out(); // auto-logout on unauthorized
             return;
-        }
-        if(!res.ok){
-          throw new Error("Error deleting an income entry");  
-        }
-        else{
-          return res.json();
-        }
-      }).then(res=>{
-
-        if(res.response){
-          selected_income.remove();
-          load_balances();
-        }else{
-              window.alert("Income entry not deleted");
           }
-      })
-    } catch (error) {
-      throw new error("income not deleted");
-      
-    }
-    }
+          if(!res.ok){
+             throw new Error("Error deleting an income entry");  
+          }
+          else{
+             return res.json();
+          }
+        })
+        .then(res=>{
+
+          if(res.response){
+            selected_income.remove();
+            load_balances();
+          }
+          else{
+                window.alert("Income entry not deleted");
+            }
+        })
+      }
+      catch (error) {
+        throw new error("income not deleted");
+        
+      }
+      }
   else{
       window.alert("Income entry not deleted");
   }
@@ -757,43 +764,55 @@ function load_income(){
 
   remove_table_Rows("income-table")
   load_income_filters();
+
   fetch("https://trackwise-9l4u.onrender.com/api/income/load_income",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    credentials: "include",
-    body:JSON.stringify(default_income_filter)
-  }).then(res=>{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      credentials: "include",
+      body:JSON.stringify(default_income_filter)
+  })
+  .then(res=>{
+
     if (res.status === 401) {
-        log_out(); // auto-logout on unauthorized
-        return;
+      log_out(); // auto-logout on unauthorized
+      return;
     }
+
     if(!res.ok){
-      throw new Error("Failed to load existing income entries");
+       throw new Error("Failed to load existing income entries");
     }
+
     return res.json();
-  }).then(data=>{
+
+  })
+  .then(data=>{
+
     if(!Array.isArray(data)){
       throw new Error("Invalid data format:income entries couldn't load");
     }
+
     if(data.length==0){
-        document.getElementById("income-trans").style.display="none";
-        document.getElementById("income-trans-alternative").style.display="";
+      document.getElementById("income-trans").style.display="none";
+      document.getElementById("income-trans-alternative").style.display="";
     }
+
     let total=0;
     const trans_list=document.getElementById("income-trans");
     trans_list.style.display="";
+
     data.forEach(el=>{
+
         const edit=document.createElement("button");
-        edit.innerHTML="edit";
-        edit.addEventListener("click", enable_income_editing)
+        edit.innerHTML=`<button class="enable_income_editing"><i class="fa-solid fa-pen"></i></button>  `;
+        edit.classList.add("enable_income_editing")
+
         const delete_btn=document.createElement("button");
-        delete_btn.innerHTML="Delete";
-        delete_btn.addEventListener("click",delete_income)
+        delete_btn.innerHTML=`<button class="delete_inc"> <i class="fa-solid fa-trash"></i> </button> `;
+        delete_btn.classList.add("delete_inc");
+
         const row=document.createElement("tr");
         row.id="income_row-"+el.income_id;
-        //edit.addEventListener("click",enable_editing)
         row.innerHTML=`
-            <td>${el.income_id}</td>
             <td>${el.date.substring(0,10)}</td> 
             <td>${el.category}</td>
             <td>${el.amount}</td>
@@ -809,83 +828,59 @@ function load_income(){
     row.innerHTML=`
         <td>Total</td>
         <td></td>
-        <td></td>
-        <td id="income-sum">R${total.toFixed(2)}</td>
+        <td id="income-sum">R ${total.toFixed(2)}</td>
         <td></td>
       `;
     row.style.fontWeight = "bold";
     row.style.height = "20px";   
     trans_list.appendChild(row);
     load_balances();
+
   })
 }
 
-function add_income_to_the_list(income_entry){
+//event delagation
+document.getElementById("income-table").addEventListener("click", (e)=>{
+  const element=e.target;
 
-  //Create an income card and add it to the income list
-  const entry=document.createElement("div");
-  entry.id=income_entry.income_id+"";
+  if(element.classList.contains("update-inc-")){
+    update_income(e);
+  }
 
-  const inc_=document.createElement("label");
-  inc_.textContent=income_entry.income_id;
-  entry.appendChild(inc_);
+  if(element.closest(".enable_income_editing")){
+    enable_income_editing(e);
+  }
 
+  if(element.closest(".delete_inc")){
+    delete_income(e);
+  }
 
-  const income_cate=document.createElement("label");
-  income_cate.textContent=income_entry.category;
-  entry.appendChild(income_cate);
-
-  const income_amount=document.createElement("label");
-  income_amount.textContent=income_entry.amount;
-  income_amount.id=income_entry.income_id+"income_amount"
-  entry.appendChild(income_amount);
-
-  //delete income button
-  const income_button=document.createElement("button");
-  income_button.textContent="Delete"; 
-  income_button.addEventListener("click",delete_income);
-
-  //Edit button
-  const edit_buttonn=document.createElement("button");
-  edit_buttonn.textContent="edit";
-  edit_buttonn.addEventListener("click", function(e){
-
-      //get the id of income to be edited
-      const parent_element=e.target.closest(".income-card");
-      const edit_id=parent_element.id;
-      document.getElementById("income-edit-id").textContent=edit_id+"";
-      document.getElementById("income_edit").classList.replace("edit-income","edit-income1")     
-  });
-
-  const lab=document.createElement("label");
-  lab.appendChild(edit_buttonn);
-  lab.appendChild(income_button);
-  lab.className="lab"
-  entry.appendChild(lab);
-
-  income_list.appendChild(entry);
-  entry.className="income-card";
-}
+});
 
 function addentry1(){
+
     const entry=document.getElementById('C-income-card');
+
     if(entry.classList.contains("create-income-card1")){
         entry.classList.replace("create-income-card1","create-income-card");
-    }else{
+    }
+    else{
         entry.classList.replace("create-income-card","create-income-card1");
     }
 }
 
 function update_income(event){
+
     const row=event.target.closest("tr");
     const update_id=row.id;
+
     if(update_id==""){
       alert("Err_Id");
       return;
     }
 
     //get the updated values
-    const category=row.cells[2].querySelector("select");
+    const category=row.cells[1].querySelector("select");
     let new_cate=category.value;
     if(category.value!="none"){
       new_cate=category.value;
@@ -894,7 +889,7 @@ function update_income(event){
       alert("Please select an option!")
       return;
     }
-    const amount=row.cells[3].querySelector("input");
+    const amount=row.cells[2].querySelector("input");
     if(isNaN(Number(String(amount.value))) || amount.value=="" || amount.value<1){
       alert("Enter a valid number");
       return;
@@ -912,11 +907,13 @@ function update_income(event){
         body:JSON.stringify(data)
       })
       .then(res=>{
-          if (res.status === 401) {
-              log_out(); // auto-logout on unauthorized
-              return;
-          }
+
+        if(res.status === 401){
+          log_out(); // auto-logout on unauthorized
+          return;
+        }
         if(!res.ok){
+
           throw new Error("DB_Err");
           
         }else{
@@ -928,12 +925,13 @@ function update_income(event){
 
           //updtate category
           category.value="";
-          row.cells[2].innerHTML=new_cate;
+          row.cells[1].innerHTML=new_cate;
   
-          row.cells[3].innerHTML=amount.value;
-          row.cells[4].innerHTML=`<button id="edit1.0" > Edit </button>  <button id="del-ict"> Delete </button>`
-          document.getElementById("edit1.0").addEventListener("click",enable_income_editing)
-          document.getElementById("del-ict").addEventListener("click",delete_income)
+          row.cells[2].innerHTML=amount.value;
+          row.cells[3].innerHTML=`
+            <button class="enable_income_editing"><i class="fa-solid fa-pen"></i></button>  
+            <button class="delete_inc"> <i class="fa-solid fa-trash"></i> </button> 
+          `;
           load_balances();
         }
       })
@@ -945,22 +943,27 @@ function update_income(event){
     
 }
 function enable_income_editing(event){
+
   const row = event.target.closest("tr");
-  //Retrieve current data in the cells
-  const category=row.cells[2].innerText;
-  const amount=row.cells[3].innerText;
-  row.cells[2].innerHTML=` <select class="input-field" name="Category">
-                            <option value="none">Select an option</option>
-                            <option value="Salary"> Salary</option>
-                            <option value="Investments">Investments</option>
-                            <option value="Donations">Donations</option>
-                            <option value="other">Other</option>
-                          </select>
+
+  //Retrieve current data from the cells
+  const category=row.cells[1].innerText;
+  const amount=row.cells[2].innerText;
+  row.cells[1].innerHTML=` 
+  <select class="input-field" name="Category">
+
+    <option value="none">Select an option</option>
+    <option value="Salary"> Salary</option>
+    <option value="Investments">Investments</option>
+    <option value="Donations">Donations</option>
+    <option value="other">Other</option>
+                          
+  </select>
   `;
-  row.cells[2].querySelector("select").value = category;
-  row.cells[3].innerHTML=` <input class="input-field"  type="text" maxlength="7" value="${amount}">`
-  row.cells[4].innerHTML=`<button id="inc_updat" >Save</button>`;
-  document.getElementById("inc_updat").addEventListener("click",update_income)
+  row.cells[1].querySelector("select").value = category;
+  row.cells[2].innerHTML=` <input class="input-field"  type="text" maxlength="7" value="${amount}">`
+  row.cells[3].innerHTML=`<button class="update-inc-" >Save</button>`;
+  
 }
 function cancel_update1(){
     document.getElementById("income_edit").classList.replace("edit-income1","edit-income");
@@ -974,23 +977,23 @@ function load_balances(){
 
   try {
     fetch("https://trackwise-9l4u.onrender.com/api/summary/load_balances", {
-      method:"POST",
+      method:"GET",
       headers:{"Content-Type":"application/json"},
       credentials: "include",
-      body:JSON.stringify({user_id:user_info.id})
     })
     .then(res=>{
-    if (res.status === 401) {
-        log_out(); // auto-logout on unauthorized
-        return;
-    }
-      if(!res.ok){
-        throw new Error("DB_Err_load_balaces");
+      if (res.status === 401) {
+          log_out(); // auto-logout on unauthorized
+          return;
       }
-      return res.json();
-    })
+        if(!res.ok){
+          throw new Error("DB_Err_load_balaces");
+        }
+        return res.json();
+      })
     .then(data=>{
       if(data.response){
+
         balace_button.innerHTML="Balance: R  "+data.balance.toFixed(2);
         income_btn.innerHTML="Income: R  " + data.income;
         expense_btn.innerHTML="Expenses: R  "+data.expenses;
@@ -1027,10 +1030,9 @@ function recent_transactions(id){
   remove_table_Rows("trans-table")
   try {
     fetch("https://trackwise-9l4u.onrender.com/api/summary/recent_trans",{
-      method:"POST",
+      method:"GET",
       headers:{"Content-Type":"application/json"},
       credentials: "include",
-      body:JSON.stringify({user_id:id})
     })
     .then(res=>{
     if (res.status === 401) {
@@ -1317,13 +1319,13 @@ async function  log_out(){
 
 //load monthly summary
 function monthly_summary(){
-  const id=user_info.id;
+
   fetch("https://trackwise-9l4u.onrender.com/api/summary/monthly_summary", {
 
-    method:"POST",
+    method:"GET",
     headers:{"Content-Type":"application/json"},
     credentials: "include",
-    body:JSON.stringify({id:id})
+
 
   })
   .then(res=>{
@@ -1412,14 +1414,13 @@ monthly_summary();
 
 function income_chart(){
 
-  const id=user_info.id;
 
   fetch("https://trackwise-9l4u.onrender.com/api/summary/income_chart", {
 
-    method:"POST",
+    method:"GET",
     headers:{"Content-Type":"application/json"},
     credentials: "include",
-    body:JSON.stringify({id:id})
+
 
   })
   .then(res=>{
@@ -1515,14 +1516,12 @@ function income_chart(){
 }
 function expense_chart(){
 
-  const id=user_info.id;
 
   fetch("https://trackwise-9l4u.onrender.com/api/summary/expense_chart", {
 
-    method:"POST",
+    method:"GET",
     headers:{"Content-Type":"application/json"},
     credentials: "include",
-    body:JSON.stringify({id:id})
 
   })
   .then(res=>{

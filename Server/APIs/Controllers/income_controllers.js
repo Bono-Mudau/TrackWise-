@@ -73,7 +73,9 @@ const delete_income=async (req,res)=>{
 
 const load_income=async (req,res)=>{
 
-    const {id,sort_by,no_of_months}=req.body;
+    const {sort_by,no_of_months}=req.body;
+    const id = req.user.username;
+    
     let order="";
     switch(sort_by){
         case "1":

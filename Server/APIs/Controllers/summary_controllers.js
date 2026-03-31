@@ -1,10 +1,9 @@
 
-const { response } = require("express");
 const db = require("../config/db_config");
 
 const load_balances= async (req,res)=>{
 
-    const {user_id}=req.body;
+    const user_id = req.user.username;
     if (!user_id) {
         return res.status(400).json({ response: false, reason: "No user_id provided" });
     }
@@ -26,7 +25,7 @@ const load_balances= async (req,res)=>{
 
 const recent_trans = async (req,res)=>{
 
-    const {user_id} = req.body;
+    const user_id = req.user.username;
     if (!user_id) {
         return res.status(400).json({ response: false, reason: "No user_id provided" });
     }
@@ -48,7 +47,7 @@ const recent_trans = async (req,res)=>{
 const expenses_pie_chart= async (req,res)=>{
     try {
 
-        const {id}=req.body;
+        const id = req.user.username;
         const sql="select category, sum(amount) as total from expenses where user_id=? and month(date_created)= month(curdate()) and year(date_created)=year(curdate()) group by category"
         const [rows]= await db.promise().query(sql,[id]);
 
@@ -62,9 +61,10 @@ const expenses_pie_chart= async (req,res)=>{
 }
 
 const income_pie_chart= async (req,res)=>{
+
     try {
         
-        const {id}=req.body;
+        const id = req.user.username;
         const sql="select category, sum(amount) as total from income where user_id=? and month(date)= month(curdate()) and year(date)=year(curdate()) group by category"
         const [rows]= await db.promise().query(sql,[id]);
 
@@ -79,7 +79,7 @@ const income_pie_chart= async (req,res)=>{
 
 const monthly_summary=async (req,res)=>{
 
-    const {id}= req.body;
+    const id = req.user.username;
     const sql="Select income,expense,month,year from monthly_summary where user_id=? order by year DESC, month DESC limit 5" ;
     
     db.query(sql, [id], (err, row)=>{
@@ -97,7 +97,7 @@ const summary= async (req,res)=>{
 
     try {
 
-        const id=req.user.username;
+        const id = req.user.username;
 
         if(!id){
 
@@ -154,14 +154,13 @@ const summary= async (req,res)=>{
     } catch (error) {
 
         return res.status(500).json({response:false});
-
         
     }
 }
 
 const recurring_income_expenses= async (req,res)=>{
 
-    const user_id=req.user.username;
+    const user_id = req.user.username;
     try {
 
         const [income]= await db.promise().query("select id,category,amount from recurringIncome where user_id=?",[user_id]);
