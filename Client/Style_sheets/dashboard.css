@@ -1162,8 +1162,8 @@ body {
    height: 99%;
 
 }
-.delete_inc, .delete_exp{
-    margin: 10px;
+.delete_inc, .delete_exp, .enable_exp_editing, .enable_income_editing{
+    margin:5px;
 }
 
 
@@ -1466,6 +1466,7 @@ body {
     gap: 3px;
 
 }
+
 }
 
 
