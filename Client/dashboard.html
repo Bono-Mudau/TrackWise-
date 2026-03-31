@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self'; style-src 'self' https://cdnjs.cloudflare.com;">
-    <title>TrackWise</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="Style_sheets/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -67,7 +67,7 @@
                     </div>
                     <div id="progress-container" class="progress-container">
                 
-                            <label id="limit-progress">Budget used: 66.7% ( R2000 / R3000 )</label>
+                            <label id="limit-progress">Budget used: 0.00% ( R00 / R2000 )</label>
                         
                     </div>
                    
@@ -77,6 +77,7 @@
                 </div>
                  <div id="graph">
                         <div>
+
                             <canvas id="expenses_chart"></canvas>
 
                         </div>
@@ -94,10 +95,11 @@
                     
                     <table id="Overdue-expenses">
                         <thead>
-                            <th>Expense ID</th>
+
                             <th>Description</th>
-                            <th>Amount</th>
+                            <th>Amount(R)</th>
                             <th>Due date</th>
+
                         </thead>
                         <tbody id="overdue_exp_list">
                         </tbody>
@@ -112,11 +114,11 @@
                     <table id="trans-table">
                         <thead>
                             <tr>
-                                <th>Tranasction id</th>
-                                <th>Date</th>
+
                                 <th>Category</th>
                                 <th>Amount</th>
                                 <th>Type</th>
+
                             </tr>
                         </thead>
                         <tbody id="recents-trans">
@@ -182,13 +184,11 @@
                         <table id="expense-table" >
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Date</th>
                                     <th>Description</th>
-                                    <th>Category</th>
-                                    <th>Amount (R)</th>
+                                    <th>Amount(R)</th>
                                     <th>Status</th>
-                                    <th>Due Date</th>
+                                    <th>Due_date</th>
+                                    <th>Category</th>
                                     <th></th>
                                 </tr>
                             </thead>
