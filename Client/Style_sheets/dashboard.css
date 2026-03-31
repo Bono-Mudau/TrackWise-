@@ -1163,7 +1163,7 @@ body {
 
 }
 .delete_inc, .delete_exp{
-    margin-left: 10px;
+    margin: 10px;
 }
 
 
@@ -1295,7 +1295,6 @@ body {
 }
 .create-expense-card button, .create-income-card button{
     width: 60%;
-    background: rgb(115, 154, 177);
     min-height: 40px;
     margin: 0 auto;
     margin-bottom: 10px;
