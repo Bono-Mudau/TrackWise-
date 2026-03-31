@@ -100,6 +100,7 @@ body {
     display: flex;
     max-width: 100%;
     overflow-x: hidden;
+    background-color: #73a3f06e;
 
 }
 .sidebar{
@@ -192,7 +193,6 @@ body {
 #display-area{
     flex: 1;
     width: 100%;
-    background-color: rgb(235, 247, 246);
     display: flex;
     flex-direction: column;
 }
@@ -374,7 +374,7 @@ body {
 
 
 #trans-table th {
-  background-color: rgba(94, 153, 201, 0.822);
+  background-color: rgba(15, 117, 201, 0.856);
   color: white;
   padding: 3%;
   text-align: left;
@@ -411,7 +411,7 @@ body {
 
 
 #expense-table th {
-  background-color: #e2b5b3;
+  background-color: #ad413bbb;
   color: white;
   padding: 12px;
   text-align: left;
@@ -448,7 +448,7 @@ body {
 
 
 #income-table th {
-  background-color: rgb(139, 212, 139);
+  background-color: rgba(56, 145, 56, 0.849);
   color: white;
   padding: 12px;
   text-align: left;
@@ -779,7 +779,7 @@ body {
 }
 
 #Overdue-expenses thead tr {
-    background-color: rgba(94, 153, 201, 0.822);
+    background-color: rgba(15, 117, 201, 0.856);
 }
 
 #Overdue-expenses th {
@@ -804,36 +804,12 @@ body {
     background-color: #f2f2f2;
 }
 
-
 #Overdue-expenses tbody tr:hover {
     background-color: #ddd;
 }
-.progress-bars-container {
-  display: flex;
-  background:none;
-  align-content: center;
-  justify-content: space-around;
-}
-.progress-bar{
-    min-height: 45px;
-    min-width: 300px;
-    border: none;
-    border-radius: 10px;
-    margin: 0 auto;
-    padding: 5px;
-}
 
-.progress-bar::-webkit-progress-bar {
-  background-color: #ffffff;
-   border-radius: 10px;
 
-}
 
-.progress-bar::-webkit-progress-value {
-  background-color: #5892ac7e;
-    border-radius: 10px;
-
-}
 .settings{
     width: 100%;
     max-width: 900px;
@@ -987,13 +963,13 @@ body {
     min-height: 40px;
     border: 1px solid rgba(0, 0, 0, 0.199);
     border-radius: 10px;  
-    background: none;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     margin-bottom: 5px;
     padding: 5px;
+    background-color: #ceddf8;
 }
 .progress-container label{
     width: fit-content;
@@ -1168,6 +1144,23 @@ body {
     padding: 10px;
 }
 
+#Overdue-expenses td, #trans-table td , #expense-table td , #income-table td {
+    display: flex ;
+    gap: 3px;
+
+}
+
+#Overdue-expenses, #trans-table , #expense-table, #income-table {
+    
+    background: white;
+}
+
+#Overdue-expenses input, #trans-table input , #expense-table input, #income-table input{
+   
+   height: 99%;
+
+
+}
 
 
 @media (max-width:720px){
@@ -1458,11 +1451,19 @@ body {
     min-height: 30px;
     width: fit-content;
     min-width: 99%;
-    background: none;
+    background-color: whitesmoke;
     
 }
+#Overdue-expenses, #trans-table , #expense-table, #income-table {
+    min-width: 100%;
 
+}
 
+#Overdue-expenses td, #resent_trans td , #expense-table td , #income-table td {
+    display: flex ;
+    gap: 3px;
+
+}
 }
 
 

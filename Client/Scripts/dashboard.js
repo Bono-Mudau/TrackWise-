@@ -150,10 +150,12 @@ async function load_all_expenses(){
       const trans_list=document.getElementById("expense-trans");
       trans_list.style.display="";
       data.forEach(element => {
+
         const row=document.createElement("tr");
         row.id="exp_row-"+element.exp_id;
+
         let status="Not Paid"
-       
+    
         if(element.status==1){
           status="Paid"
         }
@@ -168,14 +170,16 @@ async function load_all_expenses(){
         const delete_btn=document.createElement("button");
         delete_btn.innerHTML=`<i class="fa-solid fa-trash"></i>`;
         delete_btn.classList.add("delete_exp");
+
         row.innerHTML=`
-            <td>${element.description}</td>
-            <td>${element.amount}</td>
-            <td>${status}</td>
-            <td>${due_Date.substring(0,10)}</td>
-            <td>${element.category}</td>
-            <td></td>
+          <td>${element.description}</td>
+          <td>${element.amount}</td>
+          <td>${status}</td>
+          <td>${due_Date.substring(0,10)}</td>
+          <td>${element.category}</td>
+          <td></td>
           `;
+
         row.cells[row.cells.length - 1].appendChild(edit);
         row.cells[row.cells.length - 1].appendChild(delete_btn);
         trans_list.appendChild(row);
@@ -298,10 +302,11 @@ function submit_expense(){
             <td>${expense_entry.category}</td>
             <td></td>
           `;
-        row.cells[5].innerHTML=`<button class="enable_exp_editing"><i class="fa-solid fa-pen"></i></button>  <button class="delete_exp"> <i class="fa-solid fa-trash"></i> </button> `;
-        row.cells[5].querySelector(".enable_exp_editing").addEventListener("click", enable_exp_editing);
-        row.cells[5].querySelector(".delete_exp").addEventListener("click", delete_expense_entry);
-        
+        row.cells[5].innerHTML=`
+          <button class="enable_exp_editing"><i class="fa-solid fa-pen"></i></button>  
+          <button class="delete_exp"> <i class="fa-solid fa-trash"></i> </button> 
+        `;
+       
         const t_row=document.createElement("tr");
         t_row.id="exp_table_total";
         t_row.innerHTML=`
@@ -334,21 +339,25 @@ function enable_exp_editing(event){
   const status=row.cells[2].innerHTML;
   row.cells[0].innerHTML=`<input class="input-field"  type="text" maxlength="30" value="${description}">
   `;
-  row.cells[4].innerHTML=` <select class="input-field" name="Category">
-                            <option value="none">Select</option>
-                            <option value="Groceries"> Groceries</option>
-                            <option value="Entertainment"> Entertainment</option>
-                            <option value="Transport"> Transport</option>
-                            <option value="Emergency"> Emergency</option>
-                            <option value="Taxes">Taxes</option>
-                            <option value="Rent">Rent</option>
-                            <option value="Travel"> Travel</option>
-                            <option value="Personal care"> Personal care</option>
-                            <option value="Health care">Health care</option>
-                            <option value="Clothing & Accessories">Clothing & Accessories</option>
-                            <option value="Other">Other</option>
-                          </select>
+  row.cells[4].innerHTML=`
+  <select class="input-field" name="Category">
+
+    <option value="none">Select</option>
+    <option value="Groceries"> Groceries</option>
+    <option value="Entertainment"> Entertainment</option>
+    <option value="Transport"> Transport</option>
+    <option value="Emergency"> Emergency</option>
+    <option value="Taxes">Taxes</option>
+    <option value="Rent">Rent</option>
+    <option value="Travel"> Travel</option>
+    <option value="Personal care"> Personal care</option>
+    <option value="Health care">Health care</option>
+    <option value="Clothing & Accessories">Clothing</option>
+    <option value="Other">Other</option>
+
+  </select>
   `;
+
   row.cells[4].querySelector("select").value = category;
   row.cells[1].innerHTML=` <input class="input-field"  type="text" maxlength="7" value="${amount}">`;
   row.cells[2].innerHTML=`Paid ?<input  type="checkbox">`
@@ -444,14 +453,16 @@ function update_exp(event){
       amount:0.00,
       status:0
      }
+
     //get the updated values
-    const description=row.cells[2].querySelector("input");
+    const description=row.cells[0].querySelector("input");
     if(description.value.length<3){
       alert("Description too short")
       return;
     }
+
     updated_expense.description=description.value;
-    const category=row.cells[3].querySelector("select");
+    const category=row.cells[4].querySelector("select");
     if(category.value!="none"){
       updated_expense.category=category.value;
     }
@@ -459,13 +470,16 @@ function update_exp(event){
       alert("Please select an option!")
       return;
     }
-    const amount=row.cells[4].querySelector("input");
+
+    const amount=row.cells[1].querySelector("input");
     if(isNaN(Number(String(amount.value))) || amount.value=="" || amount.value<1){
       alert("Enter a valid number");
       return;
     }
+
     updated_expense.amount=amount.value;
-    const status=row.cells[5].querySelector("input");
+    const status=row.cells[2].querySelector("input");
+
     if(status.checked){
         updated_expense.status=1;
         status.checked=false;  
@@ -496,22 +510,27 @@ function update_exp(event){
 
           //update description
           description.value="";
-          row.cells[2].innerHTML=updated_expense.description;
+          row.cells[0].innerHTML=updated_expense.description;
 
           //updtate category
           category.value="";
-          row.cells[3].innerHTML=updated_expense.category;
+          row.cells[4].innerHTML=updated_expense.category;
 
           //update amount
-          row.cells[4].innerHTML=updated_expense.amount;
+          row.cells[1].innerHTML=updated_expense.amount;
           
           if(updated_expense.status==1){
-              row.cells[5].innerHTML=`Paid`; 
+
+              row.cells[2].innerHTML=`Paid`; 
           }else{
-            row.cells[5].innerHTML="Not paid"
+
+            row.cells[2].innerHTML="Not paid"
           }
-          row.cells[7].innerHTML=`<button id="enable-exp--"  > Edit </button> <button id="del-exp"  > Delete </button>
-                                `
+
+          row.cells[5].innerHTML = `
+            <button class="enable_exp_editing"><i class="fa-solid fa-pen"></i></button>  
+            <button class="delete_exp"> <i class="fa-solid fa-trash"></i> </button> 
+          `;
           document.getElementById("enable-exp--").addEventListener("click",enable_exp_editing);
           document.getElementById("del-exp").addEventListener("click",delete_expense_entry);
 
@@ -571,7 +590,6 @@ async function get_overdue_expenses() {
         data.rows.forEach(item=>{
           const row=document.createElement("tr");
           row.innerHTML=`
-            <td>${item.exp_id}</td>
             <td>${item.description}</td>
             <td>${item.amount}</td>
             <td>${item.due_date.substring(0,10)}</td>
