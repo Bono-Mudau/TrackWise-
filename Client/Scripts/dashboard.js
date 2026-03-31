@@ -162,7 +162,7 @@ async function load_all_expenses(){
           due_Date=element.due_date;
         }
         const edit=document.createElement("button");
-        edit.innerHTML=`<i class="fa-solid fa-pen">`;
+        edit.innerHTML=`<i class="fa-solid fa-pen"></i>`;
         edit.classList.add("enable_exp_editing");
 
         const delete_btn=document.createElement("button");
@@ -424,6 +424,7 @@ function delete_expense_entry(event){
       if(res.response){
       selected_exp.remove();
       load_balances();
+      load_all_expenses();
 
       }
       else{
@@ -534,6 +535,7 @@ function update_exp(event){
 
 
           load_balances();
+          load_all_expenses();
         }
         else{
           alert("DB_ERR:update exp");
@@ -662,7 +664,7 @@ function submit_income(){
         let current_total=0;
         if(document.getElementById("income_table_total")){
 
-          current_total=document.getElementById("income_table_total").cells[3].innerHTML.substring(1);
+          current_total=document.getElementById("income_table_total").cells[2].innerHTML.substring(1);
           document.getElementById("income_table_total").remove()
           current_total=Number(current_total)+Number(income_entry.amount);
 
@@ -697,6 +699,7 @@ function submit_income(){
         trans_list.appendChild(row)
         trans_list.appendChild(t_row);
         load_balances();
+
       }
       else{
         alert("entry not added")
@@ -743,6 +746,7 @@ function delete_income(event){
           if(res.response){
             selected_income.remove();
             load_balances();
+            load_income();
           }
           else{
                 window.alert("Income entry not deleted");
@@ -750,8 +754,8 @@ function delete_income(event){
         })
       }
       catch (error) {
-        throw new error("income not deleted");
         
+        throw new error("income not deleted");
       }
       }
   else{
@@ -803,11 +807,11 @@ function load_income(){
     data.forEach(el=>{
 
         const edit=document.createElement("button");
-        edit.innerHTML=`<button class="enable_income_editing"><i class="fa-solid fa-pen"></i></button>  `;
+        edit.innerHTML=`<i class="fa-solid fa-pen"></i> `;
         edit.classList.add("enable_income_editing")
 
         const delete_btn=document.createElement("button");
-        delete_btn.innerHTML=`<button class="delete_inc"> <i class="fa-solid fa-trash"></i> </button> `;
+        delete_btn.innerHTML=` <i class="fa-solid fa-trash"> </i>  `;
         delete_btn.classList.add("delete_inc");
 
         const row=document.createElement("tr");
@@ -933,6 +937,7 @@ function update_income(event){
             <button class="delete_inc"> <i class="fa-solid fa-trash"></i> </button> 
           `;
           load_balances();
+          load_income();
         }
       })
       
