@@ -1,7 +1,7 @@
 
 html, body {
   margin: 0 auto;
-  background-color: #beb4ce25;
+  background-color: #73a3f06e;
 }
 body {
     margin: 0;
@@ -55,7 +55,8 @@ body {
     min-height: 40px;
     align-items: center;
     width: 100%;
-    background-color:rgba(79, 79, 243, 0.652);
+    /* background-color:rgba(79, 79, 243, 0.652); */
+    background-color: #ffffff;
 }
 
 .menu-button {
@@ -243,7 +244,6 @@ body {
     width: 90%;
     max-width: 95%;
     justify-content: space-between;
-
 }
 .resent_trans, .exp_trans, .income_trans {
     width: 100%;
@@ -253,7 +253,7 @@ body {
 
     border: 1px solid rgb(0,0,0,0.1);
     border-radius: 8px;
-    background-color: rgb(109, 138, 139,0.1);
+    background-color: whitesmoke;
     padding: 3%;
     margin-bottom: 2%;
 
@@ -262,6 +262,7 @@ body {
 #summary-card h4{
    margin: 0;
    font-family: system-ui, -apple-system, sans-serif;
+   background-color: whitesmoke;
    font-size: larger;
    padding: 1px;
    border-radius: 5px;
@@ -1010,6 +1011,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: rgb(255, 255, 255);
+    background-color: #73a3f0;
 
 }
 .show-summary{
@@ -1162,6 +1164,9 @@ body {
 #due_date{
     height: 90%;
 }
+#current-balance{
+    padding: 10px;
+}
 
 
 
@@ -1192,7 +1197,9 @@ body {
     margin: 0 auto;
     gap: 5px;
     overflow: hidden;  
-    height: auto;  
+    height: auto;
+    align-items: center;  
+
 }
 #summary-card div{
     padding: 1%;
@@ -1202,12 +1209,18 @@ body {
     max-width:31%;
     padding: 5px;
     overflow: hidden;
+    height: fit-content;
 }
 #summary-card h4{
-
+    text-align: center;
     font-weight: 400;
     font-family: system-ui, -apple-system, sans-serif;
+    padding: 0;
     
+}
+#current-balance{
+    min-height: 50px;
+
 }
 
 #charts{
@@ -1318,13 +1331,16 @@ body {
 
 #footer{
     display: flex;
-    flex-direction: row;
-    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
     padding: 0;
+    width: 100%;
+    background: none;
 }
 #footer div{
     height: fit-content;
     margin: 0 auto;
+    max-width: 50%;
     padding: 0;
 }
 .progress-bars-container {
@@ -1369,7 +1385,7 @@ body {
     align-self: center;
     justify-self: center;
     box-sizing: border-box;
-    background-color: #6e7879c4;
+    background-color: #7c2d2db0;
     border: none;
     border-radius: 5px;
 
@@ -1436,6 +1452,7 @@ body {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
 }
+
 .progress-container{
     margin: 10px auto ;
     min-height: 30px;
