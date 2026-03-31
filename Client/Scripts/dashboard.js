@@ -366,7 +366,6 @@ function enable_exp_editing(event){
     row.cells[2].innerHTML=`Paid ? <input  type="checkbox">`
   }
   row.cells[5].innerHTML=`<button class="update-exp-" >Save</button>`;
-  document.getElementById("update-exp-").addEventListener("click",update_exp);
   
 }
 
@@ -754,7 +753,7 @@ function delete_income(event){
         })
       }
       catch (error) {
-        
+
         throw new error("income not deleted");
       }
       }
