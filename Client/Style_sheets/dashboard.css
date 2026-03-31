@@ -1145,11 +1145,6 @@ body {
     padding: 10px;
 }
 
-#Overdue-expenses td, #trans-table td , #expense-table td , #income-table td {
-    gap: 3px;
-
-}
-
 #Overdue-expenses, #trans-table , #expense-table, #income-table {
     background: white;
 }
@@ -1157,7 +1152,6 @@ body {
 #Overdue-expenses input, #trans-table input , #expense-table input, #income-table input{
    
    height: 99%;
-
 
 }
 
@@ -1459,7 +1453,6 @@ body {
 }
 
 #Overdue-expenses td, #resent_trans td , #expense-table td , #income-table td {
-    display: flex ;
     gap: 3px;
 
 }
