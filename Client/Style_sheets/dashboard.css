@@ -1146,7 +1146,6 @@ body {
 }
 
 #Overdue-expenses td, #trans-table td , #expense-table td , #income-table td {
-    display: flex ;
     gap: 3px;
 
 }
