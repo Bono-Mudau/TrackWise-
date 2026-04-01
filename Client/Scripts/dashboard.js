@@ -281,6 +281,13 @@ function submit_expense(){
     .then(res=>{
 
       if(res.status){
+
+        //ensure the table is not  hidden
+        if(document.getElementById("expense-table").style.display=="none"){
+
+           document.getElementById("expense-trans-alternative").style.display="none";
+           document.getElementById("expense-table").style.display="";
+       }
         let current_total=0;
         if(document.getElementById("exp_table_total")){
 
@@ -450,6 +457,7 @@ function delete_expense_entry(event){
 function update_exp(event){
 
     const btn = event.target.closest(".update-exp-");
+    const row=event.target.closest("tr");
     if(btn){
       btn.disabled=true;
       btn.innerText="Saving..."
@@ -678,6 +686,12 @@ function submit_income(){
     .then(res=>{
 
       if(res.response){//entry added to the Database successfully
+
+        //ensure the table is hidden
+        if(document.getElementById("income-table").style.display=="none"){
+          document.getElementById("income-trans-alternative").style.display="none";
+          document.getElementById("income-table").style.display="";
+        }
 
         let current_total=0;
         if(document.getElementById("income_table_total")){
