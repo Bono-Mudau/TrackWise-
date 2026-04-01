@@ -140,11 +140,13 @@ async function load_all_expenses(){
         throw new Error("Invalid data format");
       }
       if(data.length==0){
-        document.getElementById("expense-trans").style.display="none";
+        document.getElementById("expense-table").style.display="none";
+         document.getElementById("expense-trans-alternative").style.display="";
         return;
       }
       else{
         document.getElementById("expense-trans-alternative").style.display="none";
+        document.getElementById("expense-table").style.display="";
       }
 
       let total=0;
@@ -377,7 +379,7 @@ function enable_exp_editing(event){
 document.getElementById("expense-table").addEventListener("click", (e)=>{
   const element=e.target;
 
-  if(element.classList.contains("update-exp-")){
+  if(element.closest(".update-exp-")){
     update_exp(e);
   }
 
@@ -446,7 +448,12 @@ function delete_expense_entry(event){
 }
 
 function update_exp(event){
-    const row=event.target.closest("tr");
+
+    const btn = event.target.closest(".update-exp-");
+    if(btn){
+      btn.disabled=true;
+      btn.innerText="Saving..."
+    }
     event.target.closest(".update-exp-").disabled=true;
     let updated_expense={
       expense_id:row.id.replace("exp_row-",""),
@@ -548,7 +555,9 @@ function update_exp(event){
       
     }  
     finally{
-      event.target.closest(".update-exp-").disabled=false;
+      if(btn){
+        btn.disabled=false;
+    }
     }
 }
 
@@ -585,7 +594,7 @@ async function get_overdue_expenses() {
         alert("db-ovd-err");
         return
       }else{
-        
+
         if(data.rows.length==0){
           document.getElementById("Overdue-expenses").style.display="none";
         }
@@ -809,11 +818,13 @@ function load_income(){
 
     if(data.length==0){
       document.getElementById("income-table").style.display="none";
+      document.getElementById("income-trans-alternative").style.display="";
       return;
     }
     else{
       
       document.getElementById("income-trans-alternative").style.display="none";
+      document.getElementById("income-table").style.display="";
 
     }
 
@@ -864,7 +875,7 @@ function load_income(){
 document.getElementById("income-table").addEventListener("click", (e)=>{
   const element=e.target;
 
-  if(element.classList.contains("update-inc-")){
+  if(element.closest(".update-inc-")){
     update_income(e);
   }
 
@@ -892,7 +903,12 @@ function addentry1(){
 
 function update_income(event){
     
-    event.target.disabled = true;
+    const btn = event.target.closest(".update-inc-");
+    if(btn){
+      btn.disabled=true;
+      btn.innerText="Saving..."
+    }
+  
     const row=event.target.closest("tr");
     const update_id=row.id;
 
@@ -964,7 +980,9 @@ function update_income(event){
       
     }
     finally{
-      event.target.disabled=false;
+      if(btn){
+      btn.disabled=false;
+    }
     }
     
 }
@@ -1075,10 +1093,12 @@ function recent_transactions(){
 
         if(data.length==0){
           document.getElementById("trans-table").style.display="none";
+          document.getElementById("recents-trans-alternative").style.display="";
           return;
         }
         else{
           document.getElementById("recents-trans-alternative").style.display="none";
+          document.getElementById("trans-table").style.display="";
         }
 
         data.recent_transactions.forEach(entry=>{
@@ -1210,6 +1230,14 @@ function show_overview(){
     overview.classList.replace("overview","overview1");
   }
 
+  //hide the charts section if both charts are empty
+  if(document.getElementById("expenses_chart").style.display=="none" && document.getElementById("income_chart").style.display=="none"){
+    document.getElementById("graph").style.display="none";
+  }
+  else{
+    document.getElementById("graph").style.display="";
+
+  }
   income_chart();
   expense_chart();
   monthly_summary();
@@ -1378,9 +1406,12 @@ function monthly_summary(){
     }
     else{
 
-       if(res.data.length==0){
+      if(res.data.length==0){
         document.getElementById("charts").style.display="none";
         return;
+      }
+      else{
+        document.getElementById("charts").style.display="";
       }
 
       const month_names=["Jan", "Feb", "Mar", "Apr", "May" ,"Jun" ,"Jul" , "Aug", "Sep" , "Oct" , "Nov", "Dec"];
@@ -1478,6 +1509,10 @@ function income_chart(){
        if(res.data.length==0){
         document.getElementById("income_chart").style.display="none";
         return;
+      }
+      else{
+        document.getElementById("income_chart").style.display="";
+
       }
 
       const labels=res.data.map(d=>d.category);
@@ -1589,6 +1624,9 @@ function expense_chart(){
         document.getElementById("expenses_chart").style.display="none";
         return;
       }
+      else{
+        document.getElementById("expenses_chart").style.display="";
+      }
       
       const labels=res.data.map(d=>d.category);
       const totals=res.data.map(d=>d.total);
@@ -1673,10 +1711,6 @@ function expense_chart(){
 income_chart();
 expense_chart();
 
-//hide the charts section if both charts are empty
-if(document.getElementById("expenses_chart").style.display=="none" && document.getElementById("income_chart").style.display=="none"){
-  document.getElementById("graph").style.display="none";
-}
 
 
 function setting_toggle(){
@@ -2182,7 +2216,6 @@ async function load_recurring(){
                       <td>${id} </td>
                       <td>${category}</td>
                       <td>${amount} </td>
-                      <td></td>
                       <td><button class="delete-recurring-income"  data-id=${id} ><i class="fa-regular fa-trash-can"></i></button> </td>
                       `
         incomeTable.appendChild(row);
@@ -2216,7 +2249,6 @@ async function load_recurring(){
                       <td>${description} </td>
                       <td>${category}</td>
                       <td>${amount} </td>
-                      <td></td>
                       <td><button class="delete-recurring-expense" data-id=${id}><i class="fa-regular fa-trash-can"></i></button> </td>
                       `
         expenseTable.appendChild(row);
