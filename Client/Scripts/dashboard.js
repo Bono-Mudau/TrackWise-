@@ -201,7 +201,7 @@ async function load_all_expenses(){
       row.style.fontWeight = "bold";
       row.style.height = "20px";   
       trans_list.appendChild(row);
-      load_balances();
+
   })
   .catch(err => {
      alert("Unexpected error occurred");
@@ -331,12 +331,15 @@ function submit_expense(){
         t_row.style.height = "20px"; 
         trans_list.appendChild(row)
         trans_list.appendChild(t_row);
-        load_balances();
         addentry();
         document.getElementById("submit_exp").disabled=false;
       }
     })   
 }
+
+// variables to hold amount values before editing entries
+let prev_income_amount=0;
+let prev_expense_amount=0;
 
 //Enable editing in the expense table
 function enable_exp_editing(event){
@@ -348,6 +351,7 @@ function enable_exp_editing(event){
   const category=row.cells[4].innerText;
   const amount=row.cells[1].innerText;
   const status=row.cells[2].innerHTML;
+  prev_expense_amount=amount;
   row.cells[0].innerHTML=`<input class="input-field"  type="text" maxlength="30" value="${description}">
   `;
   row.cells[4].innerHTML=`
@@ -433,10 +437,16 @@ function delete_expense_entry(event){
     .then(res=>{
 
       if(res.response){
-      selected_exp.remove();
-      load_balances();
-      load_all_expenses();
 
+        //update the total
+        const total=Number(document.getElementById("expense-sum").value.substring(1));
+        const amount=NUmber(selected_exp.cells[1].innerHTML);
+
+        if(!isNaN(total) && !isNaN(amount)){
+          const new_total=Number(total)-Number(amount);
+          document.getElementById("expense-sum").innerHTML=`R ${new_total}`;
+        }
+      selected_exp.remove();
       }
       else{
         window.alert("expense not deleted");
@@ -549,8 +559,15 @@ function update_exp(event){
             <button class="delete_exp"> <i class="fa-solid fa-trash"></i> </button> 
           `;
 
-          load_balances();
-          load_all_expenses();
+          //update the total
+          const total=Number(document.getElementById("expense-sum").value.substring(1));
+          if(!isNaN(total)) {
+
+            const new_total=Number(total)-prev_expense_amount+amount;
+            document.getElementById("expense-sum").innerHTML=`R ${new_total}`;
+            prev_expense_amount=0;
+            
+          }
         }
         else{
           alert("DB_ERR:update exp");
@@ -682,18 +699,17 @@ function submit_income(){
 
       if(res.response){//entry added to the Database successfully
 
-        //ensure the table is hidden
+        //ensure the table is not hidden
         if(document.getElementById("income-table").style.display=="none"){
           document.getElementById("income-trans-alternative").style.display="none";
           document.getElementById("income-table").style.display="";
         }
 
         let current_total=0;
-        if(document.getElementById("income_table_total")){
-
-          current_total=document.getElementById("income_table_total").cells[2].innerHTML.substring(1);
+        if(!isNaN(Number(document.getElementById("income-sum").innerHTML.substring(1)))){ 
+          current_total = Number(document.getElementById("income-sum").innerHTML.substring(1));
+          current_total = Number(current_total)+Number(income_entry.amount);
           document.getElementById("income_table_total").remove()
-          current_total=Number(current_total)+Number(income_entry.amount);
 
         }
 
@@ -718,14 +734,13 @@ function submit_income(){
         t_row.innerHTML=`
           <td>Total</td>
           <td></td>
-          <td id="income-sum">R${current_total}</td>
+          <td id="income-sum">R ${current_total}</td>
           <td></td>
         `;
         t_row.style.fontWeight = "bold";
         t_row.style.height = "20px"; 
         trans_list.appendChild(row)
         trans_list.appendChild(t_row);
-        load_balances();
 
       }
       else{
@@ -774,13 +789,21 @@ function delete_income(event){
         .then(res=>{
 
           if(res.response){
+
+            //update the total
+            const total=Number(document.getElementById("income-sum").value.substring(1));
+            const amount=Number(selected_income.cells[2].innerHTML);
+
+            if(!isNaN(total) && !isNaN(amount)){
+              const new_total=Number(total)-Number(amount);
+              document.getElementById("income-sum").innerHTML=`R ${new_total}`;
+            }
             selected_income.remove();
-            load_balances();
-            load_income();
           }
           else{
-                window.alert("Income entry not deleted");
-            }
+           window.alert("Income entry not deleted");
+          }
+
         })
       }
       catch (error) {
@@ -875,7 +898,6 @@ function load_income(){
     row.style.fontWeight = "bold";
     row.style.height = "20px";   
     trans_list.appendChild(row);
-    load_balances();
 
   })
 }
@@ -943,7 +965,8 @@ function update_income(event){
     }
   
     try {
-      let data={ income_id:update_id.replace("income_row-",""),
+      let data={ 
+        income_id:update_id.replace("income_row-",""),
         category:new_cate,
         amount:amount.value
       }
@@ -968,6 +991,7 @@ function update_income(event){
         }
       })
       .then(data=>{
+
         if(data.response){
 
           //updtate category
@@ -979,19 +1003,28 @@ function update_income(event){
             <button class="enable_income_editing"><i class="fa-solid fa-pen"></i></button>  
             <button class="delete_inc"> <i class="fa-solid fa-trash"></i> </button> 
           `;
-          load_balances();
-          load_income();
+          
+          //update the total
+          const total=Number(document.getElementById("income-sum").value.substring(1));
+          if(!isNaN(total)) {
+
+            const new_total=Number(total)-prev_income_amount+amount;
+            document.getElementById("income-sum").innerHTML=`R ${new_total}`;
+            prev_income_amount=0;
+            
+          }
         }
+        alert("Updated sucessfully")
       })
       
-    } catch (error) {
+    } 
+    catch (error) {
       console.log(error)
+      alert("err updating an entry")
       
     }
     finally{
-      if(btn){
-      btn.disabled=false;
-    }
+      
     }
     
 }
@@ -1002,6 +1035,7 @@ function enable_income_editing(event){
   //Retrieve current data from the cells
   const category=row.cells[1].innerText;
   const amount=row.cells[2].innerText;
+  prev_income_amount=amount;
   row.cells[1].innerHTML=` 
   <select class="input-field" name="Category">
 
