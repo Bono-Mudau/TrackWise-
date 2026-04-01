@@ -94,6 +94,7 @@ function remove_table_Rows(table_id) {
   while (table.rows.length > 1) {
     table.deleteRow(1);
   }
+
 }
 //update names on the dashboard
 document.getElementById("user-names").innerHTML="Welcome, "+user_info.names;
@@ -140,8 +141,10 @@ async function load_all_expenses(){
       }
       if(data.length==0){
         document.getElementById("expense-trans").style.display="none";
-        document.getElementById("expense-trans-alternative").style.display="";
         return;
+      }
+      else{
+        document.getElementById("expense-trans-alternative").style.display="none";
       }
 
       let total=0;
@@ -530,9 +533,6 @@ function update_exp(event){
             <button class="enable_exp_editing"><i class="fa-solid fa-pen"></i></button>  
             <button class="delete_exp"> <i class="fa-solid fa-trash"></i> </button> 
           `;
-          document.getElementById("enable-exp--").addEventListener("click",enable_exp_editing);
-          document.getElementById("del-exp").addEventListener("click",delete_expense_entry);
-
 
           load_balances();
           load_all_expenses();
@@ -585,9 +585,14 @@ async function get_overdue_expenses() {
         alert("db-ovd-err");
         return
       }else{
+        
         if(data.rows.length==0){
-          document.getElementById("overdue_exp_list-alternative").style.display="";
+          document.getElementById("Overdue-expenses").style.display="none";
         }
+        else{
+          document.getElementById("overdue_exp_list-alternative").style.display="none";
+        }
+
         document.getElementById("overdue_exp_list").innerText=``;
         data.rows.forEach(item=>{
           const row=document.createElement("tr");
@@ -803,13 +808,18 @@ function load_income(){
     }
 
     if(data.length==0){
-      document.getElementById("income-trans").style.display="none";
-      document.getElementById("income-trans-alternative").style.display="";
+      document.getElementById("income-table").style.display="none";
+      return;
+    }
+    else{
+      
+      document.getElementById("income-trans-alternative").style.display="none";
+
     }
 
     let total=0;
     const trans_list=document.getElementById("income-trans");
-    trans_list.style.display="";
+    trans_list.innerHTML="",
 
     data.forEach(el=>{
 
@@ -882,7 +892,7 @@ function addentry1(){
 
 function update_income(event){
     
-    event.target.closest(".update-inc-").disabled=true;
+    event.target.disabled = true;
     const row=event.target.closest("tr");
     const update_id=row.id;
 
@@ -954,7 +964,7 @@ function update_income(event){
       
     }
     finally{
-      event.target.closest(".update-inc-").disabled=false;
+      event.target.disabled=false;
     }
     
 }
@@ -1062,10 +1072,13 @@ function recent_transactions(){
     })
     .then(data=>{
       if(data.response){
-        if(data.length==0){
 
-          document.getElementById("recents-trans").style.display="none";
-          document.getElementById("recents-trans-alternative").style.display="";
+        if(data.length==0){
+          document.getElementById("trans-table").style.display="none";
+          return;
+        }
+        else{
+          document.getElementById("recents-trans-alternative").style.display="none";
         }
 
         data.recent_transactions.forEach(entry=>{
@@ -1365,6 +1378,11 @@ function monthly_summary(){
     }
     else{
 
+       if(res.data.length==0){
+        document.getElementById("charts").style.display="none";
+        return;
+      }
+
       const month_names=["Jan", "Feb", "Mar", "Apr", "May" ,"Jun" ,"Jul" , "Aug", "Sep" , "Oct" , "Nov", "Dec"];
       const expense_data=res.data.map(d=>d.expense);
       let income_data=res.data.map(d=>d.income);
@@ -1456,6 +1474,11 @@ function income_chart(){
       alert(res.error);
     }
     else{
+
+       if(res.data.length==0){
+        document.getElementById("income_chart").style.display="none";
+        return;
+      }
 
       const labels=res.data.map(d=>d.category);
       const totals=res.data.map(d=>d.total);
@@ -1562,6 +1585,11 @@ function expense_chart(){
     }
     else{
 
+      if(res.data.length==0){
+        document.getElementById("expenses_chart").style.display="none";
+        return;
+      }
+      
       const labels=res.data.map(d=>d.category);
       const totals=res.data.map(d=>d.total);
 
@@ -1644,6 +1672,11 @@ function expense_chart(){
 }
 income_chart();
 expense_chart();
+
+//hide the charts section if both charts are empty
+if(document.getElementById("expenses_chart").style.display=="none" && document.getElementById("income_chart").style.display=="none"){
+  document.getElementById("graph").style.display="none";
+}
 
 
 function setting_toggle(){
