@@ -23,19 +23,19 @@ body {
 }
 
 #logo{
-    max-height:50px;
     border-radius: 2px;
-    padding: 5px;
-    font-size: x-large;
-    max-width: 160px;
-    background-color: #749ea525;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-block;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 2rem; 
-    color: #2b44b3
+    color: #2b44b3;
+    width:150px;
+    height: 50px;
+}
+#logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 #user-initials{
     height: 99%;

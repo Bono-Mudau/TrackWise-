@@ -115,7 +115,7 @@ body{
     display: flex;
     flex-direction: column;
     padding: 10px;
-    background-color: rgb(69, 103, 183,0.4);
+    background-color: rgb(69, 103, 183,0.8);
     box-shadow:  4px 5px 8px rgb(245, 237, 237);
     border-radius: 10px;
 }
@@ -266,7 +266,7 @@ body{
     border-radius: 5px;
 }
 #losg-in{
-    background-color:rgb(84, 84, 253) ;
+    background-color:rgb(49, 60, 218) ;
     width: 50%;
     padding: 2px;
     font-size: 20px;
@@ -283,7 +283,7 @@ body{
     color: rgb(0, 0, 0,0.7);
 }
 #sign-up{
-    background-color:rgb(84, 84, 253) ;
+    background-color:rgb(91, 91, 192) ;
     width: 50%;
     padding: 2px;
     font-size: 20px;
