@@ -562,11 +562,6 @@ function update_exp(event){
       console.log(error)
       
     }  
-    finally{
-      if(btn){
-        btn.disabled=false;
-    }
-    }
 }
 
 function cancel_update(){
