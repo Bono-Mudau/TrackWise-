@@ -438,8 +438,8 @@ function delete_expense_entry(event){
 
       if(res.response){
 
-        const total=Number(document.getElementById("expense-sum").innerHTML.substring(1));
-        const amount=NUmber(selected_exp.cells[1].innerHTML);
+        const total=Number((document.getElementById("expense-sum").innerHTML).substring(1));
+        const amount=Number(selected_exp.cells[1].innerHTML);
 
         if(!isNaN(total) && !isNaN(amount)){
           const new_total=Number(total)-Number(amount);
@@ -562,7 +562,7 @@ function update_exp(event){
           const total=Number(document.getElementById("expense-sum").innerHTML.substring(1));
           if(!isNaN(total)) {
 
-            const new_total=Number(total)-prev_expense_amount+amount;
+            const new_total=Number(total)-prev_expense_amount+amount.value;
             document.getElementById("expense-sum").innerHTML=`R ${new_total}`;
             prev_expense_amount=0;
             
@@ -710,6 +710,9 @@ function submit_income(){
           current_total = Number(current_total)+Number(income_entry.amount);
           document.getElementById("income_table_total").remove()
 
+        }
+        if(document.getElementById("income_table_total")){
+          document.getElementById("income_table_total").remove();
         }
 
         const id=res.id;
@@ -1007,13 +1010,12 @@ function update_income(event){
           const total=Number(document.getElementById("income-sum").innerHTML.substring(1));
           if(!isNaN(total)) {
 
-            const new_total=Number(total)-prev_income_amount+amount;
+            const new_total=Number(total)-prev_income_amount+amount.value;
             document.getElementById("income-sum").innerHTML=`R ${new_total}`;
             prev_income_amount=0;
             
           }
         }
-        alert("Updated sucessfully")
       })
       
     } 
