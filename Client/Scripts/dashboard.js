@@ -86,6 +86,7 @@ function load_exp_filters(){
 load_all_expenses();
 load_income();
 load_summary();
+load_balances();
 
 
 function remove_table_Rows(table_id) {
@@ -562,7 +563,7 @@ function update_exp(event){
           const total=Number(document.getElementById("expense-sum").innerHTML.substring(1));
           if(!isNaN(total)) {
 
-            const new_total=Number(total)-prev_expense_amount+amount.value;
+            const new_total=Number(total)-Number(prev_expense_amount)+Number(amount.value);
             document.getElementById("expense-sum").innerHTML=`R ${new_total}`;
             prev_expense_amount=0;
             
@@ -1010,7 +1011,7 @@ function update_income(event){
           const total=Number(document.getElementById("income-sum").innerHTML.substring(1));
           if(!isNaN(total)) {
 
-            const new_total=Number(total)-prev_income_amount+amount.value;
+            const new_total=Number(total)-prev_income_amount+Number(amount.value);
             document.getElementById("income-sum").innerHTML=`R ${new_total}`;
             prev_income_amount=0;
             
