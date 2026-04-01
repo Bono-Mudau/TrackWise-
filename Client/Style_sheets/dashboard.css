@@ -572,6 +572,7 @@ body {
     width: 70%;
     max-width: 900px;
     padding: 5px;
+    overflow: hidden;
 
 }
 .create-expense-card label{

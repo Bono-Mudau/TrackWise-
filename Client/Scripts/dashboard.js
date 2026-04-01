@@ -438,8 +438,7 @@ function delete_expense_entry(event){
 
       if(res.response){
 
-        //update the total
-        const total=Number(document.getElementById("expense-sum").value.substring(1));
+        const total=Number(document.getElementById("expense-sum").innerHTML.substring(1));
         const amount=NUmber(selected_exp.cells[1].innerHTML);
 
         if(!isNaN(total) && !isNaN(amount)){
@@ -560,7 +559,7 @@ function update_exp(event){
           `;
 
           //update the total
-          const total=Number(document.getElementById("expense-sum").value.substring(1));
+          const total=Number(document.getElementById("expense-sum").innerHTML.substring(1));
           if(!isNaN(total)) {
 
             const new_total=Number(total)-prev_expense_amount+amount;
@@ -791,7 +790,7 @@ function delete_income(event){
           if(res.response){
 
             //update the total
-            const total=Number(document.getElementById("income-sum").value.substring(1));
+            const total=Number(document.getElementById("income-sum").innerHTML.substring(1));
             const amount=Number(selected_income.cells[2].innerHTML);
 
             if(!isNaN(total) && !isNaN(amount)){
@@ -1005,7 +1004,7 @@ function update_income(event){
           `;
           
           //update the total
-          const total=Number(document.getElementById("income-sum").value.substring(1));
+          const total=Number(document.getElementById("income-sum").innerHTML.substring(1));
           if(!isNaN(total)) {
 
             const new_total=Number(total)-prev_income_amount+amount;
