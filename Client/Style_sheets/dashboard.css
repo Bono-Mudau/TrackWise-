@@ -325,25 +325,25 @@ body {
     
 }
 #recents-trans-alternative{
-    display: none;
+
     font-family: system-ui, -apple-system, sans-serif;
     text-align: center;
     
 }
 #income-trans-alternative{
-    display: none;
+
     font-family: system-ui, -apple-system, sans-serif;
     text-align: center;
     
 }
 #expense-trans-alternative{
-     display: none; 
+     
     font-family: system-ui, -apple-system, sans-serif;
     text-align: center;
     
 }
 #overdue_exp_list-alternative{
-    display: none;
+
     font-family: system-ui, -apple-system, sans-serif;
     text-align: center;
     

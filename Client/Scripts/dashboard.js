@@ -205,7 +205,7 @@ async function load_all_expenses(){
 }
 
 function submit_expense(){
-
+    document.getElementById("submit_exp").disabled=true;
     //Data to be sent to the database
     let expense_entry={
       date:new Date().toISOString().slice(0, 19).replace("T", " "),
@@ -320,7 +320,8 @@ function submit_expense(){
         trans_list.appendChild(row)
         trans_list.appendChild(t_row);
         load_balances();
-        addentry()
+        addentry();
+        document.getElementById("submit_exp").disabled=false;
       }
     })   
 }
@@ -391,7 +392,6 @@ function delete_expense_entry(event){
 
   const selected_exp=event.target.closest("tr");
   const confirmed = confirm("Are you sure you want to delete this expense?");
-
   //confirm first if a user wants to delete an expense 
   if (!confirmed){
     return 
@@ -444,6 +444,7 @@ function delete_expense_entry(event){
 
 function update_exp(event){
     const row=event.target.closest("tr");
+    event.target.closest(".update-exp-").disabled=true;
     let updated_expense={
       expense_id:row.id.replace("exp_row-",""),
       description:"",
@@ -546,6 +547,9 @@ function update_exp(event){
       console.log(error)
       
     }  
+    finally{
+      event.target.closest(".update-exp-").disabled=false;
+    }
 }
 
 function cancel_update(){
@@ -610,6 +614,7 @@ get_overdue_expenses();
 //Income section
 function submit_income(){
 
+  document.getElementById("submit_income").disabled=true;
   if(document.getElementById("income-category-input").value=="none"){
     alert("Please select a category");
     return;
@@ -707,6 +712,9 @@ function submit_income(){
     }
     catch (error) {
       console.log(error);
+    }
+    finally{
+      document.getElementById("submit_income").disabled=false;
     }
 
   addentry1()
@@ -873,7 +881,8 @@ function addentry1(){
 }
 
 function update_income(event){
-
+    
+    event.target.closest(".update-inc-").disabled=true;
     const row=event.target.closest("tr");
     const update_id=row.id;
 
@@ -943,6 +952,9 @@ function update_income(event){
     } catch (error) {
       console.log(error)
       
+    }
+    finally{
+      event.target.closest(".update-inc-").disabled=false;
     }
     
 }
@@ -1030,7 +1042,7 @@ function load_balances(){
 
 }
 
-function recent_transactions(id){
+function recent_transactions(){
   remove_table_Rows("trans-table")
   try {
     fetch("https://trackwise-9l4u.onrender.com/api/summary/recent_trans",{
@@ -1083,7 +1095,7 @@ function recent_transactions(id){
     console.error(error);
   }
 } 
-recent_transactions(user_info.id);
+recent_transactions();
 
 //switch between sections
 
@@ -1189,7 +1201,7 @@ function show_overview(){
   expense_chart();
   monthly_summary();
   get_overdue_expenses();
-  recent_transactions(user_info.id);
+  recent_transactions();
   load_balances();
 }
 
@@ -1679,8 +1691,10 @@ async function validate_settings_input(){
   setting_toggle();
   const f_name=document.getElementById("setting-First-name").value;
   const l_name=document.getElementById("setting-last-name").value;
+  
   //Ensure user provides an Input
   if(f_name=="" || l_name==""){
+
     alert("Fill all the fields!");
     return ;
   }
@@ -1737,7 +1751,7 @@ async function validate_settings_input(){
 document.getElementById("save-settings-update").style.display="none"
 
 async function update_user_notifications_preference_(f_name,l_name,notification_on,p_remainders,overdue,limit){
-
+ 
   try {
     const res= await fetch("https://trackwise-9l4u.onrender.com/api/auth/update_settings",{
       method:"POST",
@@ -1773,11 +1787,11 @@ async function update_user_notifications_preference_(f_name,l_name,notification_
 }
 function delete_user_account(){
 
+  document.getElementById("delete-account-btn").disabled=true;
   const delete_a=confirm("Are you sure you want to permanently delete your account?");
   if(!delete_a){
     return;
   }
-
 
   try {
     fetch("https://trackwise-9l4u.onrender.com/api/auth/delete_account",{
@@ -1809,6 +1823,9 @@ function delete_user_account(){
     
   } catch (error) {
     alert("Error has occured, please try again later");
+  }
+  finally{
+    document.getElementById("delete-account-btn").disabled=false;
   }
 }
 document.getElementById("delete-account-btn").addEventListener("click",delete_user_account);
@@ -1916,6 +1933,7 @@ function generate_monthly_summary_cards( month, year,  expense, income ,amount,d
 }
 
 async function load_summary() {
+
   try {
         const res= await fetch("https://trackwise-9l4u.onrender.com/api/summary/load_summary",{
           method:"GET",
@@ -1961,6 +1979,7 @@ async function delete_recurring_expense(e){
 
   //get entry's id
   const btn=e.target.closest("[data-id]");
+  btn.disabled=true;
 
   if(!btn){
     return;
@@ -2012,6 +2031,9 @@ async function delete_recurring_expense(e){
     alert("err:entry not deleted")
       return;
   }
+  finally{
+    btn.disabled=false;
+  }
 
 
 }
@@ -2024,6 +2046,7 @@ async function delete_recurring_income(e){
 
   //get entry's id
   const btn=e.target.closest("[data-id]")
+  btn.disabled=true;
   if(!btn){
     console.log("but not found");
     return;
@@ -2074,6 +2097,9 @@ async function delete_recurring_income(e){
   } catch (error) {
     alert("err:entry not deleted")
       return;
+  }
+  finally{
+    btn.disabled=false;
   }
   
 }

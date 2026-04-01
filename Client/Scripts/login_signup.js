@@ -2,12 +2,14 @@
 function log_sign_toogle(){
     const sign = document.getElementById("signup_form");
     const log = document.getElementById("login_form");
+
     if(sign.classList.contains("signup_form")){
       sign.classList.replace("signup_form","signup_form1");
-      log.classList.replace("login_form1","login_form")
-    }else{
+      log.classList.replace("login_form1","login_form");
+    }
+    else{
       sign.classList.replace("signup_form1","signup_form");
-      log.classList.replace("login_form","login_form1")
+      log.classList.replace("login_form","login_form1");
     }
   
 }
@@ -111,7 +113,7 @@ function login(){
 
   const login_btn=document.getElementById("losg-in");
   login_btn.disabled= true;
-  login_btn.textContent = "Logging in...";
+  login_btn.innerHTML = "Logging in...";
   verify_details()
   .then(verify_user=>{
     if(verify_user.user){
@@ -127,11 +129,12 @@ function login(){
     console.log("error has occured, try again later",error);
   });
   
-  login_btn.textContent = "Submit";
+  login_btn.innerHTML = "Submit";
   login_btn.disabled= false;
 
 }
 function togglePassword(){
+
   const password=document.getElementById("e-password");
   if(password.type=="password"){
     password.type="text"
@@ -139,6 +142,7 @@ function togglePassword(){
   else{
     password.type="password"
   }
+
 }
 async function verify_details(){
 
@@ -214,7 +218,7 @@ let user_input={
 async function validate_user_information(){
   const signup_btn=document.getElementById("sign-up");
   signup_btn.disabled= true;
-  signup_btn.textContent = "Loading......";
+  signup_btn.innerHTML = "Loading......";
 
     //validate user input before sending OTP
     const f_name=document.getElementById("f-name").value.trim();
@@ -231,7 +235,7 @@ async function validate_user_information(){
      if(email==""){
 
       alert("Eamil can't be empty");
-      signup_btn.textContent = "Create account";
+      signup_btn.innerHTML = "Create account";
       signup_btn.disabled= false;
       return;
     }
@@ -241,7 +245,7 @@ async function validate_user_information(){
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(document.getElementById("email").value.trim())) {
         alert("Invalid email format");
-         signup_btn.textContent = "Create account";
+         signup_btn.innerHTML = "Create account";
          signup_btn.disabled= false;
         return;
     }
@@ -251,13 +255,13 @@ async function validate_user_information(){
 
     if(password1!=password){
       alert("Password do not match");
-      signup_btn.textContent = "Create account";
+      signup_btn.innerHTML = "Create account";
       signup_btn.disabled= false;
       return;
     }
     if(!password_strength_status1){
       alert("Weak password!!")
-       signup_btn.textContent = "Create account";
+       signup_btn.innerHTML = "Create account";
        signup_btn.disabled= false;
       return;
     }
@@ -272,7 +276,7 @@ async function validate_user_information(){
     if(!email_sent){
       alert("Error occurred sending an OTP!!")
     }
-    signup_btn.textContent = "Create account";
+    signup_btn.innerHTML = "Create account";
     signup_btn.disabled= false;
     
 }
