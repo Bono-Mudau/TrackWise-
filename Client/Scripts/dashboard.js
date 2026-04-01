@@ -484,7 +484,8 @@ function update_exp(event){
     //get the updated values
     const description=row.cells[0].querySelector("input");
     if(description.value.length<3){
-      alert("Description too short")
+      alert("Description too short");
+      btn.disabled=false;
       return;
     }
 
@@ -495,12 +496,14 @@ function update_exp(event){
     }
     else{
       alert("Please select an option!")
+      btn.disabled=false;
       return;
     }
 
     const amount=row.cells[1].querySelector("input");
     if(isNaN(Number(String(amount.value))) || amount.value=="" || amount.value<1){
       alert("Enter a valid number");
+      btn.disabled=false;
       return;
     }
 
@@ -566,11 +569,12 @@ function update_exp(event){
             const new_total=Number(total)-Number(prev_expense_amount)+Number(amount.value);
             document.getElementById("expense-sum").innerHTML=`R ${new_total}`;
             prev_expense_amount=0;
-            
           }
+          btn.disabled=false;
         }
         else{
           alert("DB_ERR:update exp");
+          btn.disabled=false;
           return
         }
       })
@@ -948,6 +952,7 @@ function update_income(event){
 
     if(update_id==""){
       alert("Err_Id");
+      btn.disabled=false;
       return;
     }
 
@@ -959,11 +964,13 @@ function update_income(event){
     }
     else{
       alert("Please select an option!")
+      btn.disabled=false;
       return;
     }
     const amount=row.cells[2].querySelector("input");
     if(isNaN(Number(String(amount.value))) || amount.value=="" || amount.value<1){
       alert("Enter a valid number");
+      btn.disabled=false;
       return;
     }
   
@@ -1016,6 +1023,7 @@ function update_income(event){
             prev_income_amount=0;
             
           }
+          btn.disabled=false;
         }
       })
       
