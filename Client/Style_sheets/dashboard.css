@@ -299,6 +299,9 @@ body {
     height: 100%;
     margin: 0 auto;
     padding: 0;
+    background-color: white;
+    border-radius: 10px;
+    font-weight: 600;
 }
 
 
@@ -1251,7 +1254,7 @@ body {
 #graph{
     display: flex;
     flex-direction: column;
-    width: 98vw;
+    width: 90vw;
     margin: 0 auto;
 }
 
