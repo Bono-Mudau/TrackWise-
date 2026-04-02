@@ -292,6 +292,7 @@ body {
     max-height: max-content;
     border-radius: 10px;
     background-color: white;
+    max-height: 300px;
     
 }
 #graph canvas{
@@ -312,6 +313,7 @@ body {
     margin: 10px auto;
     background-color: #ffffff;
     border-radius: 10px;
+    max-height: 300px;
 }
 #monthly_summary_graph {
     padding: 0;
@@ -565,7 +567,7 @@ body {
 
 .create-expense-card{
     height: 20vh;
-    max-height: 50px;
+    max-height: 65px;
     display:flex;
     margin-left: 0 auto;
     flex-direction: row;
@@ -717,7 +719,7 @@ body {
 
 .create-income-card{
     height: 20vh;
-    max-height: 50px;
+    max-height: 65px;
     display:flex;
     margin-left: 0 auto;
     flex-direction: row;
@@ -831,7 +833,7 @@ body {
 
 .settings{
     width: 100%;
-    max-width: 900px;
+    max-width: 1100px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
@@ -1027,6 +1029,7 @@ body {
     background-color: rgb(255, 255, 255);
     font-family: 'Montserrat', sans-serif;
     border-radius: 5px;
+    min-width: 95%;
     max-width: 98%;
     margin: 0 auto;
     
@@ -1106,6 +1109,8 @@ body {
 .recurring1 > div {
     margin-bottom: 25px;
     overflow: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px,1fr));
 }
 
 
@@ -1121,7 +1126,7 @@ body {
 
 
 .recurring-tables thead {
-    background: #f1f5f9;
+    background: #5f75d6;
 }
 
 .recurring-tables th {
