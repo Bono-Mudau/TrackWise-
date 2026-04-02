@@ -42,7 +42,7 @@
                     <tr><td><button id="show_income"   class="options"><i class="fas fa-wallet"></i>Income</button></td></tr>
                     <tr><td><button id="show_summary" class="options" ><i class="fas fa-receipt"></i>Summary</button></td></tr>
                     <tr><td> <button id="show_recurring" class="options" ><i class="fas fa-bell"></i>Recurring</button></td></tr>
-                    <tr><td><button class="options" ><i class="fas fa-file-export"></i>Export data</button></td></tr>
+                    <tr><td><button class="options" ><i class="fas fa-trophy"></i>Goals</button></td></tr>
                     <tr><td> <button id="show-settings_btn"class="options" ><i class="fas fa-cog"></i>Settings</button></td></tr>
                     <tr><td><hr></td></tr>
                     <tr><td><button class="options" id="log-out" ><i class="fas fa-sign-out-alt"></i>Log out</button></td></tr>
@@ -301,7 +301,7 @@
                 </div>
             </div>
             <!-- SETTINGS SECTION -->
-            <div  id="show-settings" class="show-settings">
+            <div  id="show-settings" class="show-settings1">
             <button id="setting-edit-button">Edit<i class="fas fa-edit"></i></button>
             <div class="settings">
 
@@ -385,43 +385,47 @@
             </div>
 
             <!-- Fixed income/expenses section-->
-             <div id="recurring-section" class="recurring">
+             <div id="recurring-section" class="recurring1">
                 <p>Note: Recurring expenses and income will be automatically created for you on the 1st of every month  , below are your current reccuring income and expenses</p>
-                <div>
-                    <h4> Recurring Expenses</h4>
-                    <table class="recurring-tables" >
+                
+                <div class="recurring-table-container">
 
-                        <thead>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th> Amount(R)</th>
-                            <th></th>
-                        </thead>
-                        <tbody id="recurring-expenses" >
-                            
-                        </tbody>
+                    <div>
+                        <h4> Recurring Expenses</h4>
+                        <table class="recurring-tables" >
 
-                    </table>
+                            <thead>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th> Amount(R)</th>
+                                <th></th>
+                            </thead>
+                            <tbody id="recurring-expenses" >
+                                
+                            </tbody>
 
-                </div>
-                <div>
-                    <h4> Recurring Income</h4>
-                    <table  class="recurring-tables" >
+                        </table>
 
-                        <thead>
-                            <th>Category</th>
-                            <th> Amount(R)</th>
-                            <th></th>
-                        </thead>
+                    </div>
+                    <div>
+                        <h4> Recurring Income</h4>
+                        <table  class="recurring-tables" >
 
-                        <tbody id="recurring-income-t" >
+                            <thead>
+                                <th>Category</th>
+                                <th> Amount(R)</th>
+                                <th></th>
+                            </thead>
 
-                        </tbody>
+                            <tbody id="recurring-income-t" >
 
-                    </table>
+                            </tbody>
+
+                        </table>
 
 
 
+                    </div>
                 </div>
                 
             </div>

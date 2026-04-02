@@ -313,7 +313,6 @@ body {
     margin: 10px auto;
     background-color: #ffffff;
     border-radius: 10px;
-    max-height: 300px;
 }
 #monthly_summary_graph {
     padding: 0;
@@ -929,17 +928,18 @@ body {
     display: flex;
     flex-direction: column;
     background-color: rgba(18, 26, 65, 0.445);
+    min-height: 190px;
 
 }
 .settings-sections button {
+
     width: min(250px, 50%);
-    align-self: center;
-    justify-self: center;
     box-sizing: border-box;
     background-color: #6e7879c4;
     border: none;
     border-radius: 5px;
     background-color: #7c2d2db0;
+    margin: 0 auto;
 
 
 }
@@ -1098,19 +1098,23 @@ body {
     font-size: 14px;
     color: #000000;
     margin-bottom: 20px;
+
 }
 
 .recurring1 h4 {
     margin-bottom: 10px;
-    color: #222;
+    color: #313030;
 }
 
 
 .recurring1 > div {
     margin-bottom: 25px;
     overflow: auto;
+}
+.recurring-table-container{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px,1fr));
+
 }
 
 
@@ -1126,14 +1130,15 @@ body {
 
 
 .recurring-tables thead {
-    background: #5f75d6;
+    background: #98abff;
+
 }
 
 .recurring-tables th {
     text-align: left;
     padding: 12px;
     font-size: 13px;
-    color: #444;
+    color: #000000;
     font-weight: 600;
 }
 
