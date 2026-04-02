@@ -2311,7 +2311,6 @@ async function load_recurring(){
         const row=document.createElement("tr");
 
         row.innerHTML=`
-                      <td>${id} </td>
                       <td>${description} </td>
                       <td>${category}</td>
                       <td>${amount} </td>

@@ -291,7 +291,7 @@ body {
     border: 2px solid rgba(227, 237, 255, 0.822);
     max-height: max-content;
     border-radius: 10px;
-    background-color: #436cadcc;
+    background-color: white;
     
 }
 #graph canvas{
@@ -1028,6 +1028,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     border-radius: 5px;
     max-width: 98%;
+    margin: 0 auto;
     
 }
 .summary-card-month{
@@ -1318,6 +1319,9 @@ body {
     max-height: 80%;
     max-width: 90%;
     margin: 0 auto;
+}
+.recurring-tables{
+    min-width: 80%;
 }
 .create-expense-card button, .create-income-card button{
     width: 60%;
