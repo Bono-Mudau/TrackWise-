@@ -211,6 +211,7 @@ async function load_all_expenses(){
 }
 
 function submit_expense(){
+
     document.getElementById("submit_exp").disabled=true;
     //Data to be sent to the database
     let expense_entry={
@@ -228,11 +229,13 @@ function submit_expense(){
     }
     else{
       alert("Description can not be empty!")
+      document.getElementById("submit_exp").disabled=false;
       return;
     }
 
     if(isNaN(Number(String(document.getElementById("input-amount").value))) || document.getElementById("input-amount").value==""){
       alert("Enter a valid number");
+      document.getElementById("submit_exp").disabled=false;
       return;
     }
     else{
@@ -243,7 +246,8 @@ function submit_expense(){
       expense_entry.category=document.getElementById("category-input").value;
     }
     else{
-      alert("Please select an option!")
+      alert("Please select an option!");
+      document.getElementById("submit_exp").disabled=false;
       return;
     }
     let due_Date=document.getElementById("due_date").value;
@@ -275,7 +279,9 @@ function submit_expense(){
           return;
       }
       if(!res.ok) {
+        document.getElementById("submit_exp").disabled=false;
         throw new  Error("Server error: " + res.status);
+        
       }
        return res.json()
     })
@@ -486,6 +492,7 @@ function update_exp(event){
     if(description.value.length<3){
       alert("Description too short");
       btn.disabled=false;
+      btn.innerText="Save"
       return;
     }
 
@@ -497,6 +504,7 @@ function update_exp(event){
     else{
       alert("Please select an option!")
       btn.disabled=false;
+      btn.innerText="Save"
       return;
     }
 
@@ -504,6 +512,7 @@ function update_exp(event){
     if(isNaN(Number(String(amount.value))) || amount.value=="" || amount.value<1){
       alert("Enter a valid number");
       btn.disabled=false;
+      btn.innerText="Save"
       return;
     }
 
@@ -570,11 +579,13 @@ function update_exp(event){
             document.getElementById("expense-sum").innerHTML=`R ${new_total}`;
             prev_expense_amount=0;
           }
+          btn.innerText="Save"
           btn.disabled=false;
         }
         else{
           alert("DB_ERR:update exp");
           btn.disabled=false;
+          btn.innerText="Save"
           return
         }
       })
@@ -597,6 +608,7 @@ async function get_overdue_expenses() {
     credentials:"include",
    })
    .then( res=>{
+
      if (res.status === 401) {
         log_out();// auto-logout on unauthorized
         return;
@@ -953,6 +965,7 @@ function update_income(event){
     if(update_id==""){
       alert("Err_Id");
       btn.disabled=false;
+      btn.innerText="Save"
       return;
     }
 
@@ -965,12 +978,14 @@ function update_income(event){
     else{
       alert("Please select an option!")
       btn.disabled=false;
+      btn.innerText="Save"
       return;
     }
     const amount=row.cells[2].querySelector("input");
     if(isNaN(Number(String(amount.value))) || amount.value=="" || amount.value<1){
       alert("Enter a valid number");
       btn.disabled=false;
+      btn.innerText="Save"
       return;
     }
   
@@ -1024,6 +1039,7 @@ function update_income(event){
             
           }
           btn.disabled=false;
+          btn.innerText="Save"
         }
       })
       
@@ -1031,9 +1047,6 @@ function update_income(event){
     catch (error) {
       console.log(error)
       alert("err updating an entry")
-      
-    }
-    finally{
       
     }
     

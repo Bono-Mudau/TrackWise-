@@ -54,7 +54,7 @@
             <!-- OVERVIEW  SECTION -->
             <div id="overview" class="overview1">
                 <div id="welcome_msg">
-                    <h1 id="user-names">WELCOME,User</h1>
+                    <h1 id="user-names">Welcome,User</h1>
                 </div>
                 
                 <div id="balance-overview">
@@ -62,9 +62,9 @@
                         <p id="current-month">Mar 2026</p>
                     </div>
                     <div id="summary-card">
-                        <div><h4 id="current-balance">Balance: R 180555.00</h4></div>
-                        <div><h4 id="total-income">Income: R 530057.00</h4></div>
-                        <div><h4 id="total-expenses">Expenses: R 350036.00</h4></div>
+                        <div><h3 id="current-balance">Balance: R 180555.00</h3></div>
+                        <div><h3 id="total-income">Income: R 530057.00</h3></div>
+                        <div><h3 id="total-expenses">Expenses: R 350036.00</h3></div>
                     </div>
                     <div id="progress-container" class="progress-container">
                 
@@ -89,45 +89,49 @@
                         
                         
                 </div>
-                 <hr>
-                <div class="resent_trans" >
-                   
-                    <div id="Overdue-expense-section"><p><i id="warning-icon" class="fas fa-exclamation-triangle"></i>OVERDUE EXPENSES</p></div>
+                <hr>
+
+                <div class="dashboard-tables-container">
+
+                    <div class="resent_trans" >
                     
-                    <table id="Overdue-expenses">
-                        <thead>
+                        <div id="Overdue-expense-section"><p><i id="warning-icon" class="fas fa-exclamation-triangle"></i>OVERDUE EXPENSES</p></div>
+                        
+                        <table id="Overdue-expenses">
+                            <thead>
 
-                            <th>Description</th>
-                            <th>Amount(R)</th>
-                            <th>Due date</th>
+                                <th>Description</th>
+                                <th>Amount(R)</th>
+                                <th>Due date</th>
 
-                        </thead>
-                        <tbody id="overdue_exp_list">
-                        </tbody>
-                    </table>
-                    <p id="overdue_exp_list-alternative">No overdue expenses at the moment</p>
+                            </thead>
+                            <tbody id="overdue_exp_list">
+                            </tbody>
+                        </table>
+                        <p id="overdue_exp_list-alternative">No overdue expenses at the moment</p>
 
-                </div>
-                  
-                
-                <div  class="resent_trans">
-                    <div><p>RECENT TRANSACTIONS</p></div>
-                    <table id="trans-table">
-                        <thead>
-                            <tr>
+                    </div>
+                    
+                    
+                    <div  class="resent_trans">
+                        <div><p>RECENT TRANSACTIONS</p></div>
+                        <table id="trans-table">
+                            <thead>
+                                <tr>
 
-                                <th>Category</th>
-                                <th>Amount</th>
-                                <th>Type</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
 
-                            </tr>
-                        </thead>
-                        <tbody id="recents-trans">
-                            
-                        </tbody>
+                                </tr>
+                            </thead>
+                            <tbody id="recents-trans">
+                                
+                            </tbody>
 
-                    </table>
-                    <p id="recents-trans-alternative">No recent transaction available</p>
+                        </table>
+                        <p id="recents-trans-alternative">No recent transaction available</p>
+                    </div>
                 </div>
                 
             </div>
