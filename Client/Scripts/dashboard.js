@@ -632,10 +632,10 @@ async function get_overdue_expenses() {
       }else{
 
         if(data.rows.length==0){
-          document.getElementById("Overdue-expenses").style.display="none";
+          document.getElementById("overdue-expense-section1").style.display="none";
         }
         else{
-          document.getElementById("overdue_exp_list-alternative").style.display="none";
+          document.getElementById("overdue-expense-section1").style.display="";
         }
 
         document.getElementById("overdue_exp_list").innerText=``;
@@ -667,10 +667,12 @@ function submit_income(){
   document.getElementById("submit_income").disabled=true;
   if(document.getElementById("income-category-input").value=="none"){
     alert("Please select a category");
+    document.getElementById("submit_income").disabled=false;
     return;
   }
   if(document.getElementById("income-amount").value=="" || isNaN(Number(document.getElementById("income-amount").value))){
     alert("Enter a valid amount");
+    document.getElementById("submit_income").disabled=false;
     return;
   }
 
@@ -707,6 +709,7 @@ function submit_income(){
         return;
       }
       if(!res.ok){
+        document.getElementById("submit_income").disabled=false;
         throw new Error("error adding an income entry");
       }
       return res.json()
@@ -760,19 +763,18 @@ function submit_income(){
         t_row.style.height = "20px"; 
         trans_list.appendChild(row)
         trans_list.appendChild(t_row);
+        document.getElementById("submit_income").disabled=false;
 
       }
       else{
+        document.getElementById("submit_income").disabled=false;
         alert("entry not added")
       }
       })             
     }
-    catch (error) {
-      console.log(error);
-    }
-    finally{
-      document.getElementById("submit_income").disabled=false;
-    }
+  catch (error) {
+    console.log(error);
+  }
 
   addentry1()
 }

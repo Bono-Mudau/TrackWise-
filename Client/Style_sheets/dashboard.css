@@ -571,7 +571,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
-    border: 2px solid rgb(68, 69, 71,0.2);
+    border: 2px solid rgb(255, 255, 255);
     border-radius: 5px;
     position: fixed;
     background-color: rgb(68, 139, 231);
@@ -1028,6 +1028,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     border-radius: 5px;
     max-width: 98%;
+    margin: 2px auto;
     
 }
 .summary-card-month{
@@ -1084,10 +1085,10 @@ body {
     display: none;
 }
 .recurring1 {
-    /* background: #f9fafb; */
     padding: 20px;
     font-family: system-ui, -apple-system, sans-serif;
     height: 100%;
+    width: 100%;
 }
 
 .recurring1 p {
@@ -1104,7 +1105,7 @@ body {
 
 .recurring1 > div {
     margin-bottom: 25px;
-    overflow-x: auto;
+    min-height: 100%;
 }
 
 
