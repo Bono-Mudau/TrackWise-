@@ -2279,6 +2279,7 @@ async function load_recurring(){
         const row=document.createElement("tr");
 
         row.innerHTML=`
+                      <td>${id}</td>
                       <td>${category}</td>
                       <td>${amount} </td>
                       <td><button class="delete-recurring-income"  data-id=${id} ><i class="fa-regular fa-trash-can"></i></button> </td>
@@ -2326,7 +2327,6 @@ async function load_recurring(){
     alert("Err loading-recurring entries")
   }
 
-
 }
 
 const incomeTable = document.getElementById("recurring-income-t");
@@ -2342,6 +2342,7 @@ expenseTable.addEventListener("click", function(e){
   if (!btn) return;
   delete_recurring_expense(e);
 });
+show_overview()
 
   
 
