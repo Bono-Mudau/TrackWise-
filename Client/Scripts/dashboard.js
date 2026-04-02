@@ -82,7 +82,6 @@ function load_exp_filters(){
   default_exp_filter.no_of_months=Number(document.getElementById("show-last-x-exp").value);
 
 }
-
 load_all_expenses();
 load_income();
 load_summary();
