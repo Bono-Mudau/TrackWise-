@@ -1028,7 +1028,6 @@ body {
     font-family: 'Montserrat', sans-serif;
     border-radius: 5px;
     max-width: 98%;
-    margin: 2px auto;
     
 }
 .summary-card-month{
@@ -1088,7 +1087,7 @@ body {
     padding: 20px;
     font-family: system-ui, -apple-system, sans-serif;
     height: 100%;
-    width: 100%;
+
 }
 
 .recurring1 p {
@@ -1105,17 +1104,18 @@ body {
 
 .recurring1 > div {
     margin-bottom: 25px;
-    min-height: 100%;
+    overflow: auto;
 }
 
 
 .recurring-tables {
-    width: 100%;
+    min-width: max-content;
     border-collapse: collapse;
     background: #eeeeee;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin: 0 auto;
 }
 
 

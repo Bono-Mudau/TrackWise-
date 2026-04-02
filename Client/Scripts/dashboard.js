@@ -2227,7 +2227,6 @@ async function delete_recurring_income(e){
       return;
     }
     
-
     
   } catch (error) {
     alert("err:entry not deleted")
@@ -2281,7 +2280,6 @@ async function load_recurring(){
         const row=document.createElement("tr");
 
         row.innerHTML=`
-                      <td>${id} </td>
                       <td>${category}</td>
                       <td>${amount} </td>
                       <td><button class="delete-recurring-income"  data-id=${id} ><i class="fa-regular fa-trash-can"></i></button> </td>
