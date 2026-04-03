@@ -637,7 +637,7 @@ async function get_overdue_expenses() {
           document.getElementById("overdue-expense-section1").style.display="";
         }
 
-        document.getElementById("overdue_exp_list").innerText=``;
+        document.getElementById("overdue_exp_list").innerHTML=``;
         data.rows.forEach(item=>{
           const row=document.createElement("tr");
           row.innerHTML=`
@@ -658,7 +658,6 @@ async function get_overdue_expenses() {
     });
   
 }
-get_overdue_expenses();
 
 //Income section
 function submit_income(){
@@ -1644,7 +1643,7 @@ function income_chart(){
                  text: 'Income breakdown',
                 font:{
                   size:'16',
-                  weight:'bold'
+                  weight:'600'
                 },
                },
           },
@@ -1765,7 +1764,7 @@ function expense_chart(){
                  text: 'Expense breakdown',
                 font:{
                   size:'16',
-                  weight:'bold'
+                  weight:'600'
                 },
                },
           },
@@ -1775,11 +1774,6 @@ function expense_chart(){
     }
   })
 }
-income_chart();
-expense_chart();
-
-
-
 function setting_toggle(){
 
   const inputs=document.querySelectorAll(".settings-input-field");
