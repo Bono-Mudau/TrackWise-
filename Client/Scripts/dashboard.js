@@ -1194,7 +1194,7 @@ function recent_transactions(){
     console.error(error);
   }
 } 
-recent_transactions();
+
 
 //switch between sections
 
