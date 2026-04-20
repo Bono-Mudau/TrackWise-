@@ -3,7 +3,6 @@ body{
     margin: 0 auto;
     min-width: 100vw;
     min-height: 100vh;
-    /* background-color: rgba(94, 52, 122, 0.22); */
     background-color: rgb(69, 103, 183,0.4);
     justify-content: center;
     align-items: center;
