@@ -222,3 +222,36 @@ function show_recurring(){
   }
   load_recurring();
 }
+
+//ADD EVENT LISTENERS
+document.getElementById("save-settings-update").addEventListener("click",validate_settings_input);
+document.getElementById("show_overview").addEventListener("click",show_overview);
+document.getElementById("show_expense").addEventListener("click",show_expense);
+document.getElementById("show_income").addEventListener("click",show_income);
+document.getElementById("show-settings_btn").addEventListener("click",show_settings);
+document.getElementById("show_summary").addEventListener("click",show_summary);
+document.getElementById("show_recurring").addEventListener("click", show_recurring)
+document.getElementById("addentry").addEventListener("click",addentry);
+document.getElementById("show-last-x-exp").addEventListener("change",load_all_expenses);
+document.getElementById("sort-exp-by").addEventListener("change",load_all_expenses);
+document.getElementById("Filter-expense").addEventListener("change",load_all_expenses);
+document.getElementById("submit_exp").addEventListener("click",submit_expense);
+document.getElementById("addentry1").addEventListener("click",addentry1);
+document.getElementById("show-last-x-income").addEventListener("change",load_income);
+document.getElementById("sort-income-by").addEventListener("change",load_income);
+document.getElementById("submit_income").addEventListener("click",submit_income);
+document.getElementById("menu").addEventListener("click",menu_toogle);
+document.getElementById("log-out").addEventListener("click",(e)=>{
+   if (confirm("Are you sure you want to log out?")){
+    log_out();
+   }
+
+});
+
+//CALL FUNCTIONS
+load_user_details();
+show_overview()
+load_all_expenses();
+load_income();
+load_summary();
+load_balances();

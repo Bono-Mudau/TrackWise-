@@ -24,8 +24,6 @@ function menu_toogle(){
   }
 }
 
-load_user_details();
-
 //get user details from the local storage
 const user_info={
   names:localStorage.getItem("names"),
