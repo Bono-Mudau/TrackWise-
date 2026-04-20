@@ -250,7 +250,7 @@ function load_user_details(){
 
         //GET USER INITIALS
         if( data.lastName && data.lastName.trim()!=""){
-            ocument.getElementById("user-initials").innerHTML=data.lastName.charAt(0)+""+data.firstName.charAt(0)
+            document.getElementById("user-initials").innerHTML=data.lastName.charAt(0)+""+data.firstName.charAt(0)
         }
         else if( data.firstName && data.firstName.split(" ").length>1){
             const initials=data.firstName.split(" ");
