@@ -366,7 +366,7 @@ function income_chart(){
        const existingChart = Chart.getChart(summary_chart);
 
       if (existingChart) {
-        existingChart.destroy();  // destroy it before creating a new chart
+        existingChart.destroy();  // destroy the old chart it before creating a new chart
       }
 
       new Chart(ctx,{
@@ -407,14 +407,14 @@ function income_chart(){
                 labels: {
                   boxWidth: 20, 
                   padding: 10,
-                  font: { size: 14,weight:400,color: rgb(15, 15, 15)
+                  font: { size: 14,weight:400
                   }
                 }},
               title: { display: true,
                  text: 'Income breakdown',
                 font:{
                   size:16,
-                  weight:'600',color: rgb(12, 12, 12)
+                  weight:600
                 },
                },
           },
@@ -529,13 +529,13 @@ function expense_chart(){
                 labels: {
                   boxWidth: 20,     
                   padding: 8,
-                  font: { size: 14, weight:400,color: rgb(12, 12, 12)}
+                  font: { size: 14, weight:400}
                 }},
               title: { display: true,
                  text: 'Expense breakdown',
                 font:{
                   size:16,
-                  weight:'600'
+                  weight:600
                 },
                },
           },
