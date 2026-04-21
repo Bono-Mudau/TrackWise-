@@ -247,58 +247,63 @@ function monthly_summary(){
           datasets:[{
             label:"Income",
             data:income_data,
-            backgroundColor:'rgba(101, 231, 133, 0.74)'
+            backgroundColor:'rgba(47, 167, 121, 0.94)'
 
           },{
 
             label:"Expense",
             data:expense_data,
-            backgroundColor:'rgba(224, 98, 125, 0.78)'
+            backgroundColor:'rgba(233, 98, 98, 0.7)'
             
           }]
         },
-        options:{
-
+        options: {
           responsive: true,
           plugins: {
-              legend: { 
-                position: 'top',
-                labels: {
-                  color: 'rgb(15, 15, 15)',
-                  font: {
-                    size: 13,
-                    weight: 'bold'
-                  }
-                } 
-              },
-              title: { display: true,
-                 text: 'Monthly Income vs Expense ',
-                font:{
-                  size:16,
-                  weight:'bold',
-                   color: 'rgb(12, 12, 12)'
-                },
-               },
-          },
-          scales: {  
-            y: {
-              beginAtZero: true,
-              ticks: {
-                color: 'rgb(15, 15, 15)',
+            legend: {
+              position: 'top',
+              labels: {
+                color: 'rgb(40, 40, 40)',
                 font: {
+                  size: 13,
                   weight: 'bold'
                 }
               }
             },
-            x: {
-              ticks: {
-                color: 'rgb(15, 15, 15)',
-                font: {
-                  weight: 'bold'
-                }
+
+            title: {
+              display: true,
+              text: 'Monthly Income vs Expense',
+              color: 'rgb(20, 20, 20)',
+              font: {
+                size: 16,
+                weight: 'bold'
               }
             }
-          } 
+          },
+
+          scales: {
+            x: {
+              ticks: {
+                color: 'rgb(50, 50, 50)',
+                font: { weight: 'bold' }
+              },
+              grid: {
+                color: 'rgba(0, 0, 0, 0.05)'
+              }
+            },
+
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: 'rgb(50, 50, 50)',
+                font: { weight: 'bold' }
+              },
+              grid: {
+                color: 'rgba(0, 0, 0, 0.08)'
+              }
+            }
+          }
         }
       })
 
