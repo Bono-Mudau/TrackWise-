@@ -1,7 +1,7 @@
 # 🧾 TrackWise
 
 ## 🚀 Overview
-TrackWise is a full-stack personal finance management application that enables users to track income, manage expenses, and gain meaningful insights through a secure, automated, and real-time dashboard.
+TrackWise is a secure, responsive full-stack personal finance management web application that enables users to track and manage income & expenses, and gain meaningful insights through a  automated, and real-time dashboard.
 
 
 🌐 Live link: https://trackwise-9l4u.onrender.com
@@ -11,55 +11,38 @@ TrackWise is a full-stack personal finance management application that enables u
 ## ✨ Features
 
 ### 🔐 Authentication & Security
-- JWT authentication (HTTP-only cookies)
+- JWT authentication (cookie-based)
 - Token expiry (15 minutes) with automatic regeneration
 - Protected API routes (post-login endpoints secured)
 - Auto logout on invalid/expired tokens
 - Password hashing using bcrypt
 - OTP-based email verification
 - Password recovery via OTP
-- Rate limiting (brute-force protection)
+- Rate limiting
 - Security headers using Helmet
 
 ---
 
-### 📧 Email & Notifications
-![ Screenshot](Images/OTP.png)
-- Mailgun integration
-- OTP delivery for:
-  - Signup verification
-  - Password recovery
-- Email notifications:
-  - Account creation
-  - Security alerts
+### 📊 Dashboard & Insights
+![Dashboard ](Images/dashboard.png)
 
+#### Overview
+- Current balance
+- Total income & expenses
+- Budget usage indicator:
+  - Green (<85%)
+  - Red (≥85%)
+- Recent transactions (color-coded)
+- Overdue expenses table
+- 
 ---
+### 📈 Visualizations (Chart.js)
+![ Screenshot](Images/visuals.png)
 
-### ⏰ Scheduled Tasks & Automation
-![ Screenshot](Images/reminders.png)
-- Daily background jobs (node-cron)
-- Automated email reminders:
-  - Upcoming payments (within 24 hours)
-  - Overdue expenses
+- Income vs Expense (last 6 months)
+- Expense breakdown (pie chart)
+- Income breakdown (pie chart)
 
----
-
-### 🔁 Recurring Transactions
-![Screenshot](Images/recurring-transactions.png)
-- Mark income/expenses as recurring
-- Automatically processed monthly
-- Supports recurring income and expenses
----
-
-### ⚙️ User Settings
-![Screenshot](Images/Settings.png)
-- Update personal details (name, surname, email)
-- Email preferences:
-  - General emails
-  - Overdue alerts
-  - Payment reminders
-- Monthly budget limit (default: R2000)
-- Account deletion
 ---
 
 ### 💰 Expense Management
@@ -90,28 +73,15 @@ TrackWise is a full-stack personal finance management application that enables u
 - Real-time updates
 
 ---
-
-### 📊 Dashboard & Insights
-![Dashboard ](Images/dashboard.png)
-
-#### Overview
-- Current balance
-- Total income & expenses
-- Budget usage indicator:
-  - Green (<85%)
-  - Red (≥85%)
-- Recent transactions (color-coded)
-- Overdue expenses table
-
----
-
-### 📈 Visualizations (Chart.js)
-![ Screenshot](Images/visuals.png)
-
-- Income vs Expense (last 6 months)
-- Expense breakdown (pie chart)
-- Income breakdown (pie chart)
-
+### ⚙️Settings
+![Screenshot](Images/Settings.png)
+- Update personal details (name, surname, email)
+- Email preferences:
+  - General emails
+  - Overdue alerts
+  - Payment reminders
+- Monthly budget limit (default: R2000)
+- Account deletion
 ---
 
 ### 📅 Monthly Summary
@@ -125,6 +95,32 @@ TrackWise is a full-stack personal finance management application that enables u
 - Visual indicators:
   - Green → income ≥ expenses
   - Red → expenses > income
+
+---
+
+### 🔁 Recurring Transactions
+![Screenshot](Images/recurring-transactions.png)
+- Mark income/expenses as recurring
+- Automatically processed monthly
+- Supports recurring income and expenses
+---
+### ⏰ Scheduled Tasks & Automation
+![ Screenshot](Images/reminders.png)
+- Daily background jobs (node-cron)
+- Automated email reminders:
+  - Upcoming payments (within 24 hours)
+  - Overdue expenses
+
+---
+### 📧 Email & Notifications
+![ Screenshot](Images/OTP.png)
+- Mailgun integration
+- OTP delivery for:
+  - Signup verification
+  - Password recovery
+- Email notifications:
+  - Account creation
+  - Security alerts
 
 ---
 
@@ -144,9 +140,10 @@ TrackWise is a full-stack personal finance management application that enables u
 - CSS3
 - JavaScript
 
-### Database
-- MySQL (Aiven Cloud)
-
+### Deployment
+- Database: MySQL (Aiven Cloud)
+- Fontend & Backend : Hosted on Render
+  
 ### Tools & Libraries
 - bcrypt
 - jsonwebtoken (JWT)
@@ -157,24 +154,10 @@ TrackWise is a full-stack personal finance management application that enables u
 - node-cron
 - Git & GitHub
 
----
 
-## 🏗 Architecture
-- RESTful API design
-- Modular structure (controllers, routes, middleware, services)
-- Secure authentication flow
-- Background job scheduling
-- Separation of concerns
 
----
 
-## 🔐 Security
-- Cookie-based JWT authentication
-- Input validation & sanitization
-- Rate limiting
-- Secure password hashing
-- OTP verification flows
-- Protected routes
+
 
 
 
