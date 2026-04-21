@@ -247,13 +247,13 @@ function monthly_summary(){
           datasets:[{
             label:"Income",
             data:income_data,
-            backgroundColor:'rgb(46, 187, 81)'
+            backgroundColor:'rgba(101, 231, 133, 0.74)'
 
           },{
 
             label:"Expense",
             data:expense_data,
-            backgroundColor:'rgb(179, 51, 79)'
+            backgroundColor:'rgba(224, 98, 125, 0.78)'
             
           }]
         },
@@ -264,7 +264,7 @@ function monthly_summary(){
               legend: { 
                 position: 'top',
                 labels: {
-                  color: 'rgb(0, 0, 0)',
+                  color: 'rgb(15, 15, 15)',
                   font: {
                     size: 13,
                     weight: 'bold'
@@ -275,7 +275,8 @@ function monthly_summary(){
                  text: 'Monthly Income vs Expense ',
                 font:{
                   size:16,
-                  weight:'bold'
+                  weight:'bold',
+                   color: 'rgb(12, 12, 12)'
                 },
                },
           },
@@ -283,7 +284,7 @@ function monthly_summary(){
             y: {
               beginAtZero: true,
               ticks: {
-                color: 'rgb(0, 0, 0)',
+                color: 'rgb(15, 15, 15)',
                 font: {
                   weight: 'bold'
                 }
@@ -291,7 +292,7 @@ function monthly_summary(){
             },
             x: {
               ticks: {
-                color: 'rgb(0, 0, 0)',
+                color: 'rgb(15, 15, 15)',
                 font: {
                   weight: 'bold'
                 }
@@ -401,13 +402,14 @@ function income_chart(){
                 labels: {
                   boxWidth: 20, 
                   padding: 10,
-                  font: { size: 14,weight:400}
+                  font: { size: 14,weight:400,color: rgb(15, 15, 15)
+                  }
                 }},
               title: { display: true,
                  text: 'Income breakdown',
                 font:{
                   size:16,
-                  weight:'600'
+                  weight:'600',color: rgb(12, 12, 12)
                 },
                },
           },
@@ -522,7 +524,7 @@ function expense_chart(){
                 labels: {
                   boxWidth: 20,     
                   padding: 8,
-                  font: { size: 14, weight:400}
+                  font: { size: 14, weight:400,color: rgb(12, 12, 12)}
                 }},
               title: { display: true,
                  text: 'Expense breakdown',

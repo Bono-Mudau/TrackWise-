@@ -326,7 +326,7 @@ body {
     border: 2px solid rgba(227, 237, 255, 0.822);
     max-height: max-content;
     border-radius: 15px;
-    background-color: none;
+    background-color: rgba(255, 255, 255, 0.829);
     border: none;
     max-height: 300px;
     
@@ -335,8 +335,9 @@ body {
     width: 100%;
     height: 100%;
     margin: 0 auto;
+    background: none;
     padding: 0;
-    background-color: rgba(255, 255, 255, 0.829);
+
     border-radius: 10px;
     font-weight: 600;
 }
@@ -1483,6 +1484,9 @@ body {
 #Overdue-expenses, #trans-table , #expense-table, #income-table {
     min-width: 100%;
 
+}
+.recurring-tables{
+    min-width: 99%;
 }
 
 #Overdue-expenses td, #resent_trans td , #expense-table td , #income-table td {
