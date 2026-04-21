@@ -2,7 +2,7 @@
 html, body {
   margin: 0 auto;
   /* background-color: rgb(71, 106, 160); */
-  background-color: rgba(18, 26, 65, 0.61);
+  background-color: rgb(82, 93, 148);
 
 }
 body {
@@ -43,11 +43,12 @@ body {
 }
 #user-initials{
     height: 99%;
-    border:1px solid rgb(0, 0, 0);
+    border:1px solid rgb(255, 255, 255);
     border-radius: 600px;
     background: none;
     max-width: 60px;
-    margin-right:2%;
+    color:white;
+    margin-right:10px;
     font-size:x-large;
     font-family: system-ui, -apple-system, sans-serif;
 }
@@ -77,7 +78,7 @@ body {
   margin: 10px;
 }
 #warning-icon {
-    color: rgba(255, 68, 0, 0.726);
+    color: rgba(255, 0, 0, 0.726);
     font-size: 1.5rem;
     padding-right: 5px;
 }
@@ -105,25 +106,21 @@ body {
     display: flex;
     max-width: 100%;
     overflow-x: hidden;
-    color: rgb(245, 247, 250);
 }
 #main-frame p{
     font-family: Arial, sans-serif;
 }
 #main-frame button{
-    color: rgb(0, 200, 255);
+    /* color: rgb(9, 202, 255); */
     font-size: large;
-    border: none;
-    background-color: rgba(22, 49, 109, 0.836);
-    border-radius: 5px;
-    gap: 5px;
+    /* background-color: rgb(22, 87, 226); */
+    /* gap: 5px; */
     min-height: 30px;
     min-width: 30px;
 }
 #display-area{
     margin: 0 auto;
     border: none;
-    min-width: 99%;
     padding: 3px;
 
 }
@@ -216,7 +213,7 @@ body {
 }
 #display-area{
     flex: 1;
-    width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -227,11 +224,10 @@ body {
     font-family: system-ui, -apple-system, sans-serif;
 }
 #total-expenses{
-    color: rgb(202, 77, 77);
-    text-decoration: none;
+    color: rgb(255, 75, 75);
 }
 #total-income{
-    color: rgb(55, 160, 92);
+    color: rgb(86, 255, 145);
 }
 
 #balance-overview{
@@ -242,7 +238,7 @@ body {
     border:2px solid rgb(183, 183, 243) ;
     width: 98%;
     margin: 0 auto;
-    background-color: #304361;
+    background-color: #3f5e92;
 }
 #month-container{
     display: flex;
@@ -280,8 +276,9 @@ body {
 #summary-card div{
     border: 1px solid rgb(243, 238, 238);
     border-radius: 5px;
+    color: whitesmoke;
     padding: 3px;
-    background-color: rgb(30, 50, 75);
+    background-color: rgba(42, 68, 100, 0.849);
 
 }
 
@@ -299,7 +296,7 @@ body {
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    border:1px solid rgba(153, 153, 153, 0.1);
+    border:none;
     gap: 10px;
     width: 95%;
     max-width: 100%;
@@ -357,29 +354,31 @@ body {
 
     font-family: system-ui, -apple-system, sans-serif;
     text-align: center;
+    color: rgb(245, 247, 250);
     
 }
 #income-trans-alternative{
 
     font-family: system-ui, -apple-system, sans-serif;
     text-align: center;
+    color: rgb(245, 247, 250);
     
 }
 #expense-trans-alternative{
      
     font-family: system-ui, -apple-system, sans-serif;
     text-align: center;
-    
+    color: rgb(245, 247, 250);
 }
 #overdue_exp_list-alternative{
 
     font-family: system-ui, -apple-system, sans-serif;
     text-align: center;
+    color: rgb(245, 247, 250);
     
 }
 
 .resent_trans{
-    border-top: 2px solid rgb(0,0,0,0.5);
     margin: 0 auto;
     max-width: 96%;
 }
@@ -388,6 +387,7 @@ body {
     text-align: center;
     text-decoration: underline;
     font-size: large;
+    color: rgb(245, 247, 250);
 
 }
 
@@ -527,20 +527,21 @@ body {
 #add-expense{
     margin:0px auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     height: 60px;
     border-bottom: 1.5px solid black;
     margin-top: 5px;
     padding: 5px;
     font-size: larger;
+    color: rgb(245, 247, 250);
     
 }
 #add-expense label{
     font-size: 23;
     padding: 2%;
     font-family: 'Times New Roman', Times, serif;
-    font-size: x-larger;
+
 }
 
 #expense-month{
@@ -687,13 +688,14 @@ body {
 #add-income{
     margin:0 auto ;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     height: 50px;
     border-bottom: 1.5px solid black;
     margin-top: 5px;
     font-family:Arial, Helvetica, sans-serif ;
     font-size: larger;
+    color: rgb(245, 247, 250);
 
 }
 
@@ -711,8 +713,12 @@ body {
 .add-entry{
     height:90%;
     width:30px;
-    font-size: x-large;
+    font-size: xx-large;
+    border-radius: 5px;
+    border: none;
+    justify-self: end;
 }
+
 
 .create-income-card1{
     display: none;
@@ -744,7 +750,7 @@ body {
     width: fit-content;
 }
 .transactions-fliter{
-    margin: 0px auto;
+    margin: 0 auto;
     padding: 10px;
     display: flex;
     align-items: center;
@@ -833,6 +839,7 @@ body {
     border: 0.1px solid hsla(0, 0%, 0%, 0.336);
     border-radius: 7.5px;
     height: max-content;
+    color: rgba(245, 247, 250, 0.87);
 
 }
 .settings-sections div{
@@ -854,7 +861,7 @@ body {
     min-height: 30px;
     width: max-content;
     padding: 5px;
-    align-self: flex-start;
+    margin:0 auto;
 }
 #setting-edit-button{
     justify-self: end;
@@ -876,15 +883,12 @@ body {
 }
 .show-settings1{
 
-    height: fit-content;
-    height: 100%;
+    height: auto;
     padding-bottom: 10px;
     border: 1px solid rgba(148, 188, 240, 0.87);
     border-radius: 5px;
     width: 99%;
     margin: 5px auto;
-    overflow: visible;
-    background-color: rgba(43, 68, 179, 0.192);
 
 }
 .show-settings1 label {
@@ -909,7 +913,7 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    background-color: rgba(18, 26, 65, 0.445);
+    background-color: rgba(20, 28, 70, 0.856);
     min-height: 190px;
 
 }
@@ -920,6 +924,8 @@ body {
     border: none;
     border-radius: 5px;
     margin: 0 auto;
+    background-color: #1d4077;
+    border: 0.1px solid rgba(255, 255, 255, 0.514);
 
 
 }
@@ -928,6 +934,7 @@ body {
     border: none;
     background-color: #ffffffd5;
     font-size: medium;
+    color: #000000;
 }
 .settings-sections h4{
     margin: 10px auto;
@@ -941,6 +948,9 @@ body {
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 3px;
+    border: 0.01px solid white;
+    background-color: #213d69;
+    color: rgb(245, 247, 250);
 }
 
 #month-container{
@@ -972,8 +982,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
-    margin-bottom: 5px;
+    margin: 10px auto;
     padding: 5px;
     background-color: #d9dee9;
 }
@@ -1051,35 +1060,35 @@ body {
 #summary-heading h4{
     align-self: center;
     padding: 0px;
+    color: white;
     font-size: larger;
     font-weight: 300;
     text-decoration: underline;
 }
 #summary-heading p{
     text-align: center;
-    padding: 5px;
+    color: rgba(245, 245, 245, 0.877);
     
 }
 .recurring{
     display: none;
 }
 .recurring1 {
-    padding: 20px;
+    padding: 5px;
     font-family: system-ui, -apple-system, sans-serif;
     height: 100%;
 
 }
 
 .recurring1 p {
+    color: rgba(245, 245, 245, 0.842);
     font-size: 14px;
-    color: #000000;
     margin-bottom: 20px;
 
 }
 
 .recurring1 h4 {
     margin-bottom: 10px;
-    color: black;
     font-size: large;
     font-weight: 400;
     
@@ -1088,7 +1097,7 @@ body {
 
 .recurring1 > div {
     margin-bottom: 25px;
-    overflow: auto;
+    overflow-x: auto;
 }
 .recurring-table-container{
     display: grid;
@@ -1358,7 +1367,7 @@ body {
     width: 99%;
     margin: 0 auto;
     overflow: visible;
-    background-color: rgba(43, 68, 179, 0.192);
+    /* background-color: rgba(43, 68, 179, 0.192); */
     
 }
 .settings{
@@ -1386,15 +1395,11 @@ body {
     align-self: center;
     justify-self: center;
     box-sizing: border-box;
-    background-color: #7c2d2db0;
-    border: none;
-    border-radius: 5px;
 
 }
 .settings-sections input{
     border-radius: 3px;
     border: none;
-    background-color: #eeececab;
     font-size: medium;
 }
 .settings-sections h4{
@@ -1408,14 +1413,9 @@ body {
     justify-self: center;
     align-self: center;
     padding: 10px;
-    border-radius: 10px;
-    background-color: rgba(43, 68, 179, 0.533);
     margin-bottom: 3px;
 }
-#save-settings-update:hover{
-    width: 90%;
-    padding: 15px;
-}
+
 #month-container{
     width: 100%;
     justify-content: center;
@@ -1444,7 +1444,6 @@ body {
 }
 #display-area{
     margin: 0 auto;
-    /* background-color: #9eaadb34; */
     border: none;
     min-width: 99%;
     padding: 3px;
@@ -1459,7 +1458,7 @@ body {
     margin: 10px auto ;
     min-height: 30px;
     width: fit-content;
-    max-width: 95%;
+    max-width: 99%;
     
 }
 #Overdue-expenses, #trans-table , #expense-table, #income-table {
