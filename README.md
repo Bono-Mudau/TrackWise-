@@ -24,7 +24,7 @@ TrackWise is a full-stack personal finance management application that enables u
 ---
 
 ### 📧 Email & Notifications
-![ Screenshot](Images/OTP .png)
+![ Screenshot](Images/OTP.png)
 - Mailgun integration
 - OTP delivery for:
   - Signup verification
