@@ -3,7 +3,6 @@
 ## 🚀 Overview
 TrackWise is a full-stack personal finance management application that enables users to track income, manage expenses, and gain meaningful insights through a secure, automated, and real-time dashboard.
 
-The system emphasizes security, automation, and intelligent data handling, combining modern backend architecture with a fully responsive frontend.
 
 🌐 Live link: https://trackwise-9l4u.onrender.com
 
@@ -25,6 +24,7 @@ The system emphasizes security, automation, and intelligent data handling, combi
 ---
 
 ### 📧 Email & Notifications
+![ Screenshot](Images/OTP .png)
 - Mailgun integration
 - OTP delivery for:
   - Signup verification
@@ -36,24 +36,23 @@ The system emphasizes security, automation, and intelligent data handling, combi
 ---
 
 ### ⏰ Scheduled Tasks & Automation
+![ Screenshot](Images/reminders.png)
 - Daily background jobs (node-cron)
 - Automated email reminders:
   - Upcoming payments (within 24 hours)
   - Overdue expenses
-- User preference-based notifications
 
 ---
 
 ### 🔁 Recurring Transactions
+![Screenshot](Images/recurring-transactions.png)
 - Mark income/expenses as recurring
-- Stored in dedicated recurring tables
 - Automatically processed monthly
 - Supports recurring income and expenses
-- Users can manage recurring entries
-
 ---
 
 ### ⚙️ User Settings
+![Screenshot](Images/Settings.png)
 - Update personal details (name, surname, email)
 - Email preferences:
   - General emails
@@ -61,10 +60,10 @@ The system emphasizes security, automation, and intelligent data handling, combi
   - Payment reminders
 - Monthly budget limit (default: R2000)
 - Account deletion
-
 ---
 
 ### 💰 Expense Management
+![Screenshot](Images/expenses.png)
 - Add, edit, delete expenses
 - Categorize expenses
 - Track payment status (paid/unpaid)
@@ -81,6 +80,7 @@ The system emphasizes security, automation, and intelligent data handling, combi
 ---
 
 ### 💵 Income Management
+![Screenshot](Images/Income.png)
 - Add, edit, delete income
 - Categorize income sources
 - View last 1–6 months
@@ -92,6 +92,7 @@ The system emphasizes security, automation, and intelligent data handling, combi
 ---
 
 ### 📊 Dashboard & Insights
+![Dashboard ](Images/dashboard.png)
 
 #### Overview
 - Current balance
@@ -105,6 +106,8 @@ The system emphasizes security, automation, and intelligent data handling, combi
 ---
 
 ### 📈 Visualizations (Chart.js)
+![ Screenshot](Images/visuals.png)
+
 - Income vs Expense (last 6 months)
 - Expense breakdown (pie chart)
 - Income breakdown (pie chart)
@@ -112,6 +115,7 @@ The system emphasizes security, automation, and intelligent data handling, combi
 ---
 
 ### 📅 Monthly Summary
+![Monthly summary Screenshot](Images/monthly-summary.png)
 - Up to 6 previous months
 - Each card includes:
   - Month & Year
@@ -121,13 +125,6 @@ The system emphasizes security, automation, and intelligent data handling, combi
 - Visual indicators:
   - Green → income ≥ expenses
   - Red → expenses > income
-
----
-
-### ⚡ Real-Time Data Handling
-- Dynamic updates after CRUD operations
-- Immediate UI updates
-- Efficient client-server communication
 
 ---
 
