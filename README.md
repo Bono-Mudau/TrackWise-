@@ -142,7 +142,7 @@ TrackWise is a secure, responsive full-stack personal finance management web app
 
 ### Deployment
 - Database: MySQL (Aiven Cloud)
-- Fontend & Backend : Hosted on Render
+- Frontend & Backend : Hosted on Render
   
 ### Tools & Libraries
 - bcrypt
