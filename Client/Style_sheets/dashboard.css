@@ -222,12 +222,24 @@ body {
 
 #welcome_msg{
     font-family: system-ui, -apple-system, sans-serif;
+    width: 98%;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+
+}
+#welcome_msg h1{
+    align-self: flex-start;
+    margin: 5px 0;
 }
 #total-expenses{
     color: rgb(255, 75, 75);
 }
 #total-income{
     color: rgb(86, 255, 145);
+}
+#current-balance{
+    min-height: 55px;
 }
 
 #balance-overview{
@@ -237,6 +249,7 @@ body {
     border-radius: 10px;
     border:2px solid rgb(183, 183, 243) ;
     width: 98%;
+    max-width: 1100px;
     margin: 0 auto;
     background-color: #3f5e92;
 }
@@ -246,6 +259,7 @@ body {
     margin: 0;
 }
 #month-container p{
+    color: white;
     margin-left:2%;
     margin-right: 2.5%;
     font-family: 'Courier New', Courier;
@@ -277,8 +291,12 @@ body {
     border: 1px solid rgb(243, 238, 238);
     border-radius: 5px;
     color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 3px;
-    background-color: rgba(42, 68, 100, 0.849);
+    min-height: 40px;
+    background-color: rgba(45, 78, 119, 0.849);
 
 }
 
@@ -307,8 +325,9 @@ body {
 
     border: 2px solid rgba(227, 237, 255, 0.822);
     max-height: max-content;
-    border-radius: 10px;
-    background-color: white;
+    border-radius: 15px;
+    background-color: none;
+    border: none;
     max-height: 300px;
     
 }
@@ -317,7 +336,7 @@ body {
     height: 100%;
     margin: 0 auto;
     padding: 0;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.829);
     border-radius: 10px;
     font-weight: 600;
 }
@@ -328,7 +347,7 @@ body {
     width: 100%;
     max-width: 850px;
     margin: 10px auto;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.884);
     border-radius: 10px;
 }
 #monthly_summary_graph {

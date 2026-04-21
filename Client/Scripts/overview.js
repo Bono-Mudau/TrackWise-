@@ -95,7 +95,7 @@ function load_balances(){
         if (!isNaN(limit) && limit>0){
 
           const limitProgress = Math.min((data.expenses/limit)* 100,100).toFixed(2);
-          document.getElementById("limit-progress").innerHTML= `Budget Used : ${limitProgress}%, (R${data.expenses} / R${limit} )`;
+          document.getElementById("limit-progress").innerHTML= `Budget Used: ${limitProgress}%, (R${data.expenses} / R${limit})`;
           
           if(limitProgress>85){
             document.getElementById("progress-container").style.color="red";
@@ -247,13 +247,13 @@ function monthly_summary(){
           datasets:[{
             label:"Income",
             data:income_data,
-            backgroundColor:'rgba(75, 192, 192, 0.6)'
+            backgroundColor:'rgb(46, 187, 81)'
 
           },{
 
             label:"Expense",
             data:expense_data,
-            backgroundColor:'rgba(255, 99, 132, 0.6)'
+            backgroundColor:'rgb(179, 51, 79)'
             
           }]
         },
@@ -261,16 +261,43 @@ function monthly_summary(){
 
           responsive: true,
           plugins: {
-              legend: { position: 'top' },
+              legend: { 
+                position: 'top',
+                labels: {
+                  color: 'rgb(0, 0, 0)',
+                  font: {
+                    size: 13,
+                    weight: 'bold'
+                  }
+                } 
+              },
               title: { display: true,
                  text: 'Monthly Income vs Expense ',
                 font:{
-                  size:'16',
+                  size:16,
                   weight:'bold'
                 },
                },
           },
-          scales: { y: { beginAtZero: true } }
+          scales: {  
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: 'rgb(0, 0, 0)',
+                font: {
+                  weight: 'bold'
+                }
+              }
+            },
+            x: {
+              ticks: {
+                color: 'rgb(0, 0, 0)',
+                font: {
+                  weight: 'bold'
+                }
+              }
+            }
+          } 
         }
       })
 
@@ -338,7 +365,7 @@ function income_chart(){
 
       new Chart(ctx,{
 
-        type:"pie",
+        type:"doughnut",
         data:{
 
           labels:labels,
@@ -346,21 +373,21 @@ function income_chart(){
           datasets:[{
             data: totals,
             backgroundColor: [
-              'rgba(255, 99, 132, 0.7)',    
-              'rgba(54, 162, 235, 0.7)',    
-              'rgba(255, 206, 86, 0.7)',   
-              'rgba(75, 192, 192, 0.7)',    
-              'rgba(153, 102, 255, 0.7)',   
-              'rgba(255, 159, 64, 0.7)',    
-              'rgba(199, 199, 199, 0.7)',   
-              'rgba(255, 99, 255, 0.7)',    
-              'rgba(99, 255, 132, 0.7)',    
-              'rgba(54, 235, 162, 0.7)',    
-              'rgba(86, 206, 255, 0.7)',   
-              'rgba(192, 75, 192, 0.7)',    
-              'rgba(255, 206, 128, 0.7)',   
-              'rgba(153, 255, 102, 0.7)',   
-              'rgba(102, 153, 255, 0.7)'  
+              'rgb(255, 99, 133)',    
+              'rgba(54, 163, 235, 0.93)',    
+              'rgba(255, 207, 86, 0.96)',   
+              'rgba(75, 192, 192, 0.95)',    
+              'rgba(153, 102, 255, 0.91)',   
+              'rgba(255, 160, 64, 0.88)',    
+              'rgba(199, 199, 199, 0.91)',   
+              'rgba(255, 99, 255, 0.94)',    
+              'rgba(99, 255, 133, 0.92)',    
+              'rgba(54, 235, 163, 0.91)',    
+              'rgba(86, 207, 255, 0.94)',   
+              'rgba(192, 75, 192, 0.91)',    
+              'rgba(255, 206, 128, 0.92)',   
+              'rgba(153, 255, 102, 0.9)',   
+              'rgba(102, 153, 255, 0.9)'  
             ],
             borderColor: '#fff',
             borderWidth: 1
@@ -374,12 +401,12 @@ function income_chart(){
                 labels: {
                   boxWidth: 20, 
                   padding: 10,
-                  font: { size: 14}
+                  font: { size: 14,weight:400}
                 }},
               title: { display: true,
                  text: 'Income breakdown',
                 font:{
-                  size:'16',
+                  size:16,
                   weight:'600'
                 },
                },
@@ -458,7 +485,7 @@ function expense_chart(){
 
       new Chart(ctx,{
 
-        type:"pie",
+        type:"doughnut",
         data:{
 
           labels:truncatedLabels,
@@ -466,21 +493,21 @@ function expense_chart(){
           datasets:[{
             data: totals,
             backgroundColor: [
-              'rgba(255, 99, 132, 0.7)',    
-              'rgba(54, 162, 235, 0.7)',    
-              'rgba(255, 206, 86, 0.7)',   
-              'rgba(75, 192, 192, 0.7)',    
-              'rgba(153, 102, 255, 0.7)',   
-              'rgba(255, 159, 64, 0.7)',    
-              'rgba(199, 199, 199, 0.7)',   
-              'rgba(255, 99, 255, 0.7)',    
-              'rgba(99, 255, 132, 0.7)',    
-              'rgba(54, 235, 162, 0.7)',    
-              'rgba(86, 206, 255, 0.7)',   
-              'rgba(192, 75, 192, 0.7)',    
-              'rgba(255, 206, 128, 0.7)',   
-              'rgba(153, 255, 102, 0.7)',   
-              'rgba(102, 153, 255, 0.7)'    
+              'rgba(255, 99, 133, 0.93)',    
+              'rgba(54, 163, 235, 0.92)',    
+              'rgba(255, 207, 86, 0.91)',   
+              'rgba(75, 192, 192, 0.92)',    
+              'rgba(153, 102, 255, 0.93)',   
+              'rgba(255, 160, 64, 0.9)',    
+              'rgba(199, 199, 199, 0.93)',   
+              'rgba(255, 99, 255, 0.93)',    
+              'rgba(99, 255, 133, 0.93)',    
+              'rgba(54, 235, 163, 0.9)',    
+              'rgba(86, 207, 255, 0.9)',   
+              'rgba(192, 75, 192, 0.9)',    
+              'rgba(255, 206, 128, 0.9)',   
+              'rgba(153, 255, 102, 0.9)',   
+              'rgba(102, 153, 255, 0.9)'    
             ],
             borderColor: '#fff',
             borderWidth: 1
@@ -495,12 +522,12 @@ function expense_chart(){
                 labels: {
                   boxWidth: 20,     
                   padding: 8,
-                  font: { size: 14}
+                  font: { size: 14, weight:400}
                 }},
               title: { display: true,
                  text: 'Expense breakdown',
                 font:{
-                  size:'16',
+                  size:16,
                   weight:'600'
                 },
                },
