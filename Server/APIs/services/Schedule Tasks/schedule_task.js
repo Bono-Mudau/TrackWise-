@@ -1,6 +1,6 @@
 const db = require("../../config/db_config");
 const { new_income } = require("../../Controllers/income_controllers");
-const { insertIncome } = require("../../Queries/incomeQueries");
+const { insertIncome } = require("../../Queries/IncomeQueries");
 const { overdueExpensesTemplate, upcomingPaymentsTemplate } = require("../mail/mail_templates");
 const { sendEmail } = require("../mail/mailer");
 
