@@ -1,6 +1,6 @@
 
 const db = require("../config/db_config");
-const { insertIncome, updateIncomeSummary, insertRecurringIncome, deleteIncome, deleteIncomeFromSummary, updateIncome, deleteRecurringIncome, getIncome } = require("../Queries/incomeQueries");
+const { insertIncome, updateIncomeSummary, insertRecurringIncome, deleteIncome, deleteIncomeFromSummary, updateIncome, deleteRecurringIncome, getIncome } = require("../Queries/IncomeQueries");
 
 const createIncome= async ({category,amount,user_id,recurring})=>{
 
