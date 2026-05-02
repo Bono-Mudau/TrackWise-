@@ -1,4 +1,6 @@
 const db = require("../../config/db_config");
+const { new_income } = require("../../Controllers/income_controllers");
+const { insertIncome } = require("../../Queries/incomeQueries");
 const { overdueExpensesTemplate, upcomingPaymentsTemplate } = require("../mail/mail_templates");
 const { sendEmail } = require("../mail/mailer");
 
@@ -6,7 +8,6 @@ const { sendEmail } = require("../mail/mailer");
 const upcoming_payments = async (req,res)=>{
 
     try{
-
 
         //get a list of user who enabled payments notifications
         const sql="select user_id,firstName,email  from settings where notifications_status = 1 and payment_remainder = 1 ";
@@ -30,7 +31,6 @@ const upcoming_payments = async (req,res)=>{
                     const to = element.email;
                     const subject="Payment Reminders";
                     await sendEmail({ to:to, subject:subject, html:html });
-                  
                     
                 }
                 catch(err){
@@ -95,6 +95,28 @@ const overdue_expense_reminders = async (req,res)=>{
 
     }
 
+}
+
+const generateRecurringIncome = async ()=>{
+
+    try {
+         
+        //LOAD ALL RECURRING ENTRIES
+        const sql="Select user_id,category, amount from recurringIncome";
+        const [rows]= await db.promise().query(sql);
+
+        //Create income entries
+        if(rows.length>0){
+
+            for (const entry of rows) {
+                await insertIncome(db, { category : entry.category, amount : entry.amount, user_id : entry.user_id});
+            }
+        }
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
 }
 
 module.exports={
