@@ -8,19 +8,29 @@ const load_balances= async (req,res)=>{
         return res.status(400).json({ response: false, reason: "No user_id provided" });
     }
 
-    db.query("select ifnull((select sum(amount) from income where month(date)=month(curdate()) and year(date)=year(curdate()) and user_id=?),0) as total_income, ifnull((select sum(amount) from expenses where month(date_created)=month(curdate()) and year(date_created)=year(curdate()) and  user_id=?),0) as total_expense",[user_id,user_id],(errr,ans)=>{
-        if(errr){
-            console.error("DB query error:", errr);
-            return res.status(500).json({response:false})
+    try {
+
+        // Load current month's balances
+        const [rows] = db.query("select ifnull((select sum(amount) from income where month(date)=month(curdate()) and year(date)=year(curdate()) and user_id=?),0) as total_income, ifnull((select sum(amount) from expenses where month(date_created)=month(curdate()) and year(date_created)=year(curdate()) and  user_id=?),0) as total_expense",[user_id,user_id]);
+   
+        if(rows.length < 1){
+           return res.status(500).json({response:false});
         }
+
         return res.json({
             response:true,
-            income:ans[0].total_income,
-            expenses:ans[0].total_expense,
-            balance:ans[0].total_income - ans[0].total_expense
+            income:rows[0].total_income,
+            expenses:rows[0].total_expense,
+            balance:rows[0].total_income - ans[0].total_expense
         });
+    
+        
+    } catch (error) {
 
-    })
+        console.error("DB query error:", error);
+        return res.status(500).json({response:false});
+    }
+    
 }
 
 const recent_trans = async (req,res)=>{
@@ -29,18 +39,22 @@ const recent_trans = async (req,res)=>{
     if (!user_id) {
         return res.status(400).json({ response: false, reason: "No user_id provided" });
     }
-
-    const sql= "select * from (select income_id as id,date,category,amount ,'income' as type from income where user_id=? union all select exp_id as id,date_created ,category,amount ,'expense' as type from expenses where user_id=?) as entry order by date  desc limit 8"
-
-    db.query(sql,  [user_id,user_id], (err,rows)=>{
-        if(err){
-            console.log(err);
-            return res.status(500).json({response:false , reason:"DB_err"})
-        }
+    try {
+        
+        const sql = "select * from (select income_id as id,date,category,amount ,'income' as type from income where user_id=? union all select exp_id as id,date_created ,category,amount ,'expense' as type from expenses where user_id=?) as entry order by date  desc limit 8";
+        const [rows] =  db.query( sql, [user_id, user_id]);
+        
         return res.json({
             response:true,
-            recent_transactions:rows})
-    });
+            recent_transactions:rows
+        })
+    } 
+    catch (error) {
+
+        console.log(error);
+        return res.status(500).json({response:false , reason:"DB_err"})
+        
+    }
  
 }
 
@@ -48,8 +62,8 @@ const expenses_pie_chart= async (req,res)=>{
     try {
 
         const id = req.user.username;
-        const sql="select category, sum(amount) as total from expenses where user_id=? and month(date_created)= month(curdate()) and year(date_created)=year(curdate()) group by category"
-        const [rows]= await db.promise().query(sql,[id]);
+        const sql = "select category, sum(amount) as total from expenses where user_id=? and month(date_created)= month(curdate()) and year(date_created)=year(curdate()) group by category"
+        const [rows] = await db.promise().query(sql,[id]);
 
         return res.json({response:true, data:rows})
         
@@ -65,8 +79,8 @@ const income_pie_chart= async (req,res)=>{
     try {
         
         const id = req.user.username;
-        const sql="select category, sum(amount) as total from income where user_id=? and month(date)= month(curdate()) and year(date)=year(curdate()) group by category"
-        const [rows]= await db.promise().query(sql,[id]);
+        const sql = "select category, sum(amount) as total from income where user_id=? and month(date)= month(curdate()) and year(date)=year(curdate()) group by category";
+        const [rows] = await db.promise().query(sql,[id]);
 
         return res.json({response:true, data:rows})
         
@@ -80,20 +94,23 @@ const income_pie_chart= async (req,res)=>{
 const monthly_summary=async (req,res)=>{
 
     const id = req.user.username;
-    const sql="Select income,expense,month,year from monthly_summary where user_id=? order by year DESC, month DESC limit 5" ;
-    
-    db.query(sql, [id], (err, row)=>{
-        if(err){
-            return res.status(500).json({response:false , error: err.message})
-        }
+    try {
+
+        const sql = "Select income,expense,month,year from monthly_summary where user_id=? order by year DESC, month DESC limit 5" ;
+        const [ rows] = db.query( sql, [id]);
+
         return res.json({
-            response:true,
-            data:row.reverse()
+            response: true,
+            data: row.reverse()
         })
-    })
+        
+    } catch (error) {
+        return res.status(500).json({response:false , error: err.message})
+    }
+   
 }
 
-const summary= async (req,res)=>{
+const summary = async (req,res)=>{
 
     try {
 
@@ -103,7 +120,7 @@ const summary= async (req,res)=>{
 
             return res.status(501).json({response:false})
         }
-        const [months]= await db.promise().query("Select income,expense,month,year from monthly_summary where user_id=? order by year DESC, month DESC limit 6",[id]);
+        const [months]= await db.query("Select income,expense,month,year from monthly_summary where user_id=? order by year DESC, month DESC limit 6",[id]);
          
         let array=[];
 
@@ -121,7 +138,7 @@ const summary= async (req,res)=>{
                 continue;
             }
             const sql="select amount,description from expenses where amount = (select max(amount) from expenses where user_id = ? and month(date_created) = ? and year(date_created) = ? ) and month(date_created) = ? and year(date_created) = ? and user_id = ? limit 1"
-            const [rows]= await db.promise().query( sql, [id,  month.month, month.year, month.month, month.year, id]);
+            const [rows]= await db.query( sql, [id,  month.month, month.year, month.month, month.year, id]);
             if(rows.length==0){
 
                 array.push({
@@ -163,8 +180,8 @@ const recurring_income_expenses= async (req,res)=>{
     const user_id = req.user.username;
     try {
 
-        const [income]= await db.promise().query("select id,category,amount from recurringIncome where user_id=?",[user_id]);
-        const [expense] = await db.promise().query("select id, description, category, amount, due_date from recurringExpenses where user_id=?",[user_id]);
+        const [income]= await db.query("select id,category,amount from recurringIncome where user_id=?",[user_id]);
+        const [expense] = await db.query("select id, description, category, amount, due_date from recurringExpenses where user_id=?",[user_id]);
         
         return res.json({response:true, expense:expense, income:income});
         
