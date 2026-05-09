@@ -63,7 +63,7 @@ const expenses_pie_chart= async (req,res)=>{
 
         const id = req.user.username;
         const sql = "select category, sum(amount) as total from expenses where user_id=? and month(date_created)= month(curdate()) and year(date_created)=year(curdate()) group by category"
-        const [rows] = await db.promise().query(sql,[id]);
+        const [rows] = await db.query(sql,[id]);
 
         return res.json({response:true, data:rows})
         
@@ -80,7 +80,7 @@ const income_pie_chart= async (req,res)=>{
         
         const id = req.user.username;
         const sql = "select category, sum(amount) as total from income where user_id=? and month(date)= month(curdate()) and year(date)=year(curdate()) group by category";
-        const [rows] = await db.promise().query(sql,[id]);
+        const [rows] = await db.query(sql,[id]);
 
         return res.json({response:true, data:rows})
         
@@ -101,7 +101,7 @@ const monthly_summary=async (req,res)=>{
 
         return res.json({
             response: true,
-            data: row.reverse()
+            data: rows.reverse()
         })
         
     } catch (error) {
