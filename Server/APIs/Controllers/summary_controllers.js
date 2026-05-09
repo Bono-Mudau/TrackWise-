@@ -21,7 +21,7 @@ const load_balances= async (req,res)=>{
             response:true,
             income:rows[0].total_income,
             expenses:rows[0].total_expense,
-            balance:rows[0].total_income - ans[0].total_expense
+            balance:rows[0].total_income - rows[0].total_expense
         });
     
         
@@ -105,7 +105,7 @@ const monthly_summary=async (req,res)=>{
         })
         
     } catch (error) {
-        return res.status(500).json({response:false , error: err.message})
+        return res.status(500).json({response:false , error: error.message})
     }
    
 }
