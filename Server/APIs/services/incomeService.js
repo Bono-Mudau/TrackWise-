@@ -37,7 +37,7 @@ const createIncome= async ({category,amount,user_id,recurring})=>{
     catch(err){
         // cancel the entire transaction
         await conn.rollback();
-        throw new Error;
+        throw new Error(err.message);
     }
     finally{
         //release connection
@@ -141,7 +141,7 @@ const loadIncomeEntries = async (sort_by, no_of_months, id) => {
         return data;
         
     } catch (error) {
-        throw new Error;
+        throw new Error(error.message);
         
     }
 }
