@@ -189,7 +189,7 @@ const update_expense= async (req,res)=>{
         let year=0;
         let month=0;
 
-        const [rows]=await db.query("select amount,month(date_created) as month,year(date_created) as year, user_id from expenses where exp_id=?",[expense_id]);
+        const [rows] = await db.query("select amount,month(date_created) as month,year(date_created) as year, user_id from expenses where exp_id=?",[expense_id]);
 
         if(rows.length==0){
             return res.status(404).json({response:false, reason:"Expense not found"}); 

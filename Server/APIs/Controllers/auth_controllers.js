@@ -20,7 +20,7 @@ const signup=async (req,res)=>{
             });
         }
 
-        const [rows] = db.query("Select * from users where email=?",[email]);
+        const [rows] = await  db.query("Select * from users where email=?",[email]);
 
         //Check if the email is already in use
         if(rows.length>0){
@@ -32,7 +32,7 @@ const signup=async (req,res)=>{
         
         // create account
         const hashed_password= await bcrypt.hash(password,10);
-        const [results] = db.query("insert into users (name,email,password) values(?,?,?)",[names,email,hashed_password]);
+        const [results] = await db.query("insert into users (name,email,password) values(?,?,?)",[names,email,hashed_password]);
         
         const id=results.insertId;//retrieve user id
         await db.query("INSERT INTO settings (email,user_id,firstName) VALUES (?, ?,?)",[email,id,names]);
@@ -74,12 +74,12 @@ const login=async (req,res)=>{
         }
 
         // retrieve Password associated with this email
-        const [rows] = db.query("select user_id,name,password from users where email=?", [email]);
+        const [rows] = await db.query("select user_id,name,password from users where email=?", [email]);
 
         if(rows.length>0){
             //compare user_entered password and the actual password
             try {
-                const auth=await bcrypt.compare(password,rows[0].password)
+                const auth = await bcrypt.compare(password,rows[0].password)
 
                 if(auth){
                     const token = generate_Token(rows[0].user_id);
@@ -181,7 +181,7 @@ const verify_email=async (req,res)=>{
 
         // retrieve OTP 
         const sql = "select otp,expiry_time from otp where email=? and otp=?";
-        const [rows] = db.query(sql,[email,otp]);
+        const [rows] = await db.query(sql,[email,otp]);
 
         // verify OTP 
         if(rows.length>0 ){

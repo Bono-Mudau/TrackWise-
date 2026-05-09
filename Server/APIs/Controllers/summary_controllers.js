@@ -11,7 +11,7 @@ const load_balances= async (req,res)=>{
     try {
 
         // Load current month's balances
-        const [rows] = db.query("select ifnull((select sum(amount) from income where month(date)=month(curdate()) and year(date)=year(curdate()) and user_id=?),0) as total_income, ifnull((select sum(amount) from expenses where month(date_created)=month(curdate()) and year(date_created)=year(curdate()) and  user_id=?),0) as total_expense",[user_id,user_id]);
+        const [rows] = await db.query("select ifnull((select sum(amount) from income where month(date)=month(curdate()) and year(date)=year(curdate()) and user_id=?),0) as total_income, ifnull((select sum(amount) from expenses where month(date_created)=month(curdate()) and year(date_created)=year(curdate()) and  user_id=?),0) as total_expense",[user_id,user_id]);
    
         if(rows.length < 1){
            return res.status(500).json({response:false});
@@ -42,7 +42,7 @@ const recent_trans = async (req,res)=>{
     try {
         
         const sql = "select * from (select income_id as id,date,category,amount ,'income' as type from income where user_id=? union all select exp_id as id,date_created ,category,amount ,'expense' as type from expenses where user_id=?) as entry order by date  desc limit 8";
-        const [rows] =  db.query( sql, [user_id, user_id]);
+        const [rows] = await db.query( sql, [user_id, user_id]);
         
         return res.json({
             response:true,
@@ -97,7 +97,7 @@ const monthly_summary=async (req,res)=>{
     try {
 
         const sql = "Select income,expense,month,year from monthly_summary where user_id=? order by year DESC, month DESC limit 5" ;
-        const [ rows] = db.query( sql, [id]);
+        const [ rows] =  await db.query( sql, [id]);
 
         return res.json({
             response: true,
