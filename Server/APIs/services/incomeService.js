@@ -85,7 +85,7 @@ const updateIncomeEntry = async (income_id,category, amount) =>{
     let year=0;
     let month=0;
 
-    const conn = db.getConnection();
+    const conn = await db.getConnection();
     try {
 
         await conn.beginTransaction()
