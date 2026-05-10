@@ -21,7 +21,7 @@ const getIncome = async(conn , { sort_by, no_of_months, id} ) =>{
     const months_n = Math.min ( Math.max( Number(no_of_months) || 1 , 1) , 6);
     const now=new Date();
     const startMonth = new Date(now.getFullYear(), now.getMonth() - (months_n - 1), 1)
-    const [rows] = conn.query("select income_id,category,amount,date from income where user_id=? and date>=? " + order ,[id,startMonth]);
+    const [rows] = await conn.query("select income_id,category,amount,date from income where user_id=? and date>=? " + order ,[id,startMonth]);
 
     return rows;
 }
