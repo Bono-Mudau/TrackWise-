@@ -21,7 +21,8 @@ const new_income=async (req,res)=>{
 
 const delete_income=async (req,res)=>{
 
-    const {entryId}=req.body;
+    const {id}=req.body;
+    const EntryId = id;
 
     //validate EntryId 
     if(!entryId){
